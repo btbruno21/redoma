@@ -1,0 +1,515 @@
+/* BOTÃO HAMBÚRGUER - ESCONDIDO NO DESKTOP */
+.hamburger {
+  display: none;
+}
+
+/* CSS RESPONSIVO PARA CELULAR - REDOMA */
+@media screen and (max-width: 768px) {
+  /* Header e Menu */
+
+  .borda {
+    width: 101% !important;
+    margin-left: -0.5vw !important;
+  }
+  html, body {
+    overflow-x: hidden !important;
+  }
+
+  .menu {
+    padding: 3vw;
+    position: relative;
+    height: auto;
+  }
+
+  .menu a {
+    width: 65%;
+  }
+
+  .empresa {
+    z-index: 2000;
+  }
+
+  .empresa img {
+    width: 80%;
+  }
+
+  /* BOTÃO HAMBÚRGUER */
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    z-index: 1001;
+  }
+
+  .hamburger span {
+    width: 40px;
+    height: 5px;
+    background-color: #F1F1F1;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+  }
+
+  /* ANIMAÇÃO DO X */
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+  }
+
+  /* MENU MOBILE - INICIALMENTE ESCONDIDO */
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(82, 17, 39, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    gap: 3vw;
+    padding: 0;
+  }
+
+  /* MENU ABERTO */
+  .nav-links.active {
+    left: 0;
+  }
+
+  .nav-links a {
+    color: #521127;
+    font-size: 2.5vw;
+    margin: 0 0 0 5%;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #F1F1F1;
+    border-radius: 25px;
+    width: 90%;
+    max-width: 250px;
+    background-color: rgba(241, 241, 241, 0.7);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: bold;
+  }
+
+  .nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
+
+  /* Banner/Carrossel */
+  .banner {
+    width: 100%;
+  }
+
+  .banner h1 {
+    font-size: 6vw;
+    margin-bottom: 2vw;
+  }
+
+  .carousel-slide img {
+    max-height: 50vw;
+  }
+
+  .carousel-dots {
+    margin-top: 4vw;
+  }
+
+  .dot {
+    width: 2.5vw;
+    height: 2.5vw;
+    margin: 0 5px;
+  }
+
+  /* Title */
+  .title {
+    margin-top: 6vw;
+    padding: 0 4vw;
+  }
+
+  .title h1 {
+    font-size: 5vw;
+  }
+
+  /* Serviços */
+  .servico {
+    width: 100%;
+    margin-top: 8vw;
+    padding: 4vw;
+  }
+
+  .servico-imagens {
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .card-servico {
+    width: 90%;
+  }
+
+  .card-servico img {
+    border-radius: 3vw;
+    width: 100%;
+  }
+
+  .card-servico h1 {
+    font-size: 7.5vw;
+    top: 70%;
+    left: 55%;
+    width: 100%;
+  }
+
+  .card-servico h3 {
+    font-size: 3vw;
+    top: 80%;
+    left: 50%;
+    width: 90%;
+  }
+
+  /* Formulário de Orçamento */
+  .input-container {
+    flex-direction: column;
+    gap: 4vw;
+    margin-top: 5vw;
+    margin-left: 0;
+  }
+
+  #nome,
+  #telefone,
+  #email {
+    width: 100%;
+  }
+
+  .input-container input {
+    padding: 2vw;
+    font-size: 3.5vw;
+    border-radius: 25px;
+  }
+
+  .input-label {
+    left: 3vw;
+    font-size: 3.5vw;
+    padding: 1vw;
+  }
+
+  .input-container input:focus + .input-label,
+  .input-container input:not(:placeholder-shown) + .input-label {
+    top: -2vw;
+    left: 3vw;
+    font-size: 3vw;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 8vw;
+    padding: 4vw 2vw;
+    font-size: 3.5vw;
+  }
+
+  /* Seções do Formulário */
+  section {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top: 7vw;
+  }
+
+  .button {
+    gap: 2vw;
+    margin-top: 3vw;
+    justify-content: center;
+  }
+  
+  button {
+    margin-top: 2vw;
+    width: auto;
+    min-height: 30px;
+    padding: 2vw 3vw;
+    font-size: 3vw;
+  }
+
+  /* Seções específicas do formulário */
+  #nivel-planejamento label {
+    width: 48%;
+    min-height: 25px;
+    font-size: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2.5vw;
+  }
+
+  #nivel-planejamento .orcamento,
+  #dados-pessoais .orcamento,
+  #tipo-evento .orcamento {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(85vh - 120px);
+  }
+
+  #nivel-planejamento .orcamento {
+    align-items: center;
+  }
+
+  .orcamento h1 {
+    font-size: 4vw;
+  }
+  
+  .borda {
+    margin-top: -1px;
+  }
+  
+  .filtro {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding: 4vw 4vw !important;
+  }
+
+  .filtro img {
+    width: 80% !important;
+    margin: 0 auto !important;
+  }
+  .filtro p {
+    position: static !important;
+    width: 75% !important;
+    font-size: 4vw !important;
+    margin-top: 3vw !important;
+    text-align: center !important;
+  }
+
+  /* FUNCIONA */
+  .funciona {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 6vw !important; /* espaço padrão entre blocos */
+    margin-top: 12vw !important;
+  }
+
+  .funciona h1 {
+    font-size: 12vw !important;
+    width: 100% !important;
+    margin-top: 8vw !important;
+    margin-bottom: 8vw !important;
+    line-height: 1.1 !important; /* evita cortar texto */
+    margin-left: 0;
+  }
+
+  .funciona h3 {
+    width: 100% !important;
+    font-size: 4vw !important;
+    margin: 4vw 0 !important;
+  }
+
+  /* QUADROS (tópicos) */
+  .topicos {
+    width: 90% !important;
+    font-size: 4.2vw !important;
+    padding: 4vw !important;
+    margin: 4vw auto !important; /* centralizado */
+    text-align: justify;
+  }
+
+  .topicos h4 {
+    font-size: 4.5vw !important;
+    margin-bottom: 2vw !important;
+  }
+
+  .topicos p{
+    font-size: 4vw;
+  }
+
+  .number {
+    width: 12vw !important;
+    height: 12vw !important;
+    font-size: 5vw !important;
+    margin-left: -4vw !important;
+    margin-bottom: -8vw !important;
+  }
+
+  /* MATCH */
+  .match {
+    flex-direction: column !important;
+    text-align: center !important;
+    margin-top: 12vw !important;
+    margin-bottom: 12vw !important;
+  }
+  .match h1 {
+    font-size: 10vw !important;
+    width: 100% !important;
+    margin-bottom: 8vw !important;
+  }
+  .match h3,
+  .match p {
+    width: 90% !important;
+    font-size: 4vw !important;
+    margin-top: 4vw;
+    text-align: center !important;
+  }
+  .match a {
+    margin: 6vw auto 0 auto !important;
+    padding: 3vw 6vw !important;
+    font-size: 4vw !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* Ajustes para telas muito pequenas */
+
+  .borda {
+    width: 101% !important;
+    margin-left: -0.5vw !important;
+  }
+  html, body {
+    overflow-x: hidden !important;
+  }
+
+  .nav-links a {
+    font-size: 5vw;
+    padding: 12px 25px;
+    font-weight: bold;
+  }
+
+  .hamburger span {
+    width: 30px;
+    height: 3px;
+  }
+
+  .banner h1 {
+    font-size: 7vw;
+  }
+
+  .title h1 {
+    font-size: 5.5vw;
+  }
+
+  .card-servico h1 {
+    font-size: 6.5vw;
+  }
+
+  .card-servico h3 {
+    margin-top: 2vw;
+    font-size: 3.5vw;
+  }
+
+  .input-container {
+    margin-top: 8vw;
+  }
+
+  .input-container input {
+    padding: 2.5vw;
+    font-size: 4vw;
+  }
+
+  .input-label {
+    font-size: 4vw;
+  }
+
+  .input-container input:focus + .input-label,
+  .input-container input:not(:placeholder-shown) + .input-label {
+    font-size: 4.5vw;
+    margin-top: -1vw;
+  }
+  .filtro img {
+    width: 90% !important;
+  }
+  .filtro p {
+    font-size: 5vw !important;
+  }
+  .funciona h1 {
+    font-size: 11vw !important;
+  }
+  .funciona h3 {
+    font-size: 5vw !important;
+  }
+  .match h1 {
+    font-size: 12vw !important;
+  }
+  .match h3,
+  .match p {
+    font-size: 5vw !important;
+  }
+  .match a {
+    font-size: 5vw !important;
+    padding: 4vw 7vw !important;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  /* Ajustes para telas extra pequenas */
+
+  .borda {
+    width: 101% !important;
+    margin-left: -0.5vw !important;
+  }
+  html, body {
+    overflow-x: hidden !important;
+  }
+
+  .empresa img {
+    width: 70%;
+  }
+
+  .nav-links a {
+    font-size: 5.5vw;
+    padding: 10px 20px;
+    font-weight: bold;
+  }
+
+  .servico-imagens {
+    gap: 50px;
+  }
+
+  .card-servico h1 {
+    font-size: 8vw;
+    top: 65%;
+  }
+
+  .card-servico h3 {
+    font-size: 4vw;
+    top: 80%;
+  }
+  .filtro img {
+    width: 100% !important;
+  }
+  .filtro p {
+    font-size: 5.5vw !important;
+  }
+  .funciona h1 {
+    font-size: 12vw !important;
+  }
+  .funciona h3 {
+    font-size: 5.5vw !important;
+  }
+  .match h1 {
+    font-size: 13vw !important;
+  }
+  .match h3,
+  .match p {
+    font-size: 5.5vw !important;
+  }
+  .match a {
+    font-size: 5.5vw !important;
+    padding: 5vw 8vw !important;
+  }
+}
