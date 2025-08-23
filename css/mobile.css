@@ -11,7 +11,9 @@
     width: 101% !important;
     margin-left: -0.5vw !important;
   }
-  html, body {
+
+  html,
+  body {
     overflow-x: hidden !important;
   }
 
@@ -103,7 +105,7 @@
     width: 90%;
     max-width: 250px;
     background-color: rgba(241, 241, 241, 0.7);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     text-decoration: none;
     transition: all 0.3s ease;
     font-weight: bold;
@@ -184,39 +186,6 @@
     width: 90%;
   }
 
-  /* Formulário de Orçamento */
-  .input-container {
-    flex-direction: column;
-    gap: 4vw;
-    margin-top: 5vw;
-    margin-left: 0;
-  }
-
-  #nome,
-  #telefone,
-  #email {
-    width: 100%;
-  }
-
-  .input-container input {
-    padding: 2vw;
-    font-size: 3.5vw;
-    border-radius: 25px;
-  }
-
-  .input-label {
-    left: 3vw;
-    font-size: 3.5vw;
-    padding: 1vw;
-  }
-
-  .input-container input:focus + .input-label,
-  .input-container input:not(:placeholder-shown) + .input-label {
-    top: -2vw;
-    left: 3vw;
-    font-size: 3vw;
-  }
-
   /* Footer */
   footer {
     margin-top: 8vw;
@@ -224,60 +193,10 @@
     font-size: 3.5vw;
   }
 
-  /* Seções do Formulário */
-  section {
-    width: 95%;
-    margin-left: 2.5%;
-    margin-top: 7vw;
-  }
-
-  .button {
-    gap: 2vw;
-    margin-top: 3vw;
-    justify-content: center;
-  }
-  
-  button {
-    margin-top: 2vw;
-    width: auto;
-    min-height: 30px;
-    padding: 2vw 3vw;
-    font-size: 3vw;
-  }
-
-  /* Seções específicas do formulário */
-  #nivel-planejamento label {
-    width: 48%;
-    min-height: 25px;
-    font-size: 3vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2.5vw;
-  }
-
-  #nivel-planejamento .orcamento,
-  #dados-pessoais .orcamento,
-  #tipo-evento .orcamento {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: calc(85vh - 120px);
-  }
-
-  #nivel-planejamento .orcamento {
-    align-items: center;
-  }
-
-  .orcamento h1 {
-    font-size: 4vw;
-  }
-  
   .borda {
     margin-top: -1px;
   }
-  
+
   .filtro {
     display: flex !important;
     flex-direction: column !important;
@@ -290,6 +209,7 @@
     width: 80% !important;
     margin: 0 auto !important;
   }
+
   .filtro p {
     position: static !important;
     width: 75% !important;
@@ -302,7 +222,7 @@
   .funciona {
     flex-direction: column !important;
     text-align: center !important;
-    gap: 6vw !important; /* espaço padrão entre blocos */
+    gap: 6vw !important;
     margin-top: 12vw !important;
   }
 
@@ -311,7 +231,7 @@
     width: 100% !important;
     margin-top: 8vw !important;
     margin-bottom: 8vw !important;
-    line-height: 1.1 !important; /* evita cortar texto */
+    line-height: 1.1 !important;
     margin-left: 0;
   }
 
@@ -326,7 +246,7 @@
     width: 90% !important;
     font-size: 4.2vw !important;
     padding: 4vw !important;
-    margin: 4vw auto !important; /* centralizado */
+    margin: 4vw auto !important;
     text-align: justify;
   }
 
@@ -335,7 +255,7 @@
     margin-bottom: 2vw !important;
   }
 
-  .topicos p{
+  .topicos p {
     font-size: 4vw;
   }
 
@@ -354,11 +274,13 @@
     margin-top: 12vw !important;
     margin-bottom: 12vw !important;
   }
+
   .match h1 {
     font-size: 10vw !important;
     width: 100% !important;
     margin-bottom: 8vw !important;
   }
+
   .match h3,
   .match p {
     width: 90% !important;
@@ -366,10 +288,200 @@
     margin-top: 4vw;
     text-align: center !important;
   }
+
   .match a {
     margin: 6vw auto 0 auto !important;
     padding: 3vw 6vw !important;
     font-size: 4vw !important;
+  }
+
+  section {
+    width: 95%;
+    margin: 6vw auto;
+    padding: 6vw 4vw;
+    min-height: 550px;
+  }
+
+  section h1 {
+    font-size: 8vw;
+  }
+
+  section p,
+  section h5 {
+    font-size: 4vw;
+  }
+
+  /* Container do formulário */
+  form {
+    width: 100%;
+  }
+
+  .orcamento {
+    /* gap: 5vw; */
+    width: 100%;
+  }
+
+  /* Campos de input */
+  .input-container {
+    flex-direction: column;
+    gap: 5vw;
+    margin-top: 9vw;
+    width: 100%;
+  }
+
+  .input-container input {
+    width: 100%;
+    padding: 3.5vw;
+    font-size: 4vw;
+    border-radius: 40px;
+  }
+
+  .input-label {
+    left: 4vw;
+    font-size: 4vw;
+    padding: 1vw;
+  }
+
+  .input-container input:focus+.input-label,
+  .input-container input:not(:placeholder-shown)+.input-label {
+    top: -3vw;
+    left: 4vw;
+    font-size: 4.5vw;
+  }
+
+  /* Campos especiais */
+  #data-local .orcamento {
+    width: 100%;
+  }
+
+  #data-local .input-container {
+    margin-top: 5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #data-local .input-label {
+    font-size: 4vw;
+  }
+
+  #data-local input[type="date"] {
+    padding: 3vw;
+    font-size: 3.5vw;
+    border-radius: 10px;
+  }
+
+  #orcamento input[type="range"] {
+    margin-top: 2vw;
+  }
+
+  /* Range */
+  #orcamento label {
+    font-size: 4vw;
+  }
+
+  .range-container {
+    margin-top: 5vw;
+  }
+
+  .range-inputs {
+    flex-direction: column;
+    gap: 3vw;
+  }
+
+  .container label {
+    font-size: 3.5vw;
+  }
+
+  .container input {
+    padding: 3vw;
+    font-size: 3.5vw;
+    border-radius: 40px;
+  }
+
+  /* Botões de opções (radio) */
+  .opcoes-botoes {
+    flex-direction: column;
+    gap: 3vw;
+    margin-top: 5vw;
+  }
+
+  .opcoes-botoes label {
+    font-size: 3.5vw;
+    padding: 3vw 4vw;
+    border-radius: 40px;
+    text-align: center;
+  }
+
+  /* Botões de navegação */
+  .button {
+    margin-top: 5vw;
+    justify-content: center;
+    gap: 3vw;
+  }
+
+  button {
+    padding: 3vw 6vw;
+    font-size: 4vw;
+    border-radius: 12px;
+  }
+
+  /* ONDE ESTAMOS */
+  .onde {
+    flex-direction: column;
+    align-items: center;
+    padding: 8vw 4vw;
+    text-align: center;
+  }
+
+  .onde h1 {
+    font-size: 10vw;
+    margin: 0 auto 6vw auto;
+    width: 100%;
+  }
+
+  .onde h3 {
+    font-size: 4.5vw;
+    width: 90%;
+    margin: 0 auto 4vw auto;
+  }
+
+  .onde p {
+    font-size: 4vw;
+    width: 90%;
+    margin: 0 auto 6vw auto;
+  }
+
+  .onde img {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 6vw;
+  }
+
+  /* DÚVIDAS */
+  .duvida {
+    padding: 8vw 4vw;
+    text-align: center;
+  }
+
+  .duvida h1 {
+    font-size: 9vw;
+    margin-bottom: 6vw;
+  }
+
+  .duvidas {
+    padding: 6vw 0;
+    border-bottom: 2px solid #521127;
+  }
+
+  .duvidas h3 {
+    font-size: 4.5vw;
+    margin-bottom: 2vw;
+  }
+
+  .duvidas p {
+    font-size: 4vw;
+    margin-bottom: 2vw;
   }
 }
 
@@ -380,7 +492,9 @@
     width: 101% !important;
     margin-left: -0.5vw !important;
   }
-  html, body {
+
+  html,
+  body {
     overflow-x: hidden !important;
   }
 
@@ -412,46 +526,111 @@
     font-size: 3.5vw;
   }
 
+  .filtro img {
+    width: 90% !important;
+  }
+
+  .filtro p {
+    font-size: 5vw !important;
+  }
+
+  .funciona h1 {
+    font-size: 11vw !important;
+  }
+
+  .funciona h3 {
+    font-size: 5vw !important;
+  }
+
+  .match h1 {
+    font-size: 12vw !important;
+  }
+
+  .match h3,
+  .match p {
+    font-size: 4.5vw !important;
+  }
+
+  .match a {
+    font-size: 5vw !important;
+    padding: 4vw 7vw !important;
+  }
+
+  section {
+    padding: 8vw 5vw;
+  }
+
+  section h1 {
+    font-size: 7vw;
+  }
+
   .input-container {
     margin-top: 8vw;
   }
 
   .input-container input {
-    padding: 2.5vw;
-    font-size: 4vw;
+    padding: 4vw;
+    font-size: 4.5vw;
   }
 
   .input-label {
-    font-size: 4vw;
+    font-size: 4.5vw;
   }
 
-  .input-container input:focus + .input-label,
-  .input-container input:not(:placeholder-shown) + .input-label {
+  .input-container input:focus+.input-label,
+  .input-container input:not(:placeholder-shown)+.input-label {
+    font-size: 4vw;
+    top: -2vw;
+  }
+
+  #data-local input[type="date"] {
+    font-size: 4.2vw;
+    padding: 3.5vw;
+  }
+
+  .container label {
+    font-size: 4.2vw;
+  }
+
+  .container input {
+    font-size: 4.2vw;
+    padding: 3.5vw;
+  }
+
+  .opcoes-botoes label {
+    font-size: 4.2vw;
+    padding: 4vw 6vw;
+  }
+
+  button {
     font-size: 4.5vw;
-    margin-top: -1vw;
+    padding: 4vw 7vw;
   }
-  .filtro img {
-    width: 90% !important;
+
+  .onde h1 {
+    font-size: 11vw;
   }
-  .filtro p {
-    font-size: 5vw !important;
+
+  .onde h3 {
+    font-size: 5.2vw;
+    text-align: center;
   }
-  .funciona h1 {
-    font-size: 11vw !important;
+
+  .onde p {
+    font-size: 4.4vw;
+    text-align: center;
   }
-  .funciona h3 {
-    font-size: 5vw !important;
+
+  .duvida h1 {
+    font-size: 10vw;
   }
-  .match h1 {
-    font-size: 12vw !important;
+
+  .duvidas h3 {
+    font-size: 5vw;
   }
-  .match h3,
-  .match p {
-    font-size: 5vw !important;
-  }
-  .match a {
-    font-size: 5vw !important;
-    padding: 4vw 7vw !important;
+
+  .duvidas p {
+    font-size: 4.5vw;
   }
 }
 
@@ -462,7 +641,9 @@
     width: 101% !important;
     margin-left: -0.5vw !important;
   }
-  html, body {
+
+  html,
+  body {
     overflow-x: hidden !important;
   }
 
@@ -489,27 +670,103 @@
     font-size: 4vw;
     top: 80%;
   }
+
   .filtro img {
     width: 100% !important;
   }
+
   .filtro p {
     font-size: 5.5vw !important;
   }
+
   .funciona h1 {
     font-size: 12vw !important;
   }
+
   .funciona h3 {
     font-size: 5.5vw !important;
   }
+
   .match h1 {
     font-size: 13vw !important;
   }
+
   .match h3,
   .match p {
     font-size: 5.5vw !important;
   }
+
   .match a {
     font-size: 5.5vw !important;
     padding: 5vw 8vw !important;
+  }
+
+  section {
+    padding: 10vw 5vw;
+  }
+
+  section h1 {
+    font-size: 8vw;
+  }
+
+  section p,
+  section h5 {
+    font-size: 5vw;
+  }
+
+  .input-container input {
+    padding: 5vw;
+    font-size: 5vw;
+  }
+
+  .input-label {
+    font-size: 5vw;
+  }
+
+  #data-local input[type="date"] {
+    font-size: 5vw;
+  }
+
+  .container label {
+    font-size: 5vw;
+  }
+
+  .container input {
+    font-size: 5vw;
+    padding: 4.5vw;
+  }
+
+  .opcoes-botoes label {
+    font-size: 5vw;
+    padding: 5vw 7vw;
+  }
+
+  button {
+    font-size: 5vw;
+    padding: 5vw 8vw;
+  }
+
+  .onde h1 {
+    font-size: 12vw;
+  }
+
+  .onde h3 {
+    font-size: 5.5vw;
+  }
+
+  .onde p {
+    font-size: 5vw;
+  }
+
+  .duvida h1 {
+    font-size: 11vw;
+  }
+
+  .duvidas h3 {
+    font-size: 5.5vw;
+  }
+
+  .duvidas p {
+    font-size: 5vw;
   }
 }
