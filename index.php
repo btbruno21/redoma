@@ -48,7 +48,6 @@
       </div>
     </div>
   </div>
-
   <img src="img/Borda Preta.svg" class="borda">
 
   <!-- como funciona -->
@@ -120,6 +119,7 @@
       <img src="img/mapa.png">
     </div>
   </div>
+  <img src="img/Borda Preta.svg" class="borda">
 
   <!-- duvidas -->
   <div class="duvida">
@@ -137,9 +137,9 @@
       <p>Lorem ipsum dolor sit amet</p>
     </div>
   </div>
-<main>
+  <main>
 
     <script src="js/menu.js"></script>
     <script src="js/carousel.js"></script>
 
-<?php include 'inc/footer.php'; ?>
+    <?php include 'inc/footer.php'; ?>

@@ -50,12 +50,38 @@
     <div class="orcamento">
         <h1>Tipo de Evento</h1>
         <div class="opcoes-botoes">
-            <input type="radio" id="op1" name="tipo-evento" value="Eventos Sociais">
+            <!-- Radios principais -->
+            <input type="radio" id="op1" name="tipo-evento" value="sociais" data-target="campos-sociais">
             <label for="op1">Eventos Sociais</label>
 
-            <input type="radio" id="op2" name="tipo-evento" value="Eventos Corporativos">
+            <input type="radio" id="op2" name="tipo-evento" value="corporativos" data-target="campos-corporativos">
             <label for="op2">Eventos Corporativos</label>
         </div>
+
+        <!-- Radios filhos de Sociais -->
+        <div id="campos-sociais" class="campos-extra" style="display:none;">
+            <input type="radio" id="soc1" name="evento-social" value="Casamento">
+            <label for="soc1">Casamento</label>
+
+            <input type="radio" id="soc2" name="evento-social" value="Aniversário">
+            <label for="soc2">Aniversário</label>
+
+            <input type="radio" id="soc3" name="evento-social" value="Formatura">
+            <label for="soc3">Formatura</label>
+        </div>
+
+        <!-- Radios filhos de Corporativos -->
+        <div id="campos-corporativos" class="campos-extra" style="display:none;">
+            <input type="radio" id="corp1" name="evento-corporativo" value="Treinamento">
+            <label for="corp1">Treinamento</label>
+
+            <input type="radio" id="corp2" name="evento-corporativo" value="Palestra">
+            <label for="corp2">Palestra</label>
+
+            <input type="radio" id="corp3" name="evento-corporativo" value="Reunião">
+            <label for="corp3">Reunião</label>
+        </div>
+
         <nav class="button">
             <button onclick="mostrar('dados-pessoais')">Anterior</button>
             <button onclick="mostrar('data-local')">Próximo</button>
@@ -107,6 +133,27 @@
     <div class="orcamento2">
         <nav class="button">
             <button onclick="mostrar('data-local')">Anterior</button>
+            <button onclick="mostrar('quantidade')">Próximo</button>
+        </nav>
+    </div>
+</section>
+
+<section id="quantidade">
+    <div class="orcamento">
+        <h1>Quantidade de Pessoas</h1>
+        <nav class="button">
+            <button onclick="mostrar('orcamento')">Anterior</button>
+            <button onclick="mostrar('observacoes')">Próximo</button>
+        </nav>
+    </div>
+</section>
+
+<section id="observacoes">
+    <div class="orcamento">
+        <h1>Observações</h1>
+        <textarea name="observacoes" rows="8" cols="40"></textarea>
+        <nav class="button">
+            <button onclick="mostrar('quantidade')">Anterior</button>
             <button type="submit">Finalizar</button>
         </nav>
     </div>
@@ -116,6 +163,17 @@
 <script src="js/pages.js"></script>
 <script src="https://unpkg.com/imask"></script>
 <script src="js/telefone.js"></script>
+<script>
+document.querySelectorAll('input[type=radio][name="tipo-evento"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        // Esconde todos os blocos de radios filhos
+        document.querySelectorAll('.campos-extra').forEach(div => div.style.display = 'none');
+        // Mostra apenas o vinculado ao radio principal
+        const target = this.getAttribute('data-target');
+        document.getElementById(target).style.display = 'block';
+    });
+});
+</script>
 <script src="js/price.js"></script>
 
 <?php include 'inc/footer.php'; ?>
