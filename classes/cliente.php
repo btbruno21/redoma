@@ -1,5 +1,5 @@
 <?php
-require 'conexao.php';
+require_once 'conexao.php';
 
 class Cliente
 {
@@ -29,6 +29,8 @@ class Cliente
             $sql->bindParam(":telefone", $this->telefone, PDO::PARAM_STR);
             $sql->bindParam(":email", $this->email, PDO::PARAM_STR);
             $sql->execute();
+
+            return $this->con->conectar()->lastInsertId();
 
             return array('status' => 'criado');
         } catch (PDOException $ex) {

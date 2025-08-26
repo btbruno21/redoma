@@ -329,14 +329,14 @@ footer {
   font-weight: 500;
 }
 
-form {
+/* form {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */
 
-#data-local .orcamento {
+/* #data-local .orcamento {
   width: 50%;
 }
 
@@ -344,7 +344,7 @@ form {
   text-align: center;
   display: inline-block;
   gap: 0.5vw;
-  margin-top: 1.5vw;
+  margin-top: 0;
 }
 
 #data-local .input-label {
@@ -352,7 +352,6 @@ form {
   left: 0;
   align-items: center;
   text-align: center;
-  /* centraliza texto da label */
   font-size: 1.2vw;
   color: white;
   font-family: 'Roboto Condensed', sans-serif;
@@ -368,7 +367,24 @@ form {
   background-color: #F1F1F1;
   transition: border-color 0.2s ease;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+} */
+
+.date{
+  width: 100%;
 }
+
+.date input[type="date"]{
+  text-align: center;
+  width: 60%;
+  margin-left: 20%;
+}
+
+.date label{
+  color: #F1F1F1;
+  font-size: 1.2vw;
+  left: 3vw;
+}
+
 
 #orcamento input[type="range"] {
   width: 100%;

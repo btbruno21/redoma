@@ -1,5 +1,5 @@
 <?php
-require 'conexao.php';
+require_once 'conexao.php';
 
 class Evento
 {
@@ -12,6 +12,7 @@ class Evento
     private $orcamento;
     private $qnt_pessoas;
     private $observacoes;
+    private $id_cliente;
 
     private $con;
 
@@ -20,7 +21,7 @@ class Evento
         $this->con = new Conexao();
     }
 
-    public function criarEvento($nivel_planejamento, $tipo_evento, $data1, $data2, $local, $orcamento, $qnt_pessoas, $observacoes)
+    public function criarEvento($nivel_planejamento, $tipo_evento, $data1, $data2, $local, $orcamento, $qnt_pessoas, $observacoes, $id_cliente)
     {
 
         try {
@@ -32,8 +33,9 @@ class Evento
             $this->orcamento = $orcamento;
             $this->qnt_pessoas = $qnt_pessoas;
             $this->observacoes = $observacoes;
+            $this->id_cliente = $id_cliente;
 
-            $sql = $this->con->conectar()->prepare("INSERT INTO evento(nivel_planejamento, tipo_evento, data_estimada1, data_estimada2, local, orcamento, qnt_pessoas, observacoes) VALUES (:nivel_planejamento, :tipo_evento, :data1, :data2, :local, :orcamento, :qnt_pessoas, :observacoes)");
+            $sql = $this->con->conectar()->prepare("INSERT INTO evento(nivel_planejamento, tipo_evento, data_estimada1, data_estimada2, local, orcamento, qnt_pessoas, observacoes, id_cliente) VALUES (:nivel_planejamento, :tipo_evento, :data1, :data2, :local, :orcamento, :qnt_pessoas, :observacoes, :id_cliente)");
 
             $sql->bindParam(":nivel_planejamento", $this->nivel_planejamento, PDO::PARAM_STR);
             $sql->bindParam(":tipo_evento", $this->tipo_evento, PDO::PARAM_STR);
@@ -41,8 +43,9 @@ class Evento
             $sql->bindParam(":data2", $this->data2, PDO::PARAM_STR);
             $sql->bindParam(":local", $this->local, PDO::PARAM_STR);
             $sql->bindParam(":orcamento", $this->orcamento, PDO::PARAM_STR);
-            $sql->bindParam(":qnt_pessoas", $this->qnt_pessoas, PDO::PARAM_STR);
+            $sql->bindParam(":qnt_pessoas", $this->qnt_pessoas, PDO::PARAM_INT);
             $sql->bindParam(":observacoes", $this->observacoes, PDO::PARAM_STR);
+            $sql->bindParam(":id_cliente", $this->id_cliente, PDO::PARAM_INT);
             $sql->execute();
 
             return array('status' => 'criado');
