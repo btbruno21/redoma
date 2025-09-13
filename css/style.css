@@ -263,20 +263,16 @@ footer {
   font-size: 0.9em;
 }
 
-#dados-pessoais .orcamento{
+#dados-pessoais .orcamento {
   width: 70%;
 }
 
 .orcamento {
   display: flex;
   flex-direction: column;
-  /* deixa os elementos em coluna */
   align-items: center;
-  /* centraliza no eixo horizontal */
   justify-content: center;
-  /* centraliza no eixo vertical (se tiver altura definida) */
   gap: 1rem;
-  /* espaço entre os itens */
   margin: 0 auto;
   /* centraliza a div no meio da página */
   padding: 2vw;
@@ -329,62 +325,21 @@ footer {
   font-weight: 500;
 }
 
-/* form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
-
-/* #data-local .orcamento {
-  width: 50%;
-}
-
-#data-local .input-container {
-  text-align: center;
-  display: inline-block;
-  gap: 0.5vw;
-  margin-top: 0;
-}
-
-#data-local .input-label {
-  position: relative;
-  left: 0;
-  align-items: center;
-  text-align: center;
-  font-size: 1.2vw;
-  color: white;
-  font-family: 'Roboto Condensed', sans-serif;
-}
-
-#data-local input[type="date"] {
-  text-align: center;
-  border-radius: 2vw;
-  font-size: 1vw;
-  padding: 0.8vw;
-  border: 2px solid #000;
-  outline: none;
-  background-color: #F1F1F1;
-  transition: border-color 0.2s ease;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
-} */
-
-.date{
+.date {
   width: 100%;
 }
 
-.date input[type="date"]{
+.date input[type="date"] {
   text-align: center;
   width: 60%;
   margin-left: 20%;
 }
 
-.date label{
+.date label {
   color: #F1F1F1;
   font-size: 1.2vw;
   left: 3vw;
 }
-
 
 #orcamento input[type="range"] {
   width: 100%;
@@ -559,7 +514,7 @@ button:active {
   border-color: #000;
 }
 
-#tipo-evento .opcoes-botoes label{
+#tipo-evento .opcoes-botoes label {
   width: 14vw;
   text-align: center;
 }
@@ -575,17 +530,22 @@ button:active {
 /* Container dos radios filhos */
 .campos-extra {
   display: flex;
-  justify-content: center;  /* centraliza os filhos dentro */
+  justify-content: center;
+  /* centraliza os filhos dentro */
   gap: 1vw;
   flex-wrap: wrap;
-  margin: 1.5vw auto 0;     /* centraliza a própria div */
+  margin: 1.5vw auto 0;
+  /* centraliza a própria div */
   border-top: 2px solid #fff;
-  width: fit-content;       /* ocupa só o espaço necessário */
+  width: fit-content;
+  /* ocupa só o espaço necessário */
 }
+
 /* Botões filhos (labels) */
 .campos-extra label {
   display: inline-block;
-  padding: 0.6vw 1.5vw; /* um pouco menor que os principais */
+  padding: 0.6vw 1.5vw;
+  /* um pouco menor que os principais */
   margin: 0.4vw;
   border: 2px solid #000;
   border-radius: 40px;
@@ -593,7 +553,8 @@ button:active {
   background-color: #F9F9F9;
   transition: all 0.2s ease;
   box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.25);
-  font-size: 0.9vw; /* levemente menor */
+  font-size: 0.9vw;
+  /* levemente menor */
   margin-top: 1.5vw;
 }
 
@@ -603,20 +564,20 @@ button:active {
 }
 
 /* Quando selecionado */
-.campos-extra input:checked + label {
+.campos-extra input:checked+label {
   background-color: #F1C8D0;
   color: #521127;
   border-color: #000;
 }
 
-#observacoes textarea{
+#observacoes textarea {
   margin-top: 1vw;
   width: 100%;
   height: auto;
   padding: 0.5vw;
   border: 1px solid #000;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
-} 
+}
 
 .borda {
   width: 101%;
@@ -850,4 +811,50 @@ button:active {
 .duvidas p {
   font-size: 1.4vw;
   font-family: 'Roboto Condensed', sans-serif;
+}
+
+.login {
+  margin-inline: 25%;
+  background-color: #521127;
+  height: auto;
+  padding: 3vw 2vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.login h1 {
+  color: #F1F1F1;
+  font-size: 3.2vw;
+}
+
+.login .input-container {
+  width: 70%;
+}
+
+.login a {
+  margin-top: 1vw;
+  text-decoration: none;
+  color: #F1F1F1;
+  transition: all 0.5s ease;
+}
+
+.login a:hover {
+  transform: scale(1.04);
+}
+
+.login button {
+  margin-top: 1.5vw;
+}
+
+.login img {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4%;
+  cursor: pointer;
+  z-index: 10;
 }

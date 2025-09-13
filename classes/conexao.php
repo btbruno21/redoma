@@ -15,7 +15,7 @@ class Conexao
         $this->banco = "redoma";
         $this->usuario = "root";
         $this->senha = "";
-        $this->port = 3307;
+        $this->port = 3306;
     }
 
     public function conectar()
@@ -24,7 +24,7 @@ class Conexao
             if (is_null(self::$pdo)) {
                 self::$pdo = new PDO("mysql:host=" . $this->servidor . ";port=" . $this->port . ";dbname=" . $this->banco, $this->usuario, $this->senha);
             }
-            echo "Conectou!!";
+            // echo "Conectou!!";
             return self::$pdo;
         } catch (PDOException $ex) {
             echo $ex->getMessage();

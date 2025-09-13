@@ -1,22 +1,24 @@
 import mysql.connector
 import google.generativeai as genai
+import re
 
+# Configurar Gemini
+genai.configure(api_key="AIzaSyBLfK5mjajyfactwntCenqegZ6oYfPCVxA") 
+model = genai.GenerativeModel("gemini-2.5-flash")
 
-genai.configure(api_key="AIzaSyBLfK5mjajyfactwntCenqegZ6oYfPCVxA")
-model = genai.GenerativeModel("gemini-1.5-flash")
-
+# Conectar ao MySQL
 conn = mysql.connector.connect(
     host="localhost",
-    port = "3307",
+    port="3306",
     user="root",
     password="",
     database="redoma"
 )
-
 cursor = conn.cursor(dictionary=True)
 
 evento_id = int(input("Digite o ID do evento que deseja atender: "))
-# 1. Puxar evento + cliente
+
+# 1. Buscar evento e cliente
 cursor.execute("""
 SELECT e.id, e.tipo_evento, e.orcamento, e.qnt_pessoas,
        c.nome AS cliente, c.telefone, c.email
@@ -26,7 +28,7 @@ WHERE e.id = %s
 """, (evento_id,))
 evento = cursor.fetchone()
 
-# 2. Puxar recursos disponíveis
+# 2. Buscar recursos disponíveis
 cursor.execute("""
 SELECT r.id, r.nome, r.descricao, r.preco,
        CASE
@@ -37,14 +39,14 @@ SELECT r.id, r.nome, r.descricao, r.preco,
        END AS tipo
 FROM recurso r
 LEFT JOIN servico s ON r.id = s.id_recurso
-LEFT JOIN produtos p ON r.id = p.id_recurso
+LEFT JOIN produto p ON r.id = p.id_recurso
 LEFT JOIN local l ON r.id = l.id_recurso
 WHERE r.ativo = 1
 """)
 recursos = cursor.fetchall()
 
-# Montar prompt
-prompt = f"""
+# Montar mensagem inicial
+prompt_inicial = f"""
 Você é um planejador de eventos.
 O cliente tem o seguinte evento:
 {evento}
@@ -91,6 +93,25 @@ Preço total: ...
 Justificativa: ...
 """
 
-# Mandar para o Gemini
-resposta = model.generate_content(prompt)
-print(resposta.text)
+# Iniciar chat com histórico
+chat = model.start_chat(history=[
+    {"role": "user", "parts": [prompt_inicial]}
+])
+
+# Mostrar primeira resposta
+resposta = chat.send_message(prompt_inicial)
+print("\nIA:", resposta.text)
+
+# Loop de interação até o usuário confirmar
+while True:
+    user_input = input("\nVocê: ")
+    
+    if user_input.lower().strip() == "confirmar":
+        cpf = input("\nDigite o CPF do cliente para confirmar: ")
+        print(f"✅ CPF {cpf} recebido. Conversa encerrada.")
+        cpf_limpo = re.sub(r'\D', '', cpf)  # remove tudo que não for dígito
+        # print("CPF limpo:", cpf_limpo)
+        break
+    
+    resposta = chat.send_message(user_input)
+    print("\nIA:", resposta.text)
