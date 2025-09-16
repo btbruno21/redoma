@@ -14,7 +14,7 @@
 </head>
 <body>
   <header class="menu">
-    <div class="empresa"><a href="index.php"><img src="img/logoredoma.png"/></a></div>
+    <div class="empresa"><a href="index"><img src="img/logoredoma.png"/></a></div>
 
     <div class="hamburger" onclick="toggleMenu()">
       <span></span>
@@ -25,8 +25,8 @@
   </header>
     <nav class="nav-links" id="navLinks">
       <a href="#" onclick="closeMenu()"><b>Quem somos</b></a>
-      <a href="index.php#onde" onclick="closeMenu()"><b>Onde estamos</b></a>
-      <a href="formulario.php" onclick="closeMenu()"><b>Planejar evento</b></a>
-      <a href="perguntas-frequentes.php" onclick="closeMenu()"><b>Dúvidas</b></a>
+      <a href="index#onde" onclick="closeMenu()"><b>Onde estamos</b></a>
+      <a href="formulario" onclick="closeMenu()"><b>Planejar evento</b></a>
+      <a href="perguntas-frequentes" onclick="closeMenu()"><b>Dúvidas</b></a>
       <a href="#" onclick="closeMenu()"><b>Blog</b></a>
     </nav>

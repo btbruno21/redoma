@@ -1,49 +1,47 @@
 <?php
-require_once 'classes/conexao.php';
+require_once 'classes/usuario.php';
 
-class Usuario
+class Admin extends Usuario
 {
-    private $id;
-    private $email;
-    private $senha;
+    private $nome;
     private $permissoes;
-
-    private $con;
 
     public function __construct()
     {
-        $this->con = new Conexao();
+        parent::__construct(); // inicializa $this->con
     }
 
-    private function existeEmail($email)
-    {
-        $sql = $this->con->conectar()->prepare("SELECT id FROM usuario WHERE email = :email");
-        $sql->bindParam(":email", $email, PDO::PARAM_STR);
-        $sql->execute();
-
-        if ($sql->rowCount() > 0) {
-            $array = $sql->fetch(); //retorna o email encontrado
-        } else {
-            $array = array();
-        }
-        return $array;
-    }
-
-    public function adicionarUsuario($email, $nome, $senha, $permissoes)
+    public function adicionar($email, $nome, $permissoes, $senha, $tipo_usuario)
     {
         $emailExistente = $this->existeEmail($email);
         if (count($emailExistente) == 0) {
             try {
+                $this->con->conectar()->beginTransaction();
+
                 $this->email = $email;
-                $this->senha = md5($senha);
+                $this->nome = $nome;
                 $this->permissoes = $permissoes;
-                $sql = $this->con->conectar()->prepare("INSERT INTO usuario(nome, email, senha, permissoes) VALUES (:nome, :email, :senha, :permissoes)");
+                $this->senha = password_hash($senha, PASSWORD_DEFAULT);
+                $this->tipo_usuario = $tipo_usuario;
+
+                $sql = $this->con->conectar()->prepare("INSERT INTO usuario (email, senha, tipo_usuario) VALUES (:email, :senha, :tipo_usuario)");
                 $sql->bindParam(":email", $this->email, PDO::PARAM_STR);
                 $sql->bindParam(":senha", $this->senha, PDO::PARAM_STR);
+                $sql->bindParam(":tipo_usuario", $this->tipo_usuario, PDO::PARAM_STR);
+                $sql->execute();
+
+                $this->id = $this->con->conectar()->lastInsertId();
+
+                $sql = $this->con->conectar()->prepare("INSERT INTO adm (id_usuario, nome, permissoes) VALUES (:id_usuario, :nome, :permissoes)");
+                $sql->bindParam(":id_usuario", $this->id, PDO::PARAM_INT);
+                $sql->bindParam(":nome", $this->nome, PDO::PARAM_STR);
                 $sql->bindParam(":permissoes", $this->permissoes, PDO::PARAM_STR);
                 $sql->execute();
+
+                $this->con->conectar()->commit();
                 return TRUE;
             } catch (PDOException $ex) {
+                $this->con->conectar()->rollback();
                 return 'ERRO: ' . $ex->getMessage();
             }
         } else {
@@ -51,32 +49,26 @@ class Usuario
         }
     }
 
-    public function listarUsuario()
-    {
-        try {
-            $sql = $this->con->conectar()->prepare("SELECT * FROM usuario");
-            $sql->execute();
-            return $sql->fetchAll();
-        } catch (PDOException $ex) {
-            echo 'ERRO: ' . $ex->getMessage();
-        }
-    }
+    // public function listar()
+    // {
+    //     try {
+    //         $sql = $this->con->conectar()->prepare("SELECT * FROM adm");
+    //         $sql->execute();
+    //         return $sql->fetchAll();
+    //     } catch (PDOException $ex) {
+    //         echo 'ERRO: ' . $ex->getMessage();
+    //     }
+    // }
 
-    public function buscarUsuario($id)
+    public function buscar($id)
     {
         try {
-            $sql = $this->con->conectar()->prepare("SELECT * FROM usuario WHERE id = :id");
+            $sql = $this->con->conectar()->prepare("SELECT u.id, u.email, u.tipo_usuario, a.nome, a.permissoes FROM usuario u INNER JOIN adm a ON u.id = a.id_usuario WHERE u.id = :id");
             $sql->bindValue(':id', $id);
             $sql->execute();
             if ($sql->rowCount() > 0) {
-                $usuario = $sql->fetch();
-                if (!empty($usuario['permissoes'])) {
-                    $usuario['permissoes'] = explode(",", $usuario['permissoes']);
-                } else {
-                    $usuario['permissoes'] = [];
-                }
-
-                return $usuario;
+                $admin = $sql->fetch();
+                return $admin;
             } else {
                 return array();
             }
@@ -85,44 +77,67 @@ class Usuario
         }
     }
 
-    public function editarUsuario($nome, $email, $permissoes, $id)
+    public function editar($nome, $permissoes, $email, $id)
     {
         $emailExistente = $this->existeEmail($email);
         if (count($emailExistente) > 0 && $emailExistente['id'] != $id) {
             return FALSE;
         } else {
             try {
-                $sql = $this->con->conectar()->prepare("UPDATE usuario SET nome = :nome, email = :email, permissoes = :permissoes WHERE id = :id");
-                $sql->bindValue(':nome', $nome);
-                $sql->bindValue(':email', $email);
-                $sql->bindValue(':permissoes', $permissoes);
-                $sql->bindValue(':id', $id);
+                $this->con->conectar()->beginTransaction();
+
+                $this->email = $email;
+                $this->nome = $nome;
+                $this->permissoes = $permissoes;
+                $this->id = $id;
+
+                $sql = $this->con->conectar()->prepare("UPDATE usuario SET email = :email WHERE id = :id");
+                $sql->bindParam(":email", $this->email, PDO::PARAM_STR);
+                $sql->bindParam(":id", $this->id, PDO::PARAM_INT);
                 $sql->execute();
+
+                $sql = $this->con->conectar()->prepare("UPDATE adm SET nome = :nome, permissoes = :permissoes WHERE id_usuario = :id_usuario");
+                $sql->bindParam(":nome", $this->nome, PDO::PARAM_STR);
+                $sql->bindParam(":permissoes", $this->permissoes, PDO::PARAM_STR);
+                $sql->bindParam(":id_usuario", $this->id, PDO::PARAM_INT);
+                $sql->execute();
+
+                $this->con->conectar()->commit();
                 return TRUE;
             } catch (PDOException $ex) {
-                echo 'ERRO: ' . $ex->getMessage();
+                $this->con->conectar()->rollback();
+                return 'ERRO: ' . $ex->getMessage();
             }
         }
     }
 
-    public function deletarUsuario($id)
+    public function deletar($id)
     {
         // Primeiro busca o usuário
-        $usuario = $this->buscarUsuario($id);
+        $usuario = $this->buscar($id);
 
         if (empty($usuario)) {
-            // Usuário não existe
-            return false;
+            return false; // Usuário não existe
         }
 
         try {
-            $sql = $this->con->conectar()->prepare("DELETE FROM usuario WHERE id = :id");
-            $sql->bindValue(':id', $id);
+            $this->con->conectar()->beginTransaction();
+
+            // 1º DELETE: Remove dados específicos do adm
+            $sql = $this->con->conectar()->prepare("DELETE FROM adm WHERE id_usuario = :id");
+            $sql->bindParam(':id', $id, PDO::PARAM_INT);
             $sql->execute();
-            return true; // delete realizado com sucesso
+
+            // 2º DELETE: Remove o usuário
+            $sql = $this->con->conectar()->prepare("DELETE FROM usuario WHERE id = :id");
+            $sql->bindParam(':id', $id, PDO::PARAM_INT);
+            $sql->execute();
+
+            $this->con->conectar()->commit();
+            return true;
         } catch (PDOException $ex) {
-            echo 'ERRO: ' . $ex->getMessage();
-            return false;
+            $this->con->conectar()->rollback();
+            return 'ERRO: ' . $ex->getMessage();
         }
     }
 }

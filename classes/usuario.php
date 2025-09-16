@@ -6,16 +6,16 @@ class Usuario
     protected $id;
     protected $email;
     protected $senha;
-    protected $permissoes;
+    protected $tipo_usuario;
 
-    private $con;
+    protected $con;
 
     public function __construct()
     {
         $this->con = new Conexao();
     }
 
-    private function existeEmail($email)
+    protected function existeEmail($email)
     {
         $sql = $this->con->conectar()->prepare("SELECT id FROM usuario WHERE email = :email");
         $sql->bindParam(":email", $email, PDO::PARAM_STR);
@@ -31,7 +31,9 @@ class Usuario
 
     public function login($email, $senha)
     {
-        $sql = $this->con->conectar()->prepare("SELECT id, email, senha FROM usuario WHERE email = :email LIMIT 1");
+        $sql = $this->con->conectar()->prepare(
+            "SELECT id, email, senha, tipo_usuario FROM usuario WHERE email = :email LIMIT 1"
+        );
         $sql->bindParam(":email", $email, PDO::PARAM_STR);
         $sql->execute();
 
@@ -42,10 +44,40 @@ class Usuario
                 $this->id = $usuario['id'];
                 $this->email = $usuario['email'];
                 $this->senha = $usuario['senha'];
+                $this->tipo_usuario = $usuario['tipo_usuario']; // ✅ pega o tipo aqui
 
                 return TRUE;
             }
         }
         return FALSE;
+    }
+
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getTipoUsuario()
+    {
+        return $this->tipo_usuario;
+    }
+
+    public function getTipoPorId($id)
+    {
+        try {
+            $sql = $this->con->conectar()->prepare("SELECT tipo_usuario FROM usuario WHERE id = :id LIMIT 1");
+            $sql->bindParam(":id", $id, PDO::PARAM_INT);
+            $sql->execute();
+
+            if ($sql->rowCount() > 0) {
+                $usuario = $sql->fetch(PDO::FETCH_ASSOC);
+                return $usuario['tipo_usuario'];
+            } else {
+                return null; // ID não existe
+            }
+        } catch (PDOException $ex) {
+            return null;
+        }
     }
 }

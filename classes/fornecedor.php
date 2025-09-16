@@ -8,19 +8,12 @@ class Fornecedor extends Usuario
     private $cnpj;
     private $telefone;
 
-    private $con;
-
-    public function existeEmail()
-    {
-        return $this->existeEmail(); // Usa o método herdado
-    }
-
     public function __construct()
     {
-        $this->con = new Conexao();
+        parent::__construct(); // inicializa $this->con
     }
 
-    public function adicionar($email, $nome_fantasia, $cnpj, $telefone, $senha, $permissoes)
+    public function adicionar($email, $nome_fantasia, $cnpj, $telefone, $senha, $tipo_usuario)
     {
         $emailExistente = $this->existeEmail($email);
         if (count($emailExistente) == 0) {
@@ -32,12 +25,12 @@ class Fornecedor extends Usuario
                 $this->cnpj = $cnpj;
                 $this->telefone = $telefone;
                 $this->senha = password_hash($senha, PASSWORD_DEFAULT);
-                $this->permissoes = $permissoes;
+                $this->tipo_usuario = $tipo_usuario;
 
-                $sql = $this->con->conectar()->prepare("INSERT INTO usuario (email, senha, permissoes) VALUES (:email, :senha, :permissoes)");
+                $sql = $this->con->conectar()->prepare("INSERT INTO usuario (email, senha, tipo_usuario) VALUES (:email, :senha, :tipo_usuario)");
                 $sql->bindParam(":email", $this->email, PDO::PARAM_STR);
                 $sql->bindParam(":senha", $this->senha, PDO::PARAM_STR);
-                $sql->bindParam(":permissoes", $this->permissoes, PDO::PARAM_STR);
+                $sql->bindParam(":tipo_usuario", $this->tipo_usuario, PDO::PARAM_STR);
                 $sql->execute();
 
                 $this->id = $this->con->conectar()->lastInsertId();
@@ -63,7 +56,7 @@ class Fornecedor extends Usuario
     public function listar()
     {
         try {
-            $sql = $this->con->conectar()->prepare("SELECT * FROM fornecedor");
+            $sql = $this->con->conectar()->prepare("SELECT u.id, u.email, u.tipo_usuario, f.nome_fantasia, f.cnpj, f.telefone FROM usuario u INNER JOIN fornecedor f ON u.id = f.id_usuario");
             $sql->execute();
             return $sql->fetchAll();
         } catch (PDOException $ex) {
@@ -74,7 +67,7 @@ class Fornecedor extends Usuario
     public function buscar($id)
     {
         try {
-            $sql = $this->con->conectar()->prepare("SELECT * FROM u.id, u.email, u.permissoes, f.nome_fantasia, f.cnpj, f.telefone FROM usuario u INNER JOIN fornecedor f ON u.id = f.id_usuario WHERE u.id = :id");
+            $sql = $this->con->conectar()->prepare("SELECT u.id, u.email, u.tipo_usuario, f.nome_fantasia, f.cnpj, f.telefone FROM usuario u INNER JOIN fornecedor f ON u.id = f.id_usuario WHERE u.id = :id");
             $sql->bindValue(':id', $id);
             $sql->execute();
             if ($sql->rowCount() > 0) {

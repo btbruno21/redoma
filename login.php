@@ -19,5 +19,5 @@
     </form>
 </main>
 
-<script src="js/senha.js"></script></script>
+<script src="js/senha.js"></script>
 <?php include 'inc/footer.php'; ?>

@@ -849,7 +849,7 @@ button:active {
   margin-top: 1.5vw;
 }
 
-.login img {
+.input-container img {
   position: absolute;
   right: 15px;
   top: 50%;
@@ -857,4 +857,74 @@ button:active {
   width: 4%;
   cursor: pointer;
   z-index: 10;
+}
+
+.cadUser{
+  margin-inline: 25%;
+  background-color: #521127;
+  height: auto;
+  padding: 3vw 2vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.cadUser .input-container{
+  margin-top: 0;
+}
+
+.cadUser button{
+  margin-top: 2vw;
+}
+
+#cad{
+  width: 90%;
+}
+
+#cad .input-container{
+  margin-top: 2vw;
+}
+
+.input-container select {
+  width: auto;
+  padding: 0.8vw;
+  border: 2px solid #000;
+  border-radius: 10px;
+  outline: none;
+  font-size: 1vw;
+  background-color: #F1F1F1;
+  transition: border-color 0.2s ease;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard{
+  margin-inline: 5%;
+  background-color: #f1f1f1;
+  padding: 1vw 2vw;
+  min-height: 300px;
+}
+
+.dashboard h1{
+  text-align: center;
+  font-size: 3vw;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.dashboard a{
+  display: inline-block;
+  border: 1px solid #521127;
+  padding: 1vw 1.5vw;
+  border-radius: 1.2vw;
+  text-decoration: none;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+  color: #521127;
+  transition: all 0.3s ease;
+  font-size: 1.2vw;
+  font-weight: 600;
+}
+
+.dashboard a:hover{
+  transform: scale(1.02);
 }
