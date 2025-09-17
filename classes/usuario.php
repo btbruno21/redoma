@@ -44,7 +44,7 @@ class Usuario
                 $this->id = $usuario['id'];
                 $this->email = $usuario['email'];
                 $this->senha = $usuario['senha'];
-                $this->tipo_usuario = $usuario['tipo_usuario']; // ✅ pega o tipo aqui
+                $this->tipo_usuario = $usuario['tipo_usuario'];
 
                 return TRUE;
             }

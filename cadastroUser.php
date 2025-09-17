@@ -23,15 +23,15 @@
 
                 <div id="camposUsuario" class="campos-especificos" style="display: none;">
                     <div class="input-container">
-                        <input type="text" name="nome_fantasia" placeholder=" " required>
+                        <input type="text" name="nome_fantasia" placeholder=" ">
                         <label class="input-label">Nome Fantasia</label>
                     </div>
                     <div class="input-container">
-                        <input type="text" name="cnpj" id="cnpj" placeholder=" " required>
+                        <input type="text" name="cnpj" id="cnpj" placeholder=" ">
                         <label class="input-label">CNPJ</label>
                     </div>
                     <div class="input-container">
-                        <input type="text" id="telefone" name="telefone" placeholder=" " required>
+                        <input type="text" id="telefone" name="telefone" placeholder=" ">
                         <label for="telefone" class="input-label">Telefone</label>
                     </div>
                 </div>
@@ -42,8 +42,21 @@
                         <label class="input-label">Nome</label>
                     </div>
                     <div class="input-container">
-                        <input type="text" name="permissoes" placeholder=" ">
-                        <label class="input-label">Permissões</label>
+                        <div class="checkbox-group">
+                            <label class="input-label">Permissões</label>
+                            <label>
+                                <input type="checkbox" name="permissoes[]" value="criar"> Criar
+                            </label>
+                            <label>
+                                <input type="checkbox" name="permissoes[]" value="editar"> Editar
+                            </label>
+                            <label>
+                                <input type="checkbox" name="permissoes[]" value="excluir"> Excluir
+                            </label>
+                            <label>
+                                <input type="checkbox" name="permissoes[]" value="super"> Super
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,27 +1,28 @@
-const cnpjInput = document.getElementById('cnpj');
+document.addEventListener('DOMContentLoaded', function() {
+    const cnpjInput = document.getElementById('cnpj');
 
-cnpjInput.addEventListener('input', function() {
-    let value = this.value.replace(/\D/g, ''); // remove tudo que não é número
-
-    if (value.length > 14) value = value.slice(0, 14); // limita a 14 dígitos
-
-    // aplica máscara
-    if (value.length > 12) {
-        value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{1,2})/, '$1.$2.$3/$4-$5');
-    } else if (value.length > 8) {
-        value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{1,4})/, '$1.$2.$3/$4');
-    } else if (value.length > 5) {
-        value = value.replace(/^(\d{2})(\d{3})(\d{1,3})/, '$1.$2.$3');
-    } else if (value.length > 2) {
-        value = value.replace(/^(\d{2})(\d{1,3})/, '$1.$2');
+    function formatCNPJ(value) {
+        value = value.replace(/\D/g, ''); // só números
+        if (value.length > 14) value = value.slice(0, 14);
+        value = value.replace(/^(\d{2})(\d)/, '$1.$2');
+        value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+        value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
+        value = value.replace(/(\d{4})(\d{1,2})$/, '$1-$2');
+        return value;
     }
 
-    this.value = value;
-});
+    // Aplica máscara no valor carregado
+    cnpjInput.value = formatCNPJ(cnpjInput.value);
 
-// Previne colar conteúdo não numérico
-cnpjInput.addEventListener('paste', function(e) {
-    setTimeout(() => {
-        this.dispatchEvent(new Event('input'));
-    }, 0);
+    // Aplica máscara enquanto digita
+    cnpjInput.addEventListener('input', function() {
+        this.value = formatCNPJ(this.value);
+    });
+
+    // Previne colar conteúdo não numérico
+    cnpjInput.addEventListener('paste', function(e) {
+        setTimeout(() => {
+            this.value = formatCNPJ(this.value);
+        }, 0);
+    });
 });

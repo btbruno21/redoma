@@ -859,7 +859,7 @@ button:active {
   z-index: 10;
 }
 
-.cadUser{
+.cadUser {
   margin-inline: 25%;
   background-color: #521127;
   height: auto;
@@ -871,19 +871,19 @@ button:active {
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
 }
 
-.cadUser .input-container{
+.cadUser .input-container {
   margin-top: 0;
 }
 
-.cadUser button{
+.cadUser button {
   margin-top: 2vw;
 }
 
-#cad{
+#cad {
   width: 90%;
 }
 
-#cad .input-container{
+#cad .input-container {
   margin-top: 2vw;
 }
 
@@ -899,20 +899,20 @@ button:active {
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.dashboard{
+.dashboard {
   margin-inline: 5%;
   background-color: #f1f1f1;
   padding: 1vw 2vw;
   min-height: 300px;
 }
 
-.dashboard h1{
+.dashboard h1 {
   text-align: center;
   font-size: 3vw;
   font-family: 'Roboto Condensed', sans-serif;
 }
 
-.dashboard a{
+.dashboard a {
   display: inline-block;
   border: 1px solid #521127;
   padding: 1vw 1.5vw;
@@ -925,6 +925,53 @@ button:active {
   font-weight: 600;
 }
 
-.dashboard a:hover{
+.dashboard a:hover {
   transform: scale(1.02);
+}
+
+.tabela {
+  width: 100%;
+  margin-top: 2vw;
+}
+
+.tabela td {
+  text-align: center;
+}
+
+.tabela a {
+  padding: 0.5vw 1vw;
+  border: none;
+  box-shadow: none;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+  margin-top: 2vw;
+  align-items: flex-start;
+  padding-left: 1vw;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+  font-size: 1.2vw;
+  cursor: pointer;
+  color: #fff;
+  margin: 0;
+}
+
+.checkbox-group input[type="checkbox"]{
+  height: 1.6vw;
+  width: 1.6vw;
+  cursor: pointer;
+}
+
+.checkbox-group .input-label{
+  position:static;
+  font-size: 2vw;
+  margin-bottom: -2vw;
+  padding-left: 0;
 }

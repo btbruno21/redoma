@@ -49,16 +49,26 @@ class Admin extends Usuario
         }
     }
 
-    // public function listar()
-    // {
-    //     try {
-    //         $sql = $this->con->conectar()->prepare("SELECT * FROM adm");
-    //         $sql->execute();
-    //         return $sql->fetchAll();
-    //     } catch (PDOException $ex) {
-    //         echo 'ERRO: ' . $ex->getMessage();
-    //     }
-    // }
+    public function listar()
+    {
+        try {
+            $sql = $this->con->conectar()->prepare("
+            SELECT u.id, u.email, u.tipo_usuario, a.nome, a.permissoes
+            FROM usuario u
+            INNER JOIN adm a ON u.id = a.id_usuario
+        ");
+            $sql->execute();
+            $admins = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($admins as &$admin) {
+                $admin['permissoes'] = explode(',', $admin['permissoes']);
+            }
+            return $admins;
+        } catch (PDOException $ex) {
+            echo 'ERRO: ' . $ex->getMessage();
+        }
+    }
+
 
     public function buscar($id)
     {
@@ -68,6 +78,7 @@ class Admin extends Usuario
             $sql->execute();
             if ($sql->rowCount() > 0) {
                 $admin = $sql->fetch();
+                $admin['permissoes'] = explode(',', $admin['permissoes']);
                 return $admin;
             } else {
                 return array();

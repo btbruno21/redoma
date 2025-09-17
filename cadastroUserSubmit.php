@@ -19,7 +19,7 @@ if (!empty($_POST['email']) && !empty($_POST['senha'])) {
         $resultado = $fornecedor->adicionar($email, $nome_fantasia, $cnpj, $telefone, $senha, $tipo_usuario);
     } elseif ($_POST['tipoPerfil'] == 'admin') {
         $nome = $_POST['nome'];
-        $permissoes = $_POST['permissoes'];
+        $permissoes = !empty($_POST['permissoes'])? implode(',', $_POST['permissoes']): '';
         $tipo_usuario = $_POST['tipoPerfil'];
 
         $resultado = $admin->adicionar($email, $nome, $permissoes, $senha, $tipo_usuario);
@@ -29,7 +29,7 @@ if (!empty($_POST['email']) && !empty($_POST['senha'])) {
     }
 
     if ($resultado === TRUE) {
-        echo "<script>alert('Cadastro realizado com sucesso!'); window.location.href = 'index';</script>";
+        echo "<script>alert('Cadastro realizado com sucesso!'); window.history.go(-2);</script>";
     } elseif ($resultado === FALSE) {
         echo "<script>alert('O email informado já está cadastrado!'); window.history.back();</script>";
     } else {
