@@ -4,93 +4,299 @@ include 'classes/usuario.php';
 include 'classes/fornecedor.php';
 include 'classes/adm.php';
 include 'classes/funcoes.php';
+include 'classes/produto.php';
+include 'classes/local.php';
+include 'classes/servico.php';
 
 $usuario = new Usuario();
-$tipo = $usuario->getTipoPorId($_GET['id']);
 $fornecedor = new Fornecedor();
 $adm = new Admin();
+
 $funcoes = new Funcoes();
 
+$produto = new Produto();
+$local = new Local();
+$servico = new Servico();
+
+$id = base64_decode($_GET['id']);
+$tipo = $usuario->getTipoPorId($id);
+
 if ($tipo === 'fornecedor') {
-    $info = $fornecedor->buscar($_GET['id']);
+    $info = $fornecedor->buscar($id);
+    $listaProd = $produto->listarPorFornecedor($id);
+    $listaLocal = $local->listarPorFornecedor($id);
+    $listaServ = $servico->listarPorFornecedor($id);
     $name = $info['nome_fantasia'];
 } elseif ($tipo === 'admin') {
-    $info = $adm->buscar($_GET['id']);
+    $info = $adm->buscar($id);
+    $listaProd = $produto->listar();
+    $listaLocal = $local->listar();
+    $listaServ = $servico->listar();
     $name = $info['nome'];
+    $permissoes = $info['permissoes'];
 }
+
 ?>
 <main>
     <div class="dashboard">
         <h1>Bem-vindo <?php echo $name; ?></h1>
-        <?php if ($tipo === 'admin'): ?>
-            <a href="cadastroUser.php">Cadastro de Usuários</a>
-            <table class="tabela">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>CNPJ</th>
-                        <th>NOME FANTASIA</th>
-                        <th>TELEFONE</th>
-                        <th>EMAIL</th>
-                        <th>AÇÕES</th>
-                    </tr>
-                </thead>
-                <?php
-                $lista = $fornecedor->listar();
-                foreach ($lista as $item):
-                ?>
-                    <tbody>
-                        <tr>
-                            <td><?php echo $item['id']; ?></td>
-                            <td><?php echo $funcoes->formatarCNPJ($item['cnpj']); ?></td>
-                            <td><?php echo $item['nome_fantasia']; ?></td>
-                            <td><?php echo $item['telefone']; ?></td>
-                            <td><?php echo $item['email']; ?></td>
-                            <td class="acoes">
-                                <a href="editarFornecedor.php?id=<?php echo $item['id'] ?>">EDITAR </a>
-                                |
-                                <a href="excluirFornecedor.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')"> EXCLUIR</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                <?php
-                endforeach;
-                ?>
-            </table>
-            <table class="tabela">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>NOME</th>
-                        <th>PERMISSÕES</th>
-                        <th>EMAIL</th>
-                        <th>AÇÕES</th>
-                    </tr>
-                </thead>
-                <?php
-                $lista = $adm->listar();
-                foreach ($lista as $item):
-                ?>
-                    <tbody>
-                        <tr>
-                            <td><?php echo $item['id']; ?></td>
-                            <td><?php echo $item['nome']; ?></td>
-                            <td><?php echo implode(', ', $item['permissoes']); ?></td>
-                            <td><?php echo $item['email']; ?></td>
-                            <td class="acoes">
-                                <a href="editarAdmin.php?id=<?php echo $item['id'] ?>">EDITAR </a>
-                                |
-                                <a href="excluirAdmin.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')"> EXCLUIR</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                <?php
-                endforeach;
-                ?>
-            </table>
-        <?php elseif ($tipo === 'fornecedor'): ?>
-        <?php else: ?>
+
+        <?php if ($tipo === 'admin' || $tipo === 'fornecedor'): ?>
+
+            <!-- Botão de cadastro -->
+            <div class="button-dashboard">
+                <?php if ($tipo === 'admin'): ?>
+                    <a href="cadastroUser.php">Cadastro de Usuários</a>
+                <?php else: ?>
+                    <a href="adicionarRecursos.php?id=<?php echo $id ?>">Cadastro de Recursos</a>
+                <?php endif; ?>
+            </div>
+
+            <!-- Sistema de Abas -->
+            <div class="tabs">
+                <button class="tab-button active" onclick="showTab('recursos')">Recursos</button>
+                <?php if ($tipo === 'admin'): ?>
+                    <button class="tab-button" onclick="showTab('usuarios')">Usuários</button>
+                <?php endif; ?>
+            </div>
+
+            <!-- Aba de Recursos -->
+            <div id="recursos" class="tab-content active">
+                <!-- Tabela de Produtos -->
+                <div class="table">
+                    <h1 class="titulo">Produtos</h1>
+                    <table class="tabela">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>NOME</th>
+                                <th>DESCRIÇÃO</th>
+                                <th>PREÇO</th>
+                                <th>REGIÃO</th>
+                                <th>ATIVO</th>
+                                <th>TIPO</th>
+                                <th>QUANTIDADE</th>
+                                <?php if ($tipo === 'admin'): ?>
+                                    <th>ID FORNECEDOR</th>
+                                <?php endif; ?>
+                                <th>AÇÕES</th>
+                            </tr>
+                        </thead>
+                        <?php foreach ($listaProd as $item): ?>
+                            <tbody>
+                                <tr>
+                                    <td><?php echo $item['id']; ?></td>
+                                    <td><?php echo $item['nome']; ?></td>
+                                    <td><?php echo $item['descricao']; ?></td>
+                                    <td><?php echo $item['preco']; ?></td>
+                                    <td><?php echo $item['regiao']; ?></td>
+                                    <td><?php echo $item['ativo']; ?></td>
+                                    <td><?php echo $item['tipo']; ?></td>
+                                    <td><?php echo $item['quantidade']; ?></td>
+                                    <?php if ($tipo === 'admin'): ?>
+                                        <td><?php echo $item['id_fornecedor']; ?></td>
+                                    <?php endif; ?>
+                                    <td class="acoes">
+                                        <a href="editarProduto.php?id=<?php echo $item['id'] ?>">EDITAR</a>
+                                        |
+                                        <a href="excluirProduto.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+
+                <!-- Tabela de Locais -->
+                <div class="table">
+                    <h1 class="titulo">Locais</h1>
+                    <table class="tabela">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>NOME</th>
+                                <th>DESCRIÇÃO</th>
+                                <th>PREÇO</th>
+                                <th>REGIÃO</th>
+                                <th>ATIVO</th>
+                                <th>ENDEREÇO</th>
+                                <th>CAPACIDADE</th>
+                                <?php if ($tipo === 'admin'): ?>
+                                    <th>ID FORNECEDOR</th>
+                                <?php endif; ?>
+                                <th>AÇÕES</th>
+                            </tr>
+                        </thead>
+                        <?php foreach ($listaLocal as $item): ?>
+                            <tbody>
+                                <tr>
+                                    <td><?php echo $item['id']; ?></td>
+                                    <td><?php echo $item['nome']; ?></td>
+                                    <td><?php echo $item['descricao']; ?></td>
+                                    <td><?php echo $item['preco']; ?></td>
+                                    <td><?php echo $item['regiao']; ?></td>
+                                    <td><?php echo $item['ativo']; ?></td>
+                                    <td><?php echo $item['endereco']; ?></td>
+                                    <td><?php echo $item['capacidade']; ?></td>
+                                    <?php if ($tipo === 'admin'): ?>
+                                        <td><?php echo $item['id_fornecedor']; ?></td>
+                                    <?php endif; ?>
+                                    <td class="acoes">
+                                        <a href="editarLocal.php?id=<?php echo $item['id'] ?>">EDITAR</a>
+                                        |
+                                        <a href="excluirLocal.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+
+                <!-- Tabela de Serviços -->
+                <div class="table">
+                    <h1 class="titulo">Serviços</h1>
+                    <table class="tabela">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>NOME</th>
+                                <th>DESCRIÇÃO</th>
+                                <th>PREÇO</th>
+                                <th>REGIÃO</th>
+                                <th>ATIVO</th>
+                                <th>DURAÇÃO</th>
+                                <th>CATEGORIA</th>
+                                <?php if ($tipo === 'admin'): ?>
+                                    <th>ID FORNECEDOR</th>
+                                <?php endif; ?>
+                                <th>AÇÕES</th>
+                            </tr>
+                        </thead>
+                        <?php foreach ($listaServ as $item): ?>
+                            <tbody>
+                                <tr>
+                                    <td><?php echo $item['id']; ?></td>
+                                    <td><?php echo $item['nome']; ?></td>
+                                    <td><?php echo $item['descricao']; ?></td>
+                                    <td><?php echo $item['preco']; ?></td>
+                                    <td><?php echo $item['regiao']; ?></td>
+                                    <td><?php echo $item['ativo']; ?></td>
+                                    <td><?php echo $item['duracao']; ?></td>
+                                    <td><?php echo $item['categoria']; ?></td>
+                                    <?php if ($tipo === 'admin'): ?>
+                                        <td><?php echo $item['id_fornecedor']; ?></td>
+                                    <?php endif; ?>
+                                    <td class="acoes">
+                                        <a href="editarServico.php?id=<?php echo $item['id'] ?>">EDITAR</a>
+                                        |
+                                        <a href="excluirServico.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+            </div>
+
+            <?php if ($tipo === 'admin'): ?>
+                <!-- Aba de Usuários -->
+                <div id="usuarios" class="tab-content">
+                    <!-- Tabela de Fornecedores -->
+                    <div class="table">
+                        <h1 class="titulo">Fornecedores</h1>
+                        <table class="tabela">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>CNPJ</th>
+                                    <th>NOME FANTASIA</th>
+                                    <th>TELEFONE</th>
+                                    <th>EMAIL</th>
+                                    <th>AÇÕES</th>
+                                </tr>
+                            </thead>
+                            <?php
+                            $lista = $fornecedor->listar();
+                            foreach ($lista as $item):
+                            ?>
+                                <tbody>
+                                    <tr>
+                                        <td><?php echo $item['id']; ?></td>
+                                        <td><?php echo $funcoes->formatarCNPJ($item['cnpj']); ?></td>
+                                        <td><?php echo $item['nome_fantasia']; ?></td>
+                                        <td><?php echo $funcoes->formatarTelefone($item['telefone']); ?></td>
+                                        <td><?php echo $item['email']; ?></td>
+                                        <td class="acoes">
+                                            <a href="editarFornecedor.php?id=<?php echo $item['id'] ?>">EDITAR</a>
+                                            |
+                                            <a href="excluirFornecedor.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            <?php endforeach; ?>
+                        </table>
+                    </div>
+
+                    <?php if (in_array("super", $permissoes)): ?>
+                        <!-- Tabela de Administradores -->
+                        <div class="table">
+                            <h1 class="titulo">Administradores</h1>
+                            <table class="tabela">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>NOME</th>
+                                        <th>PERMISSÕES</th>
+                                        <th>EMAIL</th>
+                                        <th>AÇÕES</th>
+                                    </tr>
+                                </thead>
+                                <?php
+                                $lista = $adm->listar();
+                                foreach ($lista as $item):
+                                ?>
+                                    <tbody>
+                                        <tr>
+                                            <td><?php echo $item['id']; ?></td>
+                                            <td><?php echo $item['nome']; ?></td>
+                                            <td><?php echo implode(', ', $item['permissoes']); ?></td>
+                                            <td><?php echo $item['email']; ?></td>
+                                            <td class="acoes">
+                                                <a href="editarAdmin.php?id=<?php echo $item['id'] ?>">EDITAR</a>
+                                                |
+                                                <a href="excluirAdmin.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                <?php endforeach; ?>
+                            </table>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
+
+    <script>
+    function showTab(tabName) {
+        // Esconder todas as abas
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabContents.forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // Remover classe active de todos os botões
+        const tabButtons = document.querySelectorAll('.tab-button');
+        tabButtons.forEach(button => {
+            button.classList.remove('active');
+        });
+        
+        // Mostrar a aba selecionada
+        document.getElementById(tabName).classList.add('active');
+        
+        // Ativar o botão correspondente
+        event.target.classList.add('active');
+    }
+    </script>
 </main>
 <?php include 'inc/footer.php'; ?>

@@ -20,9 +20,10 @@ if (!empty($_POST['email']) && !empty($_POST['senha'])) {
             // Busca dados do fornecedor
             $dadosFornecedor = $fornecedor->buscar($idUsuario);
             if (!empty($dadosFornecedor)) {
+                $encodedId = base64_encode($dadosFornecedor['id']);
                 echo "<script>
                     alert('✅ Login Efetuado com sucesso!');
-                    window.location.href = 'dashboard?id=".$dadosFornecedor['id']."';
+                    window.location.href = 'dashboard?id=".$encodedId."';
                 </script>";
             } else {
                 echo "<script>
@@ -35,9 +36,10 @@ if (!empty($_POST['email']) && !empty($_POST['senha'])) {
             // Busca dados do admin
             $dadosAdmin = $admin->buscar($idUsuario);
             if (!empty($dadosAdmin)) {
+                $encodedId = base64_encode($dadosAdmin['id']);
                 echo "<script>
                     alert('✅ Login Efetuado com sucesso!');
-                    window.location.href = 'dashboard.php?id=".$dadosAdmin['id']."';
+                    window.location.href = 'dashboard?id=".$encodedId."';
                 </script>";
             } else {
                 echo "<script>

@@ -8,11 +8,6 @@ class Fornecedor extends Usuario
     private $cnpj;
     private $telefone;
 
-    public function __construct()
-    {
-        parent::__construct(); // inicializa $this->con
-    }
-
     public function adicionar($email, $nome_fantasia, $cnpj, $telefone, $senha, $tipo_usuario)
     {
         $emailExistente = $this->existeEmail($email);

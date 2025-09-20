@@ -6,11 +6,6 @@ class Admin extends Usuario
     private $nome;
     private $permissoes;
 
-    public function __construct()
-    {
-        parent::__construct(); // inicializa $this->con
-    }
-
     public function adicionar($email, $nome, $permissoes, $senha, $tipo_usuario)
     {
         $emailExistente = $this->existeEmail($email);

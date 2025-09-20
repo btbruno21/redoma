@@ -1,7 +1,7 @@
 <?php
 class Funcoes
 {
-    function formatarCNPJ($cnpj)
+    public function formatarCNPJ($cnpj)
     {
         // deixa só os números
         $cnpj = preg_replace('/\D/', '', $cnpj);
@@ -15,5 +15,23 @@ class Funcoes
             "$1.$2.$3/$4-$5",
             $cnpj
         );
+    }
+
+    public function formatarTelefone($telefone)
+    {
+        $apenasNumeros = preg_replace('/\D/', '', $telefone);
+        if (substr($apenasNumeros, 0, 2) === '55') {
+            if (preg_match('/^55(\d{2})(\d{8,9})$/', $apenasNumeros, $matches)) {
+                $ddd = $matches[1];
+                $numero = $matches[2];
+                if (strlen($numero) == 9) {
+                    $numeroFormatado = substr($numero, 0, 5) . '-' . substr($numero, 5);
+                } else {
+                    $numeroFormatado = substr($numero, 0, 4) . '-' . substr($numero, 4);
+                }
+                return "55 ($ddd) $numeroFormatado";
+            }
+        }
+        return $telefone;
     }
 }

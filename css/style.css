@@ -446,9 +446,7 @@ section.ativa {
 .button {
   display: flex;
   justify-content: flex-end;
-  /* Alinha à direita */
   gap: 1vw;
-  /* Espaço entre os botões */
   margin-top: 2vw;
 }
 
@@ -901,7 +899,6 @@ button:active {
 
 .dashboard {
   margin-inline: 5%;
-  background-color: #f1f1f1;
   padding: 1vw 2vw;
   min-height: 300px;
 }
@@ -932,16 +929,43 @@ button:active {
 .tabela {
   width: 100%;
   margin-top: 2vw;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.titulo {
+  font-size: 1.8vw !important;
+  font-weight: bold;
 }
 
 .tabela td {
   text-align: center;
+  font-size: 0.9vw;
 }
 
-.tabela a {
+.tabela th {
+  font-size: 1vw;
+  font-weight: bolder;
+  padding: 0 1vw;
+}
+
+.acoes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.acoes a {
+  white-space: nowrap;
   padding: 0.5vw 1vw;
+  font-size: 1vw;
   border: none;
   box-shadow: none;
+}
+
+.tabela th,
+.tabela td {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0.5vw;
 }
 
 .checkbox-group {
@@ -963,15 +987,67 @@ button:active {
   margin: 0;
 }
 
-.checkbox-group input[type="checkbox"]{
+.checkbox-group input[type="checkbox"] {
   height: 1.6vw;
   width: 1.6vw;
   cursor: pointer;
 }
 
-.checkbox-group .input-label{
-  position:static;
+.checkbox-group .input-label {
+  position: static;
   font-size: 2vw;
   margin-bottom: -2vw;
   padding-left: 0;
+}
+
+.button-dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2vw;
+}
+
+.table {
+  border: 1px rgba(0, 0, 0, 0.3) solid;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+  margin-top: 3vw;
+  padding: 2vw 1vw;
+  border-radius: 1vw;
+  background-color: #f1f1f1;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 0.2vw solid #ddd;
+  margin-bottom: 2vw;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 1vw 1.5vw;
+  cursor: pointer;
+  border-bottom: 0.3vw solid transparent;
+  transition: all 0.3s ease;
+  font-size: 1.2vw !important;
+  margin-right: 1vw;
+  font-weight: bold;
+}
+
+.tabs button{
+  transform: none;
+}
+
+.tab-button.active {
+  border-bottom-color: #521127;
+  color: #521127;
+  font-weight: bold;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
 }
