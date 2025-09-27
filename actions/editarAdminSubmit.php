@@ -1,5 +1,5 @@
 <?php
-include 'classes/adm.php';
+include '../classes/adm.php';
 
 $admin = new Admin();
 if (!empty($_POST['id'])) {

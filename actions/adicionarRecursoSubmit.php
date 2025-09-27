@@ -1,7 +1,7 @@
 <?php
-include 'classes/produto.php';
-include 'classes/local.php';
-include 'classes/servico.php';
+include '../classes/produto.php';
+include '../classes/local.php';
+include '../classes/servico.php';
 
 $produto = new Produto();
 $local = new Local();
@@ -14,23 +14,24 @@ if (!empty($_POST['nome']) && !empty($_POST['descricao']) && !empty($_POST['prec
     $preco = str_replace(['.', ','], ['', '.'], $_POST['preco']);
     $preco = floatval($preco);
     $regiao = $_POST['regiao'];
-    $ativo = TRUE;
     $id_fornecedor = $_POST['id_fornecedor'];
+
     if ($tipoRecurso == 'produto') {
         $tipo = $_POST['tipo'];
         $quantidade = $_POST['quantidade'];
-        $resultado = $produto->criar($nome, $descricao, $preco, $regiao, $ativo, $id_fornecedor, $tipo, $quantidade);
+        $resultado = $produto->criarProduto($nome, $descricao, $preco, $regiao, $id_fornecedor, $tipo, $quantidade);
     } elseif ($tipoRecurso == 'local') {
         $endereco = $_POST['endereco'];
         $capacidade = $_POST['capacidade'];
-        $resultado = $local->criar($nome, $descricao, $preco, $regiao, $ativo, $id_fornecedor, $endereco, $capacidade);
+        $resultado = $local->criarLocal($nome, $descricao, $preco, $regiao, $id_fornecedor, $endereco, $capacidade);
     } elseif ($tipoRecurso == 'servico') {
         $duracao = $_POST['duracao'];
         $categoria = $_POST['categoria'];
-        $resultado = $servico->criar($nome, $descricao, $preco, $regiao, $ativo, $id_fornecedor, $duracao, $categoria);
+        $resultado = $servico->criarServico($nome, $descricao, $preco, $regiao, $id_fornecedor, $duracao, $categoria);
     }
     var_dump($resultado);
-    // echo "<script>alert('Produto adicionado com sucesso!'); window.history.go(-2);</script>";
+    echo "<script>alert('Recurso adicionado com sucesso!');</script>";
+    header("Location: ../dashboard.php?id=" . base64_encode($id_fornecedor));
 } else {
     echo "<script>alert('Preencha todos os campos obrigatórios!'); window.history.back();</script>";
 }

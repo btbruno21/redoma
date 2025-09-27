@@ -1,5 +1,5 @@
 <?php
-require_once 'classes/conexao.php';
+require_once 'recurso.php';
 
 class Servico extends Recurso
 {
@@ -11,41 +11,27 @@ class Servico extends Recurso
         parent::__construct();
     }
 
-    public function criar($nome, $descricao, $preco, $regiao, $ativo, $id_fornecedor, $duracao, $categoria)
+    public function criarServico($nome, $descricao, $preco, $regiao, $id_fornecedor, $duracao, $categoria)
     {
         try {
-            $this->con->conectar()->beginTransaction();
-            $this->nome = $nome;
-            $this->descricao = $descricao;
-            $this->preco = $preco;
-            $this->regiao = $regiao;
-            $this->ativo = $ativo;
-            $this->id_fornecedor = $id_fornecedor;
+            $con = $this->con->conectar();
+            $con->beginTransaction();
+
+            $this->id = parent::criar($nome, $descricao, $preco, $regiao, $id_fornecedor, $con);
 
             $this->duracao = $duracao;
             $this->categoria = $categoria;
 
-            $sql = $this->con->conectar()->prepare("INSERT INTO recurso (nome, descricao, preco, regiao, ativo, id_fornecedor) VALUES (:nome, :descricao, :preco, :regiao, :ativo, :id_fornecedor)");
-            $sql->bindParam(":nome", $this->nome, PDO::PARAM_STR);
-            $sql->bindParam(":descricao", $this->descricao, PDO::PARAM_STR);
-            $sql->bindParam(":preco", $this->preco, PDO::PARAM_STR);
-            $sql->bindParam(":regiao", $this->regiao, PDO::PARAM_STR);
-            $sql->bindParam(":ativo", $this->ativo, PDO::PARAM_STR);
-            $sql->bindParam(":id_fornecedor", $this->id_fornecedor, PDO::PARAM_STR);
-            $sql->execute();
-
-            $this->id = $this->con->conectar()->lastInsertId();
-
-            $sql = $this->con->conectar()->prepare("INSERT INTO servico (id_recurso, duracao, categoria) VALUES (:id_recurso, :duracao, :categoria)");
+            $sql = $con->prepare("INSERT INTO servico (id_recurso, duracao, categoria) VALUES (:id_recurso, :duracao, :categoria)");
             $sql->bindParam(":id_recurso", $this->id, PDO::PARAM_INT);
             $sql->bindParam(":duracao", $this->duracao, PDO::PARAM_STR);
             $sql->bindParam(":categoria", $this->categoria, PDO::PARAM_STR);
             $sql->execute();
 
-            $this->con->conectar()->commit();
+            $con->commit();
             return TRUE;
         } catch (PDOException $ex) {
-            $this->con->conectar()->rollback();
+            $con->rollback();
             return 'ERRO: ' . $ex->getMessage();
         }
     }
@@ -63,5 +49,74 @@ class Servico extends Recurso
         $sql->bindParam(":id_fornecedor", $id_fornecedor, PDO::PARAM_INT);
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function buscarServico($id)
+    {
+        $recurso = parent::buscar($id);
+
+        $sql = $this->con->conectar()->prepare(
+            "SELECT duracao, categoria FROM servico WHERE id_recurso = :id"
+        );
+        $sql->bindParam(":id", $id, PDO::PARAM_INT);
+        $sql->execute();
+        $servico = $sql->fetch(PDO::FETCH_ASSOC);
+
+        if ($recurso && $servico) {
+            $servico = array_merge($recurso, $servico);
+            return $servico;
+        } else {
+            return false;
+        }
+    }
+
+    public function editarServico($id, $nome, $descricao, $preco, $regiao, $ativo, $duracao, $categoria)
+    {
+        try {
+            $con = $this->con->conectar();
+            $con->beginTransaction();
+
+            $this->id = parent::editar($id, $nome, $descricao, $preco, $regiao, $ativo);
+            
+            $this->duracao = $duracao;
+            $this->categoria = $categoria;
+
+            $sql2 = $con->prepare("UPDATE servico SET duracao = :duracao, categoria = :categoria WHERE id_recurso = :id_recurso");
+            $sql2->bindParam(":duracao", $this->duracao, PDO::PARAM_STR);
+            $sql2->bindParam(":categoria", $this->categoria, PDO::PARAM_STR);
+            $sql2->bindParam(":id_recurso", $this->id, PDO::PARAM_INT);
+            $sql2->execute();
+
+            $con->commit();
+            return true;
+        } catch (PDOException $ex) {
+            $con->rollback();
+            return 'ERRO: ' . $ex->getMessage();
+        }
+    }
+
+    public function excluir($id){
+
+        $servico = $this->buscarServico($id);
+        if (empty($servico)) {
+            return false;
+        }
+        try {
+            $this->con->conectar()->beginTransaction();
+
+            $sqlS = $this->con->conectar()->prepare("DELETE FROM servico WHERE id_recurso = :id");
+            $sqlS->bindParam(":id", $id, PDO::PARAM_INT);
+            $sqlS->execute();
+
+            $sqlR = $this->con->conectar()->prepare("DELETE FROM recurso WHERE id = :id");
+            $sqlR->bindParam(":id", $id, PDO::PARAM_INT);
+            $sqlR->execute();
+
+            $this->con->conectar()->commit();
+            return true;
+        } catch (PDOException $ex) {
+            $this->con->conectar()->rollback();
+            return 'ERRO: ' . $ex->getMessage();
+        }
     }
 }

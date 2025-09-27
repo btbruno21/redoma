@@ -1,13 +1,12 @@
 <?php
 // error_reporting(E_ALL);
 // ini_set('display_errors', 1);
-include 'classes/cliente.php';
-include 'classes/evento.php';
+include '../classes/cliente.php';
+include '../classes/evento.php';
 
 $cliente = new Cliente();
 $evento = new Evento();
 
-// Verifica se todos os campos obrigatórios foram preenchidos
 if (
     !empty($_POST['nome']) &&
     !empty($_POST['telefone']) &&
@@ -15,9 +14,7 @@ if (
     !empty($_POST['nivel_planejamento']) &&
     !empty($_POST['tipo_evento']) &&
     (
-        // Se for sociais, tem que vir evento-social
         ($_POST['tipo_evento'] === 'sociais' && !empty($_POST['evento-social'])) ||
-        // Se for corporativos, tem que vir evento-corporativo
         ($_POST['tipo_evento'] === 'corporativos' && !empty($_POST['evento-corporativo']))
     ) &&
     !empty($_POST['data1']) &&
@@ -34,11 +31,9 @@ if (
     $nivel_planejamento = $_POST['nivel_planejamento'];
     $tipo_evento = $_POST['tipo_evento'];
 
-    // Se for sociais e tiver filho selecionado, pega o filho
     if ($tipo_evento === 'sociais' && !empty($_POST['evento-social'])) {
         $tipo_evento = $_POST['evento-social'];
     }
-    // Se for corporativos e tiver filho selecionado, pega o filho
     elseif ($tipo_evento === 'corporativos' && !empty($_POST['evento-corporativo'])) {
         $tipo_evento = $_POST['evento-corporativo'];
     }

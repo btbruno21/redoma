@@ -1,6 +1,6 @@
 <?php
-require_once 'classes/conexao.php';
-require_once 'classes/usuario.php';
+require_once 'conexao.php';
+require_once 'usuario.php';
 
 class Fornecedor extends Usuario
 {

@@ -1,5 +1,5 @@
 <?php
-require_once 'classes/usuario.php';
+require_once 'usuario.php';
 
 class Admin extends Usuario
 {
@@ -119,7 +119,6 @@ class Admin extends Usuario
 
     public function deletar($id)
     {
-        // Primeiro busca o usuário
         $usuario = $this->buscar($id);
 
         if (empty($usuario)) {

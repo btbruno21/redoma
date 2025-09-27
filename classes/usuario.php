@@ -1,5 +1,5 @@
 <?php
-require_once 'classes/conexao.php';
+require_once 'conexao.php';
 
 class Usuario
 {
@@ -80,4 +80,37 @@ class Usuario
             return null;
         }
     }
+
+    // public function criar($email, $senha, $tipo_usuario) {
+    //     try {
+    //         // Verifica se o email já existe
+    //         $sql = $this->con->conectar()->prepare("SELECT id FROM usuario WHERE email = :email LIMIT 1");
+    //         $sql->bindParam(":email", $email, PDO::PARAM_STR);
+    //         $sql->execute();
+
+    //         if ($sql->rowCount() > 0) {
+    //             // Email já cadastrado
+    //             return false;
+    //         }
+
+    //         // Criptografa a senha
+    //         $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
+    //         // Insere o novo usuário
+    //         $sql = $this->con->conectar()->prepare(
+    //             "INSERT INTO usuario (email, senha, tipo_usuario) VALUES (:email, :senha, :tipo_usuario)"
+    //         );
+    //         $sql->bindParam(":email", $email, PDO::PARAM_STR);
+    //         $sql->bindParam(":senha", $senhaHash, PDO::PARAM_STR);
+    //         $sql->bindParam(":tipo_usuario", $tipo_usuario, PDO::PARAM_STR);
+
+    //         if ($sql->execute()) {
+    //             return true;
+    //         } else {
+    //             return false;
+    //         }
+    //     } catch (PDOException $ex) {
+    //         return false;
+    //     }
+    // }
 }

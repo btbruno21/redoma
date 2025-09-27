@@ -1,6 +1,6 @@
 <?php include 'inc/header.php'; ?>
 <main>
-    <form method="POST" action="cadastroUserSubmit.php">
+    <form method="POST" action="actions/cadastroUserSubmit.php">
         <div class="cadUser">
             <div class="input-container">
                 <select id="tipoPerfil" name="tipoPerfil" required>

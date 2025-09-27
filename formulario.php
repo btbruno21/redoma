@@ -1,6 +1,6 @@
 <?php include 'inc/header.php'; ?>
 
-<form method="POST" action="formularioSubmit.php">
+<form method="POST" action="actions/formularioSubmit.php">
     <section id="nivel-planejamento" class="ativa">
         <div class="orcamento">
             <h1>Faça seu evento com nossos especialistas</h1>

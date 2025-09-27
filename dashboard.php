@@ -48,7 +48,7 @@ if ($tipo === 'fornecedor') {
                 <?php if ($tipo === 'admin'): ?>
                     <a href="cadastroUser.php">Cadastro de Usuários</a>
                 <?php else: ?>
-                    <a href="adicionarRecursos.php?id=<?php echo $id ?>">Cadastro de Recursos</a>
+                    <a href="adicionarRecursos.php?id=<?php echo $id?>">Cadastro de Recursos</a>
                 <?php endif; ?>
             </div>
 
@@ -62,7 +62,6 @@ if ($tipo === 'fornecedor') {
 
             <!-- Aba de Recursos -->
             <div id="recursos" class="tab-content active">
-                <!-- Tabela de Produtos -->
                 <div class="table">
                     <h1 class="titulo">Produtos</h1>
                     <table class="tabela">
@@ -99,7 +98,7 @@ if ($tipo === 'fornecedor') {
                                     <td class="acoes">
                                         <a href="editarProduto.php?id=<?php echo $item['id'] ?>">EDITAR</a>
                                         |
-                                        <a href="excluirProduto.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
+                                        <a href="actions/excluirProduto.php?id_serv=<?php echo $item['id'] ?>&id=<?php echo $id?>" onclick="return confirm('Você tem certeza que quer excluir esse produto?')">EXCLUIR</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -144,7 +143,7 @@ if ($tipo === 'fornecedor') {
                                     <td class="acoes">
                                         <a href="editarLocal.php?id=<?php echo $item['id'] ?>">EDITAR</a>
                                         |
-                                        <a href="excluirLocal.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
+                                        <a href="actions/excluirLocal.php?id_serv=<?php echo $item['id'] ?>&id=<?php echo $id?>" onclick="return confirm('Você tem certeza que quer excluir esse local?')">EXCLUIR</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -189,7 +188,7 @@ if ($tipo === 'fornecedor') {
                                     <td class="acoes">
                                         <a href="editarServico.php?id=<?php echo $item['id'] ?>">EDITAR</a>
                                         |
-                                        <a href="excluirServico.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
+                                        <a href="actions/excluirServico.php?id_serv=<?php echo $item['id'] ?>&id=<?php echo $id?>" onclick="return confirm('Você tem certeza que quer excluir esse serviço?')">EXCLUIR</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -229,7 +228,7 @@ if ($tipo === 'fornecedor') {
                                         <td class="acoes">
                                             <a href="editarFornecedor.php?id=<?php echo $item['id'] ?>">EDITAR</a>
                                             |
-                                            <a href="excluirFornecedor.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
+                                            <a href="actions/excluirFornecedor.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -264,7 +263,7 @@ if ($tipo === 'fornecedor') {
                                             <td class="acoes">
                                                 <a href="editarAdmin.php?id=<?php echo $item['id'] ?>">EDITAR</a>
                                                 |
-                                                <a href="excluirAdmin.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
+                                                <a href="actions/excluirAdmin.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -276,27 +275,6 @@ if ($tipo === 'fornecedor') {
             <?php endif; ?>
         <?php endif; ?>
     </div>
-
-    <script>
-    function showTab(tabName) {
-        // Esconder todas as abas
-        const tabContents = document.querySelectorAll('.tab-content');
-        tabContents.forEach(tab => {
-            tab.classList.remove('active');
-        });
-        
-        // Remover classe active de todos os botões
-        const tabButtons = document.querySelectorAll('.tab-button');
-        tabButtons.forEach(button => {
-            button.classList.remove('active');
-        });
-        
-        // Mostrar a aba selecionada
-        document.getElementById(tabName).classList.add('active');
-        
-        // Ativar o botão correspondente
-        event.target.classList.add('active');
-    }
-    </script>
 </main>
+<script src="js/dashboard-menu.js"></script>
 <?php include 'inc/footer.php'; ?>

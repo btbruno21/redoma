@@ -1,5 +1,5 @@
 <?php
-require_once 'classes/conexao.php';
+require_once 'recurso.php';
 
 class Local extends Recurso
 {
@@ -11,41 +11,27 @@ class Local extends Recurso
         parent::__construct();
     }
 
-    public function criar($nome, $descricao, $preco, $regiao, $ativo, $id_fornecedor, $endereco, $capacidade)
+    public function criarLocal($nome, $descricao, $preco, $regiao, $id_fornecedor, $endereco, $capacidade)
     {
         try {
-            $this->con->conectar()->beginTransaction();
-            $this->nome = $nome;
-            $this->descricao = $descricao;
-            $this->preco = $preco;
-            $this->regiao = $regiao;
-            $this->ativo = $ativo;
-            $this->id_fornecedor = $id_fornecedor;
+            $con = $this->con->conectar();
+            $con->beginTransaction();
+
+            $this->id = parent::criar($nome, $descricao, $preco, $regiao, $id_fornecedor);
 
             $this->endereco = $endereco;
             $this->capacidade = $capacidade;
 
-            $sql = $this->con->conectar()->prepare("INSERT INTO recurso (nome, descricao, preco, regiao, ativo, id_fornecedor) VALUES (:nome, :descricao, :preco, :regiao, :ativo, :id_fornecedor)");
-            $sql->bindParam(":nome", $this->nome, PDO::PARAM_STR);
-            $sql->bindParam(":descricao", $this->descricao, PDO::PARAM_STR);
-            $sql->bindParam(":preco", $this->preco, PDO::PARAM_STR);
-            $sql->bindParam(":regiao", $this->regiao, PDO::PARAM_STR);
-            $sql->bindParam(":ativo", $this->ativo, PDO::PARAM_STR);
-            $sql->bindParam(":id_fornecedor", $this->id_fornecedor, PDO::PARAM_STR);
-            $sql->execute();
-
-            $this->id = $this->con->conectar()->lastInsertId();
-
-            $sql = $this->con->conectar()->prepare("INSERT INTO local (id_recurso, endereco, capacidade) VALUES (:id_recurso, :endereco, :capacidade)");
+            $sql = $con->prepare("INSERT INTO local (id_recurso, endereco, capacidade) VALUES (:id_recurso, :endereco, :capacidade)");
             $sql->bindParam(":id_recurso", $this->id, PDO::PARAM_INT);
             $sql->bindParam(":endereco", $this->endereco, PDO::PARAM_STR);
             $sql->bindParam(":capacidade", $this->capacidade, PDO::PARAM_INT);
             $sql->execute();
 
-            $this->con->conectar()->commit();
+            $con->commit();
             return TRUE;
         } catch (PDOException $ex) {
-            $this->con->conectar()->rollback();
+            $con->rollback();
             return 'ERRO: ' . $ex->getMessage();
         }
     }
@@ -63,5 +49,74 @@ class Local extends Recurso
         $sql->bindParam(":id_fornecedor", $id_fornecedor, PDO::PARAM_INT);
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function buscarLocal($id)
+    {
+        $recurso = parent::buscar($id);
+
+        $sql = $this->con->conectar()->prepare(
+            "SELECT endereco, capacidade FROM local WHERE id_recurso = :id"
+        );
+        $sql->bindParam(":id", $id, PDO::PARAM_INT);
+        $sql->execute();
+        $local = $sql->fetch(PDO::FETCH_ASSOC);
+
+        if ($recurso && $local) {
+            $local = array_merge($recurso, $local);
+            return $local;
+        } else {
+            return false;
+        }
+    }
+
+    public function editarLocal($id, $nome, $descricao, $preco, $regiao, $ativo, $endereco, $capacidade)
+    {
+        try {
+            $con = $this->con->conectar();
+            $con->beginTransaction();
+
+            // Atualiza a tabela recurso
+            parent::editar($id, $nome, $descricao, $preco, $regiao, $ativo);
+
+            // Atualiza a tabela local
+            $sql2 = $con->prepare("UPDATE local SET endereco = :endereco, capacidade = :capacidade WHERE id_recurso = :id_recurso");
+            $sql2->bindParam(":endereco", $endereco, PDO::PARAM_STR);
+            $sql2->bindParam(":capacidade", $capacidade, PDO::PARAM_INT);
+            $sql2->bindParam(":id_recurso", $id, PDO::PARAM_INT);
+            $sql2->execute();
+
+            $con->commit();
+            return true;
+        } catch (PDOException $ex) {
+            $con->rollback();
+            return 'ERRO: ' . $ex->getMessage();
+        }
+    }
+
+    public function excluir($id){
+
+        $produto = $this->buscarLocal($id);
+        if (empty($produto)) {
+            return false;
+        }
+        try {
+
+            $this->con->conectar()->beginTransaction();
+
+            $sqlS = $this->con->conectar()->prepare("DELETE FROM local WHERE id_recurso = :id");
+            $sqlS->bindParam(":id", $id, PDO::PARAM_INT);
+            $sqlS->execute();
+
+            $sqlR = $this->con->conectar()->prepare("DELETE FROM recurso WHERE id = :id");
+            $sqlR->bindParam(":id", $id, PDO::PARAM_INT);
+            $sqlR->execute();
+
+            $this->con->conectar()->commit();
+            return true;
+        } catch (PDOException $ex) {
+            $this->con->conectar()->rollback();
+            return 'ERRO: ' . $ex->getMessage();
+        }
     }
 }

@@ -1,5 +1,5 @@
 <?php
-include 'classes/fornecedor.php';
+include '../classes/fornecedor.php';
 
 $fornecedor = new Fornecedor();
 if (!empty($_POST['id'])) {

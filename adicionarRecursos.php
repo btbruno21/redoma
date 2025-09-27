@@ -1,6 +1,6 @@
 <?php include 'inc/header.php'; ?>
 <main>
-    <form method="POST" action="adicionarRecursoSubmit.php">
+    <form method="POST" action="actions/adicionarRecursoSubmit.php">
         <div class="cadUser">
             <div class="input-container">
                 <select id="tipoRecurso" name="tipoRecurso" required>

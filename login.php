@@ -1,6 +1,6 @@
 <?php include 'inc/header.php'; ?>
 <main>
-    <form method="POST" action="loginSubmit.php">
+    <form method="POST" action="actions/loginSubmit.php">
         <div class="login">
             <h1>Login</h1>
             <div class="input-container">

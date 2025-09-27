@@ -16,7 +16,7 @@ if (!empty($_GET['id'])) {
     exit;
 }
 ?>
-<form method="POST" action="editarAdminSubmit.php">
+<form method="POST" action="actions/editarAdminSubmit.php">
     <div class="cadUser">
         <div id="cad">
             <input type="hidden" name="id" value="<?php echo $info['id']; ?>" />
