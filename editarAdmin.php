@@ -4,7 +4,8 @@ include 'classes/adm.php';
 $admin = new Admin();
 
 if (!empty($_GET['id'])) {
-    $id = $_GET['id'];
+    $id_user = base64_decode($_GET['id_user']);
+    $id = base64_decode($_GET['id']);
     $info = $admin->buscar($id);
     $permissoes = $info['permissoes'];
     if (empty($info['email'])) {
@@ -19,6 +20,7 @@ if (!empty($_GET['id'])) {
 <form method="POST" action="actions/editarAdminSubmit.php">
     <div class="cadUser">
         <div id="cad">
+            <input type="hidden" name="id_user" value="<?php echo $id_user; ?>" />
             <input type="hidden" name="id" value="<?php echo $info['id']; ?>" />
             <div class="input-container">
                 <input type="mail" name="email" value="<?php echo $info['email']; ?>" required>

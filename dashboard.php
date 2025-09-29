@@ -226,7 +226,7 @@ if ($tipo === 'fornecedor') {
                                         <td><?php echo $funcoes->formatarTelefone($item['telefone']); ?></td>
                                         <td><?php echo $item['email']; ?></td>
                                         <td class="acoes">
-                                            <a href="editarFornecedor.php?id=<?php echo $item['id'] ?>">EDITAR</a>
+                                            <a href="editarFornecedor.php?id_user=<?php echo base64_encode($id);?>&id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
                                             |
                                             <a href="actions/excluirFornecedor.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
                                         </td>
@@ -261,9 +261,11 @@ if ($tipo === 'fornecedor') {
                                             <td><?php echo implode(', ', $item['permissoes']); ?></td>
                                             <td><?php echo $item['email']; ?></td>
                                             <td class="acoes">
-                                                <a href="editarAdmin.php?id=<?php echo $item['id'] ?>">EDITAR</a>
+                                                <a href="editarAdmin.php?id_user=<?php echo base64_encode($id);?>&id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
+                                                <?php if (!in_array("super", $item['permissoes'])): ?>
                                                 |
                                                 <a href="actions/excluirAdmin.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
+                                                <?php endif;?>
                                             </td>
                                         </tr>
                                     </tbody>

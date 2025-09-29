@@ -4,7 +4,8 @@ include 'classes/fornecedor.php';
 $fornecedor = new Fornecedor();
 
 if (!empty($_GET['id'])) {
-    $id = $_GET['id'];
+    $id_user = base64_decode($_GET['id_user']);
+    $id = base64_decode($_GET['id']);
     $info = $fornecedor->buscar($id);
     if (empty($info['email'])) {
         header("Location: /redoma");
@@ -15,11 +16,13 @@ if (!empty($_GET['id'])) {
     exit;
 }
 ?>
+<script src="https://unpkg.com/imask"></script>
 <script src="js/cnpj.js"></script>
 
-<form method="POST" action="actions/editarAdminSubmit.php">
+<form method="POST" action="actions/editarFornecedorSubmit.php">
     <div class="cadUser">
         <div id="cad">
+        <input type="hidden" name="id_user" value="<?php echo $id_user; ?>" />
         <input type="hidden" name="id" value="<?php echo $info['id']; ?>" />
             <div class="input-container">
                 <input type="mail" name="email" value="<?php echo $info['email']; ?>" required>
@@ -41,3 +44,5 @@ if (!empty($_GET['id'])) {
     <button type="submit">SALVAR</button>
     </div>
 </form>
+
+<script src="js/telefoneSubmit.js"></script>

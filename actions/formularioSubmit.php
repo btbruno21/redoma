@@ -53,7 +53,7 @@ if (
 
     $evento->criarEvento($nivel_planejamento, $tipo_evento, $data1, $data2, $local, $orcamento, $qnt_pessoas, $observacoes, $cliente_id);
 
-    echo "<script>alert('✅ Cliente cadastrado com sucesso!'); window.location.href = 'index.php';</script>";
+    echo "<script>alert('✅ Cliente cadastrado com sucesso!'); window.location.href = '/redoma';</script>";
 } else {
     echo "<script>alert('⚠ Insira todas as informações obrigatórias!');</script>";
 }

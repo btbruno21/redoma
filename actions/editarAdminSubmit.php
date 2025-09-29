@@ -8,10 +8,11 @@ if (!empty($_POST['id'])) {
     $permissoes = !empty($_POST['permissoes'])? implode(',', $_POST['permissoes']): '';
 
     $id = $_POST['id'];
+    $id_user = $_POST['id_user'];
 
     $resultado = $admin->editar($nome, $permissoes, $email, $id);
 }
 
 if ($resultado === TRUE) {
-    echo "<script>alert('Alteração realizada com sucesso!'); window.history.go(-2);</script>";
+    echo "<script>alert('Alteração realizada com sucesso!'); window.location.href = '../dashboard.php?id=" . base64_encode($id_user) . "';</script>";
 }

@@ -9,10 +9,11 @@ if (!empty($_POST['id'])) {
     $telefone = str_replace(['(', ')', '+', '-'], '', $_POST['telefone']);
 
     $id = $_POST['id'];
+    $id_user = $_POST['id_user'];
 
     $resultado = $fornecedor->editar($nome_fantasia, $cnpj, $telefone, $email, $id);
 }
 
 if ($resultado === TRUE) {
-    echo "<script>alert('Alteração realizada com sucesso!'); window.history.go(-2);</script>";
+    echo "<script>alert('Alteração realizada com sucesso!'); window.location.href = '../dashboard.php?id=" . base64_encode($id_user) . "';</script>";
 }
