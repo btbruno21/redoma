@@ -60,7 +60,7 @@ class Recurso
             $this->regiao = $regiao;
             $this->ativo = $ativo;
 
-            $sql = $con->conectar()->prepare("UPDATE recurso SET nome = :nome, descricao = :descricao, preco = :preco, regiao = :regiao, ativo = :ativo WHERE id = :id");
+            $sql = $con->prepare("UPDATE recurso SET nome = :nome, descricao = :descricao, preco = :preco, regiao = :regiao, ativo = :ativo WHERE id = :id");
             $sql->bindParam(":id", $this->id, PDO::PARAM_INT);
             $sql->bindParam(":nome", $this->nome, PDO::PARAM_STR);
             $sql->bindParam(":descricao", $this->descricao, PDO::PARAM_STR);

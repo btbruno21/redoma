@@ -70,7 +70,7 @@ class Produto extends Recurso
         }
     }
 
-    public function editarProduto($id, $nome, $descricao, $preco, $regiao, $ativo, $id_fornecedor, $tipo, $quantidade)
+    public function editarProduto($id, $nome, $descricao, $preco, $regiao, $ativo, $tipo, $quantidade)
     {
         try {
             $con = $this->con->conectar();

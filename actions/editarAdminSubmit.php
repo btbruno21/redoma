@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION['id']) || $_SESSION['tipo'] !== 'admin') {
+    header('Location: ../login.php');
+    exit();
+}
 include '../classes/adm.php';
 
 $admin = new Admin();
@@ -14,5 +19,5 @@ if (!empty($_POST['id'])) {
 }
 
 if ($resultado === TRUE) {
-    echo "<script>alert('Alteração realizada com sucesso!'); window.location.href = '../dashboard.php?id=" . base64_encode($id_user) . "';</script>";
+    echo "<script>alert('Alteração realizada com sucesso!'); window.location.href = '../dashboard.php';</script>";
 }

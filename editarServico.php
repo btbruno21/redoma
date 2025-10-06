@@ -5,11 +5,11 @@ if (!isset($_SESSION['id']) || !in_array($_SESSION['tipo'], ['admin', 'fornecedo
     exit();
 }
 include 'inc/header.php';
-include 'classes/produto.php';
-$produto = new Produto();
+include 'classes/servico.php';
+$servico = new Servico();
 if (!empty($_GET['id'])) {
     $id = base64_decode($_GET['id']);
-    $info = $produto->buscarProduto($id);
+    $info = $servico->buscarServico($id);
 
     // VERIFICAÇÃO DE SEGURANÇA: Fornecedor só pode editar seus próprios recursos
     if ($_SESSION['tipo'] === 'fornecedor' && $info['id_fornecedor'] != $_SESSION['id']) {
@@ -28,10 +28,10 @@ if (!empty($_GET['id'])) {
 ?>
 
 <main>
-    <form method="POST" action="actions/editarProdutoSubmit.php">
+    <form method="POST" action="actions/editarServicoSubmit.php">
         <input type="hidden" name="id" id="id" value="<?php echo $info['id']; ?>" required>
         <div class="cadUser">
-            <h1>Editar Produto</h1>
+            <h1>Editar Serviço</h1>
             <div class="cad2">
                 <div class="input-container">
                     <input type="text" name="nome" value="<?php echo $info['nome']; ?>" placeholder=" " required>
@@ -59,12 +59,12 @@ if (!empty($_GET['id'])) {
                     </div>
                 </div>
                 <div class="input-container">
-                    <input type="text" name="tipo" id="tipo" value="<?php echo $info['tipo']; ?>" placeholder=" " required>
-                    <label for="tipo" class="input-label">Tipo</label>
+                    <input type="text" name="duracao" id="duracao" value="<?php echo $info['duracao']; ?>" placeholder=" " required>
+                    <label for="duracao" class="input-label">Duração</label>
                 </div>
                 <div class="input-container">
-                    <input type="number" name="quantidade" id="quantidade" value="<?php echo $info['quantidade']; ?>" placeholder=" " required>
-                    <label for="quantidade" class="input-label">Quantidade</label>
+                    <input type="text" name="categoria" id="categoria" value="<?php echo $info['categoria']; ?>" placeholder=" " required>
+                    <label for="categoria" class="input-label">Categoria</label>
                 </div>
             </div>
             <button type="submit">Salvar Alterações</button>

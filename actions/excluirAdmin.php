@@ -1,12 +1,18 @@
 <?php
+session_start();
+if (!isset($_SESSION['id']) || $_SESSION['tipo'] !== 'admin') {
+    header('Location: ../login.php');
+    exit();
+}
 include '../classes/adm.php';
 $admin = new Admin();
 
 if (!empty($_GET['id'])) {
-    $id = $_GET['id'];
+    $id = base64_decode($_GET['id']);
+
     $admin->deletar($id);
-    echo "<script>alert('Administrador excluido!!'); window.history.go(-1);</script>";
+    echo '<script>alert("Administrador excluído com sucesso!"); window.location.href = "../dashboard.php";</script>';
 } else {
-    echo '<script type="text/javascript">alert("Erro ao excluir!!");</script>';
+    echo '<script>alert("Erro ao excluir!"); window.location.href = "../dashboard.php";</script>';
 }
 ?>

@@ -37,19 +37,19 @@ class Usuario
         $sql->bindParam(":email", $email, PDO::PARAM_STR);
         $sql->execute();
 
-        if ($sql->rowCount() > 0) {
-            $usuario = $sql->fetch(PDO::FETCH_ASSOC);
-
-            if (password_verify($senha, $usuario['senha'])) {
-                $this->id = $usuario['id'];
-                $this->email = $usuario['email'];
-                $this->senha = $usuario['senha'];
-                $this->tipo_usuario = $usuario['tipo_usuario'];
-
-                return TRUE;
-            }
+        if ($sql->rowCount() == 0) {
+            return false;
         }
-        return FALSE;
+        $usuario = $sql->fetch(PDO::FETCH_ASSOC);
+
+        if (password_verify($senha, $usuario['senha'])) {
+            $this->id = $usuario['id'];
+            $this->email = $usuario['email'];
+            $this->tipo_usuario = $usuario['tipo_usuario'];
+
+            return true;
+        }
+        return false;
     }
 
 

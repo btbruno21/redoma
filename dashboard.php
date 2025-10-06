@@ -18,24 +18,32 @@ $produto = new Produto();
 $local = new Local();
 $servico = new Servico();
 
-$id = base64_decode($_GET['id']);
-$tipo = $usuario->getTipoPorId($id);
+session_start();
+if (!$_SESSION) {
+    header('Location: /redoma/login');
+} else {
+    $id = $_SESSION['id'];
+    $tipo = $usuario->getTipoPorId($id);
 
-if ($tipo === 'fornecedor') {
-    $info = $fornecedor->buscar($id);
-    $listaProd = $produto->listarPorFornecedor($id);
-    $listaLocal = $local->listarPorFornecedor($id);
-    $listaServ = $servico->listarPorFornecedor($id);
-    $name = $info['nome_fantasia'];
-} elseif ($tipo === 'admin') {
-    $info = $adm->buscar($id);
-    $listaProd = $produto->listar();
-    $listaLocal = $local->listar();
-    $listaServ = $servico->listar();
-    $name = $info['nome'];
-    $permissoes = $info['permissoes'];
+    if (!empty($tipo)) {
+        if ($tipo === 'fornecedor') {
+            $info = $fornecedor->buscar($id);
+            $listaProd = $produto->listarPorFornecedor($id);
+            $listaLocal = $local->listarPorFornecedor($id);
+            $listaServ = $servico->listarPorFornecedor($id);
+            $name = $info['nome_fantasia'];
+        } elseif ($tipo === 'admin') {
+            $info = $adm->buscar($id);
+            $listaProd = $produto->listar();
+            $listaLocal = $local->listar();
+            $listaServ = $servico->listar();
+            $name = $info['nome'];
+            $permissoes = $info['permissoes'];
+        }
+    } else {
+        header('Location: /redoma/login');
+    }
 }
-
 ?>
 <main>
     <div class="dashboard">
@@ -48,7 +56,7 @@ if ($tipo === 'fornecedor') {
                 <?php if ($tipo === 'admin'): ?>
                     <a href="cadastroUser.php">Cadastro de Usuários</a>
                 <?php else: ?>
-                    <a href="adicionarRecursos.php?id=<?php echo $id?>">Cadastro de Recursos</a>
+                    <a href="adicionarRecursos.php">Cadastro de Recursos</a>
                 <?php endif; ?>
             </div>
 
@@ -58,6 +66,7 @@ if ($tipo === 'fornecedor') {
                 <?php if ($tipo === 'admin'): ?>
                     <button class="tab-button" onclick="showTab('usuarios')">Usuários</button>
                 <?php endif; ?>
+                <a href="actions/logout.php">Sair</a>
             </div>
 
             <!-- Aba de Recursos -->
@@ -72,12 +81,12 @@ if ($tipo === 'fornecedor') {
                                 <th>DESCRIÇÃO</th>
                                 <th>PREÇO</th>
                                 <th>REGIÃO</th>
-                                <th>ATIVO</th>
                                 <th>TIPO</th>
                                 <th>QUANTIDADE</th>
                                 <?php if ($tipo === 'admin'): ?>
                                     <th>ID FORNECEDOR</th>
                                 <?php endif; ?>
+                                <th>STATUS</th>
                                 <th>AÇÕES</th>
                             </tr>
                         </thead>
@@ -89,16 +98,16 @@ if ($tipo === 'fornecedor') {
                                     <td><?php echo $item['descricao']; ?></td>
                                     <td><?php echo $item['preco']; ?></td>
                                     <td><?php echo $item['regiao']; ?></td>
-                                    <td><?php echo $item['ativo']; ?></td>
                                     <td><?php echo $item['tipo']; ?></td>
                                     <td><?php echo $item['quantidade']; ?></td>
                                     <?php if ($tipo === 'admin'): ?>
                                         <td><?php echo $item['id_fornecedor']; ?></td>
                                     <?php endif; ?>
+                                    <td><?php echo ($item['ativo'] == 1) ? 'Ativo' : 'Inativo'; ?></td>
                                     <td class="acoes">
-                                        <a href="editarProduto.php?id=<?php echo $item['id'] ?>">EDITAR</a>
+                                        <a href="editarProduto.php?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
                                         |
-                                        <a href="actions/excluirProduto.php?id_serv=<?php echo $item['id'] ?>&id=<?php echo $id?>" onclick="return confirm('Você tem certeza que quer excluir esse produto?')">EXCLUIR</a>
+                                        <a href="actions/excluirProduto.php?id_serv=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse produto?')">EXCLUIR</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -117,12 +126,12 @@ if ($tipo === 'fornecedor') {
                                 <th>DESCRIÇÃO</th>
                                 <th>PREÇO</th>
                                 <th>REGIÃO</th>
-                                <th>ATIVO</th>
                                 <th>ENDEREÇO</th>
                                 <th>CAPACIDADE</th>
                                 <?php if ($tipo === 'admin'): ?>
                                     <th>ID FORNECEDOR</th>
                                 <?php endif; ?>
+                                <th>STATUS</th>
                                 <th>AÇÕES</th>
                             </tr>
                         </thead>
@@ -134,16 +143,16 @@ if ($tipo === 'fornecedor') {
                                     <td><?php echo $item['descricao']; ?></td>
                                     <td><?php echo $item['preco']; ?></td>
                                     <td><?php echo $item['regiao']; ?></td>
-                                    <td><?php echo $item['ativo']; ?></td>
                                     <td><?php echo $item['endereco']; ?></td>
                                     <td><?php echo $item['capacidade']; ?></td>
                                     <?php if ($tipo === 'admin'): ?>
                                         <td><?php echo $item['id_fornecedor']; ?></td>
                                     <?php endif; ?>
+                                    <td><?php echo ($item['ativo'] == 1) ? 'Ativo' : 'Inativo'; ?></td>
                                     <td class="acoes">
-                                        <a href="editarLocal.php?id=<?php echo $item['id'] ?>">EDITAR</a>
+                                        <a href="editarLocal.php?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
                                         |
-                                        <a href="actions/excluirLocal.php?id_serv=<?php echo $item['id'] ?>&id=<?php echo $id?>" onclick="return confirm('Você tem certeza que quer excluir esse local?')">EXCLUIR</a>
+                                        <a href="actions/excluirLocal.php?id_serv=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse local?')">EXCLUIR</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -162,12 +171,12 @@ if ($tipo === 'fornecedor') {
                                 <th>DESCRIÇÃO</th>
                                 <th>PREÇO</th>
                                 <th>REGIÃO</th>
-                                <th>ATIVO</th>
                                 <th>DURAÇÃO</th>
                                 <th>CATEGORIA</th>
                                 <?php if ($tipo === 'admin'): ?>
                                     <th>ID FORNECEDOR</th>
                                 <?php endif; ?>
+                                <th>STATUS</th>
                                 <th>AÇÕES</th>
                             </tr>
                         </thead>
@@ -179,16 +188,16 @@ if ($tipo === 'fornecedor') {
                                     <td><?php echo $item['descricao']; ?></td>
                                     <td><?php echo $item['preco']; ?></td>
                                     <td><?php echo $item['regiao']; ?></td>
-                                    <td><?php echo $item['ativo']; ?></td>
                                     <td><?php echo $item['duracao']; ?></td>
                                     <td><?php echo $item['categoria']; ?></td>
                                     <?php if ($tipo === 'admin'): ?>
                                         <td><?php echo $item['id_fornecedor']; ?></td>
                                     <?php endif; ?>
+                                    <td><?php echo ($item['ativo'] == 1) ? 'Ativo' : 'Inativo'; ?></td>
                                     <td class="acoes">
-                                        <a href="editarServico.php?id=<?php echo $item['id'] ?>">EDITAR</a>
+                                        <a href="editarServico.php?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
                                         |
-                                        <a href="actions/excluirServico.php?id_serv=<?php echo $item['id'] ?>&id=<?php echo $id?>" onclick="return confirm('Você tem certeza que quer excluir esse serviço?')">EXCLUIR</a>
+                                        <a href="actions/excluirServico.php?id_serv=<?php echo base64_encode($item['id'])?>" onclick="return confirm('Você tem certeza que quer excluir esse serviço?')">EXCLUIR</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -226,9 +235,9 @@ if ($tipo === 'fornecedor') {
                                         <td><?php echo $funcoes->formatarTelefone($item['telefone']); ?></td>
                                         <td><?php echo $item['email']; ?></td>
                                         <td class="acoes">
-                                            <a href="editarFornecedor.php?id_user=<?php echo base64_encode($id);?>&id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
+                                            <a href="editarFornecedor.php?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
                                             |
-                                            <a href="actions/excluirFornecedor.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
+                                            <a href="actions/excluirFornecedor.php?id=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -261,11 +270,11 @@ if ($tipo === 'fornecedor') {
                                             <td><?php echo implode(', ', $item['permissoes']); ?></td>
                                             <td><?php echo $item['email']; ?></td>
                                             <td class="acoes">
-                                                <a href="editarAdmin.php?id_user=<?php echo base64_encode($id);?>&id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
+                                                <a href="editarAdmin.php?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
                                                 <?php if (!in_array("super", $item['permissoes'])): ?>
-                                                |
-                                                <a href="actions/excluirAdmin.php?id=<?php echo $item['id'] ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
-                                                <?php endif;?>
+                                                    |
+                                                    <a href="actions/excluirAdmin.php?id=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     </tbody>

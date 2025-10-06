@@ -1,6 +1,26 @@
-<?php include 'inc/header.php'; ?>
+<?php include 'inc/header.php';
+include 'classes/usuario.php';
+session_start();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!empty($_POST['email']) && !empty($_POST['senha'])) {
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
+
+        $usuario = new Usuario();
+        if ($usuario->login($email, $senha)) {
+            $_SESSION['id'] = $usuario->getId();
+            $_SESSION['tipo'] = $usuario->getTipoUsuario();
+            header('Location: dashboard');
+        } else {
+            echo "<script>alert('Email ou senha incorretos');</script>";
+        }
+    } else {
+        echo "<script>alert('Preencha todos os campos');</script>";
+    }
+}
+?>
 <main>
-    <form method="POST" action="actions/loginSubmit.php">
+    <form method="POST">
         <div class="login">
             <h1>Login</h1>
             <div class="input-container">

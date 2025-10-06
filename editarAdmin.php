@@ -1,10 +1,14 @@
 <?php
+session_start();
+if (!isset($_SESSION['id']) || $_SESSION['tipo'] !== 'admin') {
+    header('Location: login.php');
+    exit();
+}
 require 'inc/header.php';
 include 'classes/adm.php';
 $admin = new Admin();
 
 if (!empty($_GET['id'])) {
-    $id_user = base64_decode($_GET['id_user']);
     $id = base64_decode($_GET['id']);
     $info = $admin->buscar($id);
     $permissoes = $info['permissoes'];
@@ -17,10 +21,12 @@ if (!empty($_GET['id'])) {
     exit;
 }
 ?>
+<main>
 <form method="POST" action="actions/editarAdminSubmit.php">
     <div class="cadUser">
-        <div id="cad">
-            <input type="hidden" name="id_user" value="<?php echo $id_user; ?>" />
+        <h1>Editar Administrador</h1>
+        <div class="cad2">
+            <input type="hidden" name="id_user" value="<?php echo $_SESSION['id']; ?>" />
             <input type="hidden" name="id" value="<?php echo $info['id']; ?>" />
             <div class="input-container">
                 <input type="mail" name="email" value="<?php echo $info['email']; ?>" required>
@@ -49,3 +55,6 @@ if (!empty($_GET['id'])) {
         <button type="submit">SALVAR</button>
     </div>
 </form>
+</main>
+
+<?php include 'inc/footer.php';?>

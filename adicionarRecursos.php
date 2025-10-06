@@ -1,6 +1,14 @@
-<?php include 'inc/header.php'; ?>
+<?php 
+session_start();
+if (!isset($_SESSION['id']) || $_SESSION['tipo'] !== 'fornecedor') {
+    header('Location: login.php');
+    exit();
+}
+include 'inc/header.php';
+?>
 <main>
     <form method="POST" action="actions/adicionarRecursoSubmit.php">
+        <input type="hidden" name="id_fornecedor" value="<?php echo $_SESSION['id']; ?>">
         <div class="cadUser">
             <div class="input-container">
                 <select id="tipoRecurso" name="tipoRecurso" required>
@@ -10,7 +18,7 @@
                     <option value="servico">Serviço</option>
                 </select>
             </div>
-            <div id="cad">
+            <div class="cad">
                 <div class="input-container">
                     <input type="text" name="nome" placeholder=" " required>
                     <label for="nome" class="input-label">Nome</label>
@@ -27,7 +35,6 @@
                     <input type="text" name="regiao" placeholder=" " required>
                     <label for="regiao" class="input-label">Região</label>
                 </div>
-                <input type="hidden" name="id_fornecedor" value="<?php echo $_GET['id']; ?>">
 
                 <div id="camposServico" style="display: none;">
                     <div class="input-container">

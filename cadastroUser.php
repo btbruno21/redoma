@@ -1,4 +1,11 @@
-<?php include 'inc/header.php'; ?>
+<?php 
+session_start();
+if (!isset($_SESSION['id']) || $_SESSION['tipo'] !== 'admin') {
+    header('Location: login.php');
+    exit();
+}
+include 'inc/header.php';
+?>
 <main>
     <form method="POST" action="actions/cadastroUserSubmit.php">
         <div class="cadUser">
@@ -9,7 +16,7 @@
                     <option value="admin">Administrador</option>
                 </select>
             </div>
-            <div id="cad">
+            <div class="cad">
                 <div class="input-container">
                     <input type="mail" name="email" placeholder=" " required>
                     <label for="email" class="input-label">Email</label>
@@ -20,6 +27,8 @@
                     <img src="img/eye-slash-solid-full.svg" alt="Mostrar senha" id="eyeClosed">
                     <img src="img/eye-solid-full.svg" alt="Ocultar senha" id="eyeOpen" style="display: none;">
                 </div>
+                
+                <input type="hidden" name="id" value="<?php echo $_SESSION['id']; ?>">
 
                 <div id="camposUsuario" class="campos-especificos" style="display: none;">
                     <div class="input-container">
