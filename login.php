@@ -7,10 +7,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $senha = $_POST['senha'];
 
         $usuario = new Usuario();
-        if ($usuario->login($email, $senha)) {
-            $_SESSION['id'] = $usuario->getId();
-            $_SESSION['tipo'] = $usuario->getTipoUsuario();
+        $dadosUsuario = $usuario->login($email, $senha);
+        if ($dadosUsuario) {
+            $_SESSION['id'] = $dadosUsuario['id'];
+            $_SESSION['tipo_usuario'] = $dadosUsuario['tipo_usuario'];
+            // $_SESSION['id'] = $dadosUsuario['id'];
+
             header('Location: dashboard');
+            exit();
         } else {
             echo "<script>alert('Email ou senha incorretos');</script>";
         }

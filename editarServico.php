@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['id']) || !in_array($_SESSION['tipo'], ['admin', 'fornecedor'])) {
+if (!isset($_SESSION['id']) || !in_array($_SESSION['tipo_usuario'], ['admin', 'fornecedor'])) {
     header('Location: login.php');
     exit();
 }

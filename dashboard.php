@@ -19,11 +19,11 @@ $local = new Local();
 $servico = new Servico();
 
 session_start();
-if (!$_SESSION) {
+if (!isset($_SESSION['id'])) {
     header('Location: /redoma/login');
 } else {
     $id = $_SESSION['id'];
-    $tipo = $usuario->getTipoPorId($id);
+    $tipo = $_SESSION['tipo_usuario'];
 
     if (!empty($tipo)) {
         if ($tipo === 'fornecedor') {
@@ -37,6 +37,7 @@ if (!$_SESSION) {
             $listaProd = $produto->listar();
             $listaLocal = $local->listar();
             $listaServ = $servico->listar();
+            $listaForn = $fornecedor->listar();
             $name = $info['nome'];
             $permissoes = $info['permissoes'];
         }
@@ -197,7 +198,7 @@ if (!$_SESSION) {
                                     <td class="acoes">
                                         <a href="editarServico.php?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
                                         |
-                                        <a href="actions/excluirServico.php?id_serv=<?php echo base64_encode($item['id'])?>" onclick="return confirm('Você tem certeza que quer excluir esse serviço?')">EXCLUIR</a>
+                                        <a href="actions/excluirServico.php?id_serv=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse serviço?')">EXCLUIR</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -224,8 +225,7 @@ if (!$_SESSION) {
                                 </tr>
                             </thead>
                             <?php
-                            $lista = $fornecedor->listar();
-                            foreach ($lista as $item):
+                            foreach ($listaForn as $item):
                             ?>
                                 <tbody>
                                     <tr>
@@ -260,8 +260,8 @@ if (!$_SESSION) {
                                     </tr>
                                 </thead>
                                 <?php
-                                $lista = $adm->listar();
-                                foreach ($lista as $item):
+                                $listaAdm = $adm->listar();
+                                foreach ($listaAdm as $item):
                                 ?>
                                     <tbody>
                                         <tr>
