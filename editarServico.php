@@ -6,13 +6,12 @@ if (!isset($_SESSION['id']) || !in_array($_SESSION['tipo_usuario'], ['admin', 'f
 }
 include 'inc/header.php';
 include 'classes/servico.php';
-$servico = new Servico();
 if (!empty($_GET['id'])) {
+    $servico = new Servico();
     $id = base64_decode($_GET['id']);
     $info = $servico->buscarServico($id);
 
-    // VERIFICAÇÃO DE SEGURANÇA: Fornecedor só pode editar seus próprios recursos
-    if ($_SESSION['tipo'] === 'fornecedor' && $info['id_fornecedor'] != $_SESSION['id']) {
+    if ($_SESSION['tipo_usuario'] === 'fornecedor' && $info['id_fornecedor'] != $_SESSION['id']) {
         header("Location: dashboard.php");
         exit;
     }

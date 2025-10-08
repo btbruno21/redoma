@@ -39,13 +39,7 @@ if (!empty($_GET['id'])) {
             <div class="checkbox-group">
                 <label class="input-label">Permissões</label>
                 <label>
-                    <input type="checkbox" name="permissoes[]" value="criar" <?php if (in_array("criar", $permissoes)) echo "checked"; ?>> Criar
-                </label>
-                <label>
-                    <input type="checkbox" name="permissoes[]" value="editar" <?php if (in_array("editar", $permissoes)) echo "checked"; ?>> Editar
-                </label>
-                <label>
-                    <input type="checkbox" name="permissoes[]" value="excluir" <?php if (in_array("excluir", $permissoes)) echo "checked"; ?>> Excluir
+                    <input type="checkbox" name="permissoes[]" value="geral" <?php if (in_array("geral", $permissoes)) echo "checked"; ?>> Geral
                 </label>
                 <label>
                     <input type="checkbox" name="permissoes[]" value="super" <?php if (in_array("super", $permissoes)) echo "checked"; ?>> Super

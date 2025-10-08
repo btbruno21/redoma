@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['id']) || !in_array($_SESSION['tipo'], ['admin', 'fornecedor'])) {
-    header('Location: ../login.php');
+if (!isset($_SESSION['id']) || !in_array($_SESSION['tipo_usuario'], ['admin', 'fornecedor'])) {
+    header('Location: ../login');
     exit();
 }
 // ini_set('display_errors', 1);
@@ -13,7 +13,7 @@ if (!empty($_GET['id_serv'])) {
     $idServ = base64_decode($_GET['id_serv']);
 
     $serv->excluir($idServ);
-    echo '<script>alert("Serviço excluído com sucesso!"); window.location.href = "../dashboard.php";</script>';
+    echo '<script>alert("Serviço excluído com sucesso!"); window.location.href = "../dashboard";</script>';
 } else {
-    echo '<script>alert("Erro ao excluir!"); window.location.href = "../dashboard.php";</script>';
+    echo '<script>alert("Erro ao excluir!"); window.location.href = "../dashboard";</script>';
 }

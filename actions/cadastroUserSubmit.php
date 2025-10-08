@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['id']) || $_SESSION['tipo'] !== 'admin') {
-    header('Location: ../login.php');
+if (!isset($_SESSION['id']) || $_SESSION['tipo_usuario'] !== 'admin') {
+    header('Location: ../login');
     exit();
 }
 // error_reporting(E_ALL);
@@ -34,7 +34,7 @@ if (!empty($_POST['email']) && !empty($_POST['senha']) && !empty($_POST['id'])) 
     }
 
     if ($resultado === TRUE) {
-        header("Location: ../dashboard.php");
+        header("Location: ../dashboard");
     } elseif ($resultado === FALSE) {
         echo "<script>alert('O email informado já está cadastrado!'); window.history.back();</script>";
     } else {

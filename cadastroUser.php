@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if (!isset($_SESSION['id']) || $_SESSION['tipo'] !== 'admin') {
+if (!isset($_SESSION['id']) || $_SESSION['tipo_usuario'] !== 'admin') {
     header('Location: login.php');
     exit();
 }
@@ -54,13 +54,7 @@ include 'inc/header.php';
                         <div class="checkbox-group">
                             <label class="input-label">Permissões</label>
                             <label>
-                                <input type="checkbox" name="permissoes[]" value="criar"> Criar
-                            </label>
-                            <label>
-                                <input type="checkbox" name="permissoes[]" value="editar"> Editar
-                            </label>
-                            <label>
-                                <input type="checkbox" name="permissoes[]" value="excluir"> Excluir
+                                <input type="checkbox" name="permissoes[]" value="geral"> Geral
                             </label>
                             <label>
                                 <input type="checkbox" name="permissoes[]" value="super"> Super

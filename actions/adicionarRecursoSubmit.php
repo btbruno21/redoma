@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['id']) || $_SESSION['tipo'] !== 'fornecedor') {
-    header('Location: ../login.php');
+if (!isset($_SESSION['id']) || $_SESSION['tipo_usuario'] !== 'fornecedor') {
+    header('Location: ../login');
     exit();
 }
 include '../classes/produto.php';
@@ -25,21 +25,21 @@ if (!empty($_POST['nome']) && !empty($_POST['descricao']) && !empty($_POST['prec
         $tipo = $_POST['tipo'];
         $quantidade = $_POST['quantidade'];
         $resultado = $produto->criarProduto($nome, $descricao, $preco, $regiao, $id_fornecedor, $tipo, $quantidade);
-        echo "<script>alert('Local adicionado com sucesso!'); window.location.href = '../dashboard.php';</script>";
+        echo "<script>alert('Local adicionado com sucesso!'); window.location.href = '../dashboard';</script>";
         exit();
 
     } elseif ($tipoRecurso == 'local' && !empty($_POST['endereco']) && !empty($_POST['capacidade'])) {
         $endereco = $_POST['endereco'];
         $capacidade = $_POST['capacidade'];
         $resultado = $local->criarLocal($nome, $descricao, $preco, $regiao, $id_fornecedor, $endereco, $capacidade);
-        echo "<script>alert('Local adicionado com sucesso!'); window.location.href = '../dashboard.php';</script>";
+        echo "<script>alert('Local adicionado com sucesso!'); window.location.href = '../dashboard';</script>";
         exit();
 
     } elseif ($tipoRecurso == 'servico' && !empty($_POST['duracao']) && !empty($_POST['categoria'])) {
         $duracao = $_POST['duracao'];
         $categoria = $_POST['categoria'];
         $resultado = $servico->criarServico($nome, $descricao, $preco, $regiao, $id_fornecedor, $duracao, $categoria);
-        echo "<script>alert('Local adicionado com sucesso!'); window.location.href = '../dashboard.php';</script>";
+        echo "<script>alert('Local adicionado com sucesso!'); window.location.href = '../dashboard';</script>";
         exit();
         
     } else {

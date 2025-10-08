@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['id']) || $_SESSION['tipo'] !== 'admin') {
-    header('Location: ../login.php');
+if (!isset($_SESSION['id']) || $_SESSION['tipo_usuario'] !== 'admin') {
+    header('Location: ../login');
     exit();
 }
 include '../classes/adm.php';
@@ -19,5 +19,5 @@ if (!empty($_POST['id'])) {
 }
 
 if ($resultado === TRUE) {
-    echo "<script>alert('Alteração realizada com sucesso!'); window.location.href = '../dashboard.php';</script>";
+    echo "<script>alert('Alteração realizada com sucesso!'); window.location.href = '../dashboard';</script>";
 }
