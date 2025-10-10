@@ -66,6 +66,8 @@ if (!isset($_SESSION['id'])) {
                 <button class="tab-button active" onclick="showTab('recursos')">Recursos</button>
                 <?php if ($tipo === 'admin'): ?>
                     <button class="tab-button" onclick="showTab('usuarios')">Usuários</button>
+                <?php elseif ($tipo === 'fornecedor'): ?>
+                    <button class="tab-button" onclick="window.location.href='agenda'">Calendário</button>
                 <?php endif; ?>
                 <a href="actions/logout.php">Sair</a>
             </div>

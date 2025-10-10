@@ -1,0 +1,243 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    /* background-color: #e7cee0; */
+    overflow-x: hidden;
+    height: 100%;
+    /* garante altura total */
+    margin: 0;
+    /* remove margens */
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.menu {
+    align-items: center;
+    background-color: #521127;
+    color: #F1F1F1;
+    padding: 1vw 1.5vw;
+}
+
+.empresa {
+    font-weight: bold;
+    text-align: center;
+}
+
+.empresa img {
+    width: 50%;
+    margin-left: 0.5vw;
+}
+
+.empresa a {
+    display: inline-block;
+    transition: all 0.5s ease;
+}
+
+.empresa a:hover {
+    transform: scale(1.06);
+}
+
+.nav-links {
+    text-align: center;
+    padding: 2vw;
+}
+
+.nav-links a {
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #521127;
+    text-decoration: none;
+    font-size: 1.4vw;
+    display: inline-block;
+    transition: all 0.5s ease;
+    margin: 0 3vw;
+}
+
+.nav-links a:hover {
+    /* color: #F22929; */
+    transform: scale(1.06);
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    background-color: #521127;
+    color: #F1F1F1;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 40px;
+    font-size: 0.9em;
+}
+
+.button-conteiner {
+    display: flex;
+    justify-content: center;
+}
+
+.fc-button {
+    background-color: #521127;
+    border: 1px solid transparent;
+    border-radius: 0.25em;
+    display: inline-block;
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0.4em 0.65em !important;
+    text-align: center;
+    user-select: none;
+    vertical-align: middle;
+    color: #F1F1F1;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.fc-button:hover {
+    background-color: #410D1E;
+}
+
+/* --- ESTILO PERSONALIZADO FINAL "REDOMA" --- */
+
+#calendar {
+    padding: 10px 40px;
+}
+
+/* --- BARRA DE FERRAMENTAS (TÍTULO E BOTÕES) --- */
+.fc-toolbar-title {
+    color: #521127;
+    font-weight: bold;
+}
+
+.fc-button-primary {
+    background-color: #521127 !important;
+    border-color: #521127 !important;
+}
+
+.fc-button-primary:hover {
+    background-color: #410d1e !important;
+}
+
+.fc-button-primary:active,
+.fc-button-primary:focus {
+    background-color: #2f0915 !important;
+    border-color: #2f0915 !important;
+}
+
+/* --- CABEÇALHO DA SEMANA (DOM, SEG, TER...) --- */
+.fc-col-header-cell {
+    background-color: #521127;
+    padding: 10px 0;
+}
+
+.fc-col-header-cell-cushion {
+    color: white;
+    text-decoration: none;
+}
+
+/* --- VISÃO DE MÊS (DAYGRID) --- */
+.fc .fc-daygrid-day-frame {
+    /* Fundo de cada dia */
+    background-color: rgba(82, 17, 39, 0.08);
+}
+
+.fc-daygrid-day {
+    /* Linhas da grade */
+    border-color: rgba(82, 17, 39, 0.2) !important;
+}
+
+.fc .fc-daygrid-day-number {
+    /* Números dos dias */
+    color: #333;
+    font-weight: bold;
+}
+
+.fc-day-today .fc-daygrid-day-frame {
+    /* Fundo do dia de hoje */
+    background-color: rgba(82, 17, 39, 0.15) !important;
+}
+
+/* --- ESTILO GERAL DOS EVENTOS (CORRIGIDO) --- */
+/* Eventos na visão de Mês (DayGrid) */
+.fc-daygrid-event {
+    background-color: #521127;
+    color: white;
+    /* Define o texto como branco */
+    border: 1px solid #fff;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.fc-daygrid-event:hover {
+    background-color: #410d1e;
+}
+
+/* Bolinha na visão de mês */
+.fc-daygrid-event-dot {
+    border-color: white !important;
+}
+
+
+/* --- VISÃO DE SEMANA (TIMEGRID) --- */
+/* Estilo para os eventos na visão de Semana para manter a consistência */
+.fc-timegrid-event .fc-event-main {
+    background-color: #521127;
+    color: white;
+    padding: 4px;
+}
+
+
+/* --- VISÃO DE LISTA (LIST) --- */
+:root {
+    /* Cor do hover para a lista */
+    --fc-list-event-hover-bg-color: #410d1e;
+}
+
+.fc-list-event {
+    /* Fundo de cada linha de evento */
+    background-color: #521127 !important;
+    color: white;
+    /* Define o texto como branco */
+    border-radius: 4px;
+    margin-bottom: 5px !important;
+}
+
+.fc-list-event-dot {
+    /* Bolinha na lista */
+    border-color: white !important;
+}
+
+.fc-list-day-text {
+    /* Título do dia na lista (ex: "quarta-feira...") */
+    color: #521127;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.fc-list-day-cushion,
+.fc-list-table td {
+    /* Remove bordas internas da lista */
+    border: none !important;
+}
+
+/* Estilos para o conteúdo detalhado da lista (do nosso script) */
+.fc-list-event-custom-title {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.fc-list-event-custom-details {
+    color: #e0e0e0;
+    /* Branco mais suave para os detalhes */
+    font-size: 0.9em;
+    padding-top: 4px;
+}
+
+.fc-event {
+    cursor: pointer;
+}

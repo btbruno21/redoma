@@ -483,6 +483,10 @@
     font-size: 4vw;
     margin-bottom: 2vw;
   }
+
+  #calendar {
+    padding: 5px;
+  }
 }
 
 @media screen and (max-width: 480px) {
