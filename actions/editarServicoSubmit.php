@@ -15,7 +15,7 @@ if (!empty($_POST['id'])) {
     $nome = $_POST['nome'];
     $descricao = $_POST['descricao'];
     $preco = $_POST['preco'];
-    $regiao = $_POST['regiao'];
+    $regiao = $_POST['id_regiao'];
     $ativo = $_POST['ativo'];
     $duracao = $_POST['duracao'];
     $categoria = $_POST['categoria'];

@@ -7,18 +7,18 @@ class Recurso
     protected $nome;
     protected $descricao;
     protected $preco;
-    protected $regiao;
+    protected $id_regiao; // ALTERADO
     protected $ativo;
     protected $id_fornecedor;
 
     protected $con;
 
-    protected function __construct()
+    public function __construct()
     {
         $this->con = new Conexao();
     }
 
-    protected function criar($nome, $descricao, $preco, $regiao, $id_fornecedor, $con = null)
+    public function criar($nome, $descricao, $preco, $id_regiao, $id_fornecedor, $con = null) // ALTERADO
     {
         try {
             if (!$con) {
@@ -28,15 +28,16 @@ class Recurso
             $this->nome = $nome;
             $this->descricao = $descricao;
             $this->preco = $preco;
-            $this->regiao = $regiao;
+            $this->id_regiao = $id_regiao; // ALTERADO
             $this->id_fornecedor = $id_fornecedor;
 
-            $sql = $con->prepare("INSERT INTO recurso (nome, descricao, preco, regiao, ativo, id_fornecedor) VALUES (:nome, :descricao, :preco, :regiao, 1, :id_fornecedor)");
-            $sql->bindParam(":nome", $nome, PDO::PARAM_STR);
-            $sql->bindParam(":descricao", $descricao, PDO::PARAM_STR);
-            $sql->bindParam(":preco", $preco);
-            $sql->bindParam(":regiao", $regiao, PDO::PARAM_STR);
-            $sql->bindParam(":id_fornecedor", $id_fornecedor, PDO::PARAM_INT);
+            $sql = $con->prepare("INSERT INTO recurso (nome, descricao, preco, id_regiao, ativo, id_fornecedor) VALUES (:nome, :descricao, :preco, :id_regiao, 1, :id_fornecedor)"); // ALTERADO
+
+            $sql->bindParam(":nome", $this->nome, PDO::PARAM_STR);
+            $sql->bindParam(":descricao", $this->descricao, PDO::PARAM_STR);
+            $sql->bindParam(":preco", $this->preco);
+            $sql->bindParam(":id_regiao", $this->id_regiao, PDO::PARAM_INT); // ALTERADO
+            $sql->bindParam(":id_fornecedor", $this->id_fornecedor, PDO::PARAM_INT);
 
             $sql->execute();
 
@@ -46,7 +47,7 @@ class Recurso
         }
     }
 
-    public function editar($id, $nome, $descricao, $preco, $regiao, $ativo, $con = null)
+    public function editar($id, $nome, $descricao, $preco, $id_regiao, $ativo, $con = null) // ALTERADO
     {
         try {
             if (!$con) {
@@ -57,15 +58,16 @@ class Recurso
             $this->nome = $nome;
             $this->descricao = $descricao;
             $this->preco = $preco;
-            $this->regiao = $regiao;
+            $this->id_regiao = $id_regiao; // ALTERADO
             $this->ativo = $ativo;
 
-            $sql = $con->prepare("UPDATE recurso SET nome = :nome, descricao = :descricao, preco = :preco, regiao = :regiao, ativo = :ativo WHERE id = :id");
+            $sql = $con->prepare("UPDATE recurso SET nome = :nome, descricao = :descricao, preco = :preco, id_regiao = :id_regiao, ativo = :ativo WHERE id = :id"); // ALTERADO
+
             $sql->bindParam(":id", $this->id, PDO::PARAM_INT);
             $sql->bindParam(":nome", $this->nome, PDO::PARAM_STR);
             $sql->bindParam(":descricao", $this->descricao, PDO::PARAM_STR);
             $sql->bindParam(":preco", $this->preco);
-            $sql->bindParam(":regiao", $this->regiao, PDO::PARAM_STR);
+            $sql->bindParam(":id_regiao", $this->id_regiao, PDO::PARAM_INT); // ALTERADO
             $sql->bindParam(":ativo", $this->ativo, PDO::PARAM_BOOL);
 
             $sql->execute();
@@ -83,7 +85,8 @@ class Recurso
                 $con = $this->con->conectar();
             }
 
-            $sql = $con->prepare("SELECT * FROM recurso WHERE id = :id");
+            $sql = $con->prepare("SELECT r.*, reg.nome AS nome_regiao FROM recurso r LEFT JOIN regiao reg ON r.id_regiao = reg.id WHERE r.id = :id");
+
             $sql->bindParam(":id", $id, PDO::PARAM_INT);
             $sql->execute();
 

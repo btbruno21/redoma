@@ -22,33 +22,33 @@ if (!empty($_GET['id'])) {
 }
 ?>
 <main>
-<form method="POST" action="actions/editarAdminSubmit.php">
-    <div class="cadUser">
-        <h1>Editar Administrador</h1>
-        <div class="cad2">
-            <input type="hidden" name="id_user" value="<?php echo $_SESSION['id']; ?>" />
-            <input type="hidden" name="id" value="<?php echo $info['id']; ?>" />
-            <div class="input-container">
-                <input type="mail" name="email" value="<?php echo $info['email']; ?>" required>
-                <label for="email" class="input-label">Email</label>
+    <form method="POST" action="actions/editarAdminSubmit.php">
+        <div class="cadUser">
+            <h1>Editar Administrador</h1>
+            <div class="cad2">
+                <input type="hidden" name="id_user" value="<?php echo $_SESSION['id']; ?>" />
+                <input type="hidden" name="id" value="<?php echo $info['id']; ?>" />
+                <div class="input-container">
+                    <input type="mail" name="email" value="<?php echo $info['email']; ?>" required>
+                    <label for="email" class="input-label">Email</label>
+                </div>
+                <div class="input-container">
+                    <input type="text" name="nome" value="<?php echo $info['nome']; ?>" required>
+                    <label class="input-label">Nome</label>
+                </div>
+                <div class="checkbox-group">
+                    <label class="input-label">Permissões</label>
+                    <label>
+                        <input type="checkbox" name="permissoes[]" value="geral" <?php if (in_array("geral", $permissoes)) echo "checked"; ?>> Geral
+                    </label>
+                    <label>
+                        <input type="checkbox" name="permissoes[]" value="super" <?php if (in_array("super", $permissoes)) echo "checked"; ?>> Super
+                    </label>
+                </div>
             </div>
-            <div class="input-container">
-                <input type="text" name="nome" value="<?php echo $info['nome']; ?>" required>
-                <label class="input-label">Nome</label>
-            </div>
-            <div class="checkbox-group">
-                <label class="input-label">Permissões</label>
-                <label>
-                    <input type="checkbox" name="permissoes[]" value="geral" <?php if (in_array("geral", $permissoes)) echo "checked"; ?>> Geral
-                </label>
-                <label>
-                    <input type="checkbox" name="permissoes[]" value="super" <?php if (in_array("super", $permissoes)) echo "checked"; ?>> Super
-                </label>
-            </div>
+            <button type="submit">SALVAR</button>
         </div>
-        <button type="submit">SALVAR</button>
-    </div>
-</form>
+    </form>
 </main>
 
-<?php include 'inc/footer.php';?>
+<?php include 'inc/footer.php'; ?>

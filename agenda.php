@@ -1,6 +1,6 @@
 <?php include 'inc/header2.php';
 session_start();
-if (isset($_SESSION)) {
+if (!isset($_SESSION['id'])) {
     header('Location: login');
 }
 ?>

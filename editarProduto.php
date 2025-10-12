@@ -6,6 +6,11 @@ if (!isset($_SESSION['id']) || !in_array($_SESSION['tipo_usuario'], ['admin', 'f
 }
 include 'inc/header.php';
 include 'classes/produto.php';
+include 'classes/regiao.php';
+
+$regiao = new Regiao();
+$regioes = $regiao->listar();
+
 if (!empty($_GET['id'])) {
     $produto = new Produto();
     $id = base64_decode($_GET['id']);
@@ -45,8 +50,14 @@ if (!empty($_GET['id'])) {
                     <label for="preco" class="input-label">Preço</label>
                 </div>
                 <div class="input-container">
-                    <input type="text" name="regiao" id="regiao" value="<?php echo $info['regiao']; ?>" placeholder=" " required>
-                    <label for="regiao" class="input-label">Região</label>
+                    <select name="id_regiao" id="id_regiao" required>
+                        <option value="">Selecione uma região</option>
+                        <?php foreach ($regioes as $reg): ?>
+                            <option value="<?php echo htmlspecialchars($reg['id']); ?>" <?php if ($info['id_regiao'] == $reg['id']) echo 'selected'; ?>>
+                                <?php echo htmlspecialchars($reg['nome']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 <div class="input-container vertical-container">
                     <label class="toggle-label">Status</label>

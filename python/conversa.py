@@ -30,7 +30,7 @@ evento = cursor.fetchone()
 
 # 2. Buscar recursos disponíveis
 cursor.execute("""
-SELECT r.id, r.nome, r.descricao, r.preco,
+SELECT r.id, r.nome, r.descricao, r.preco, r.regiao,
        CASE
            WHEN s.id_recurso IS NOT NULL THEN 'servico'
            WHEN p.id_recurso IS NOT NULL THEN 'produto'

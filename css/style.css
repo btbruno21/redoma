@@ -269,6 +269,67 @@ footer {
   font-size: 0.9em;
 }
 
+.checkbox-container {
+  width: 100%; /* Ocupa toda a largura do container pai */
+  display: flex;
+  align-items: center;
+  margin-top: 20px; /* Espaço abaixo do checkbox */
+  cursor: pointer;
+}
+
+/* Esconde o checkbox padrão do navegador */
+.checkbox-container input[type="checkbox"] {
+  display: none;
+}
+
+/* Cria a aparência do nosso checkbox personalizado (a caixinha) */
+.checkbox-container label::before {
+  content: ''; /* Essencial para pseudo-elementos */
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #F1C8DD;
+  border-radius: 5px;
+  background-color: #F1F1F1;
+  margin-right: 15px; /* Espaço entre a caixinha e o texto */
+  transition: all 0.2s ease;
+  vertical-align: middle; /* Alinha a caixinha com o texto */
+}
+
+/* Muda a cor da caixinha quando o checkbox real está marcado */
+.checkbox-container input[type="checkbox"]:checked + label::before {
+  background-color: #F1C8DD;
+  border-color: #000;
+}
+
+/* Cria o "check" (o símbolo de visto) usando um pseudo-elemento */
+.checkbox-container label::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 8px; /* Posição horizontal do visto dentro da caixinha */
+  width: 6px;
+  height: 12px;
+  border: solid #521127; /* Cor do visto */
+  border-width: 0 3px 3px 0;
+  transform: translateY(-70%) rotate(45deg);
+  opacity: 0; /* Escondido por padrão */
+  transition: opacity 0.2s ease;
+}
+
+/* Mostra o "check" quando o checkbox real está marcado */
+.checkbox-container input[type="checkbox"]:checked + label::after {
+  opacity: 1;
+}
+
+/* Estilo para o texto do label do checkbox */
+.checkbox-container label {
+  color: #FFFFFF;
+  font-size: 1.2vw;
+  position: relative; /* Necessário para posicionar o "check" */
+}
+
 #dados-pessoais .orcamento {
   width: 70%;
 }
@@ -282,6 +343,14 @@ footer {
   margin: 0 auto;
   /* centraliza a div no meio da página */
   padding: 2vw;
+}
+
+#dados-novos {
+  width: 100%;
+}
+
+#dados-cadastrados {
+  width: 100%;
 }
 
 .input-container {
@@ -306,6 +375,22 @@ footer {
 }
 
 .input-container input:focus {
+  border-color: #333;
+}
+
+.input-container select {
+  width: 100%;
+  padding: 0.8vw;
+  border: 2px solid #000;
+  border-radius: 20px;
+  outline: none;
+  font-size: 1vw;
+  background-color: #F1F1F1;
+  transition: border-color 0.2s ease;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.input-container select:focus {
   border-color: #333;
 }
 
@@ -424,7 +509,14 @@ section {
 section h1 {
   text-align: center;
   color: #FFFFFF;
-  font-size: 3.2vw;
+  font-size: 3vw;
+}
+
+section h2 {
+  text-align: center;
+  color: #FFFFFF;
+  font-size: 2.4vw;
+  margin-top: 1vw;
 }
 
 section p {
@@ -578,9 +670,12 @@ button:active {
   margin-top: 1vw;
   width: 100%;
   height: auto;
-  padding: 0.5vw;
-  border: 1px solid #000;
+  padding: 0.8vw;
+  border: 2px solid #000;
+  border-radius: 20px;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+  background-color: #F1F1F1;
+  font-size: 1vw;
 }
 
 .borda {
@@ -902,18 +997,6 @@ button:active {
 
 .cad2 .input-container {
   margin-top: 2.5vw;
-}
-
-.input-container select {
-  width: auto;
-  padding: 0.8vw;
-  border: 2px solid #000;
-  border-radius: 10px;
-  outline: none;
-  font-size: 1vw;
-  background-color: #F1F1F1;
-  transition: border-color 0.2s ease;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .dashboard {

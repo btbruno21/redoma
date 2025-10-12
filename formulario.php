@@ -1,4 +1,12 @@
-<?php include 'inc/header.php'; ?>
+<?php
+include 'inc/header.php';
+include 'classes/regiao.php';
+include 'classes/local.php';
+$regiao = new Regiao();
+$regioes = $regiao->listar();
+$local = new Local();
+$locais = $local->listar();
+?>
 <main>
     <form method="POST" action="actions/formularioSubmit.php">
         <section id="nivel-planejamento" class="ativa">
@@ -25,23 +33,38 @@
         <section id="dados-pessoais">
             <div class="orcamento">
                 <h1>Dados Cadastrais</h1>
-                <div class="input-container">
-                    <input type="text" id="nome" name="nome" placeholder=" " required>
-                    <label for="nome" class="input-label">Nome Completo</label>
+
+                <div class="checkbox-container">
+                    <input type="checkbox" id="usar-dados-cadastrados" name="usar_dados_cadastrados" onclick="toggleDadosCadastrados()">
+                    <label for="usar-dados-cadastrados">Usar dados já cadastrados</label>
                 </div>
-                <div class="input-container">
-                    <input type="text" id="telefone" name="telefone" placeholder=" " required>
-                    <label for="telefone" class="input-label">Whatsapp</label>
+
+                <div id="dados-novos">
+                    <div class="input-container">
+                        <input type="text" id="nome" name="nome" placeholder=" " required>
+                        <label for="nome" class="input-label">Nome Completo</label>
+                    </div>
+                    <div class="input-container">
+                        <input type="text" id="telefone" name="telefone" placeholder=" " required>
+                        <label for="telefone" class="input-label">Whatsapp</label>
+                    </div>
+                    <div class="input-container">
+                        <input type="email" id="email" name="email" placeholder=" " required>
+                        <label for="email" class="input-label">Email</label>
+                    </div>
                 </div>
-                <div class="input-container">
-                    <input type="mail" id="email" name="email" placeholder=" " required>
-                    <label for="email" class="input-label">Email</label>
+
+                <div id="dados-cadastrados" style="display:none;">
+                    <div class="input-container">
+                        <input type="text" id="cpf" name="cpf" placeholder=" ">
+                        <label for="cpf" class="input-label">Digite seu CPF</label>
+                    </div>
                 </div>
+
 
                 <nav class="button">
                     <button type="button" onclick="mostrar('nivel-planejamento')">Anterior</button>
                     <button type="button" onclick="mostrar('tipo-evento')">Próximo</button>
-                    <!-- <button type="submit">Enviar Teste</button> -->
                 </nav>
             </div>
         </section>
@@ -50,7 +73,6 @@
             <div class="orcamento">
                 <h1>Tipo de Evento</h1>
                 <div class="opcoes-botoes">
-                    <!-- Radios principais -->
                     <input type="radio" id="op1" name="tipo_evento" value="sociais" data-target="campos-sociais">
                     <label for="op1">Eventos Sociais</label>
 
@@ -58,7 +80,6 @@
                     <label for="op2">Eventos Corporativos</label>
                 </div>
 
-                <!-- Radios filhos de Sociais -->
                 <div id="campos-sociais" class="campos-extra" style="display:none;">
                     <input type="radio" id="soc1" name="evento-social" value="Casamento">
                     <label for="soc1">Casamento</label>
@@ -70,7 +91,6 @@
                     <label for="soc3">Formatura</label>
                 </div>
 
-                <!-- Radios filhos de Corporativos -->
                 <div id="campos-corporativos" class="campos-extra" style="display:none;">
                     <input type="radio" id="corp1" name="evento-corporativo" value="Treinamento">
                     <label for="corp1">Treinamento</label>
@@ -103,17 +123,24 @@
                         <input type="date" id="data-final" name="data2">
                     </div>
                 </div>
-                <div class="input-container">
-                    <input type="text" id="local" name="local" placeholder="" list="locais" required>
-                    <label for="local" class="input-label">Local do Evento</label>
-                    <datalist id="locais">
-                        <option value="Salão de Festas A"></option>
-                        <option value="Buffet B"></option>
-                        <option value="Hotel C"></option>
-                        <option value="Espaço D"></option>
-                    </datalist>
-                </div>
 
+                <div class="orcamento2">
+                    <div class="input-container">
+                        <select name="id_regiao" id="id_regiao" required>
+                            <option value="">Selecione uma região</option>
+                            <?php foreach ($regioes as $reg) : ?>
+                                <option value="<?php echo htmlspecialchars($reg['id']); ?>">
+                                    <?php echo htmlspecialchars($reg['nome']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="input-container">
+                        <select name="local" id="local" required disabled>
+                            <option value="">Primeiro, selecione uma região</option>
+                        </select>
+                    </div>
+                </div>
                 <nav class="button">
                     <button type="button" onclick="mostrar('tipo-evento')">Anterior</button>
                     <button type="button" onclick="mostrar('orcamento')">Próximo</button>
@@ -124,7 +151,6 @@
         <section id="orcamento">
             <div class="orcamento">
                 <h1>Orçamento</h1>
-                <!-- <label for="preco">Preço:</label> -->
                 <div class="range-container">
                     <input type="range" id="min" name="preco-min" min="0" max="49999" value="5000" oninput="updatePreco()">
                     <input type="range" id="max" name="preco-max" min="1" max="50000" value="40000" oninput="updatePreco()">
@@ -144,20 +170,6 @@
             <div class="orcamento2">
                 <nav class="button">
                     <button type="button" onclick="mostrar('data-local')">Anterior</button>
-                    <button type="button" onclick="mostrar('quantidade')">Próximo</button>
-                </nav>
-            </div>
-        </section>
-
-        <section id="quantidade">
-            <div class="orcamento">
-                <h1>Quantidade de Pessoas</h1>
-                <div class="input-container">
-                    <input type="number" id="qnt" name="qnt_pessoas" placeholder=" " required>
-                    <label for="qnt" class="input-label">Quantidade de pessoas</label>
-                </div>
-                <nav class="button">
-                    <button type="button" onclick="mostrar('orcamento')">Anterior</button>
                     <button type="button" onclick="mostrar('observacoes')">Próximo</button>
                 </nav>
             </div>
@@ -165,10 +177,15 @@
 
         <section id="observacoes">
             <div class="orcamento">
-                <h1>Observações</h1>
-                <textarea name="observacoes" rows="8" cols="40"></textarea>
+                <h2>Quantidade de Pessoas</h2>
+                <div class="input-container">
+                    <input type="number" id="qnt" name="qnt_pessoas" placeholder=" " required>
+                    <label for="qnt" class="input-label">Quantidade de pessoas</label>
+                </div>
+                <h2>Observações</h2>
+                <textarea name="observacoes" rows="8" cols="40" placeholder="Escreva aqui suas observações"></textarea>
                 <nav class="button">
-                    <button type="button" onclick="mostrar('quantidade')">Anterior</button>
+                    <button type="button" onclick="mostrar('orcamento')">Anterior</button>
                     <button type="submit">Finalizar</button>
                 </nav>
             </div>
@@ -176,11 +193,14 @@
     </form>
 </main>
 
+<script src="js/dadosCliente.js"></script>
+<script src="js/cpf.js"></script>
 <script src="js/menu.js"></script>
 <script src="js/pages.js"></script>
 <script src="https://unpkg.com/imask"></script>
 <script src="js/telefone.js"></script>
 <script src="js/radio.js"></script>
 <script src="js/price.js"></script>
+<script src="js/buscarLocais.js"></script>
 
 <?php include 'inc/footer.php'; ?>

@@ -13,12 +13,12 @@ $local = new Local();
 $servico = new Servico();
 
 $tipoRecurso = $_POST['tipoRecurso'];
-if (!empty($_POST['nome']) && !empty($_POST['descricao']) && !empty($_POST['preco']) && !empty($_POST['regiao'])) {
+if (!empty($_POST['nome']) && !empty($_POST['descricao']) && !empty($_POST['preco']) && !empty($_POST['id_regiao'])) {
     $nome = $_POST['nome'];
     $descricao = $_POST['descricao'];
     $preco = str_replace(['.', ','], ['', '.'], $_POST['preco']);
     $preco = floatval($preco);
-    $regiao = $_POST['regiao'];
+    $regiao = $_POST['id_regiao'];
     $id_fornecedor = $_POST['id_fornecedor'];
 
     if ($tipoRecurso == 'produto' && !empty($_POST['tipo']) && !empty($_POST['quantidade'])) {

@@ -11,13 +11,13 @@ class Local extends Recurso
         parent::__construct();
     }
 
-    public function criarLocal($nome, $descricao, $preco, $regiao, $id_fornecedor, $endereco, $capacidade)
+    public function criarLocal($nome, $descricao, $preco, $id_regiao, $id_fornecedor, $endereco, $capacidade) // ALTERADO
     {
         try {
             $con = $this->con->conectar();
             $con->beginTransaction();
 
-            $this->id = parent::criar($nome, $descricao, $preco, $regiao, $id_fornecedor);
+            $this->id = parent::criar($nome, $descricao, $preco, $id_regiao, $id_fornecedor, $con); // ALTERADO
 
             $this->endereco = $endereco;
             $this->capacidade = $capacidade;
@@ -38,14 +38,27 @@ class Local extends Recurso
 
     public function listar()
     {
-        $sql = $this->con->conectar()->prepare("SELECT r.id, r.nome, r.descricao, r.preco, r.regiao, r.ativo, l.endereco, l.capacidade, r.id_fornecedor FROM recurso r INNER JOIN local l ON r.id = l.id_recurso");
+        // A query agora inclui o LEFT JOIN com a tabela regiao
+        $sql = $this->con->conectar()->prepare("
+        SELECT r.id, r.nome, r.descricao, r.preco, reg.nome AS nome_regiao, r.ativo, l.endereco, l.capacidade, r.id_fornecedor 
+        FROM recurso r 
+        INNER JOIN local l ON r.id = l.id_recurso
+        LEFT JOIN regiao reg ON r.id_regiao = reg.id
+    ");
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function listarPorFornecedor($id_fornecedor)
     {
-        $sql = $this->con->conectar()->prepare("SELECT r.id, r.nome, r.descricao, r.preco, r.regiao, r.ativo, l.endereco, l.capacidade, r.id_fornecedor FROM recurso r INNER JOIN local l ON r.id = l.id_recurso WHERE r.id_fornecedor = :id_fornecedor");
+        // A query agora inclui o LEFT JOIN com a tabela regiao
+        $sql = $this->con->conectar()->prepare("
+        SELECT r.id, r.nome, r.descricao, r.preco, reg.nome AS nome_regiao, r.ativo, l.endereco, l.capacidade, r.id_fornecedor 
+        FROM recurso r 
+        INNER JOIN local l ON r.id = l.id_recurso 
+        LEFT JOIN regiao reg ON r.id_regiao = reg.id
+        WHERE r.id_fornecedor = :id_fornecedor
+    ");
         $sql->bindParam(":id_fornecedor", $id_fornecedor, PDO::PARAM_INT);
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -70,16 +83,14 @@ class Local extends Recurso
         }
     }
 
-    public function editarLocal($id, $nome, $descricao, $preco, $regiao, $ativo, $endereco, $capacidade)
+    public function editarLocal($id, $nome, $descricao, $preco, $id_regiao, $ativo, $endereco, $capacidade) // ALTERADO
     {
         try {
             $con = $this->con->conectar();
             $con->beginTransaction();
 
-            // Atualiza a tabela recurso
-            parent::editar($id, $nome, $descricao, $preco, $regiao, $ativo);
+            parent::editar($id, $nome, $descricao, $preco, $id_regiao, $ativo, $con); // ALTERADO
 
-            // Atualiza a tabela local
             $sql2 = $con->prepare("UPDATE local SET endereco = :endereco, capacidade = :capacidade WHERE id_recurso = :id_recurso");
             $sql2->bindParam(":endereco", $endereco, PDO::PARAM_STR);
             $sql2->bindParam(":capacidade", $capacidade, PDO::PARAM_INT);
@@ -94,29 +105,47 @@ class Local extends Recurso
         }
     }
 
-    public function excluir($id){
-
+    public function excluir($id)
+    {
         $produto = $this->buscarLocal($id);
         if (empty($produto)) {
             return false;
         }
         try {
+            $con = $this->con->conectar();
+            $con->beginTransaction();
 
-            $this->con->conectar()->beginTransaction();
-
-            $sqlS = $this->con->conectar()->prepare("DELETE FROM local WHERE id_recurso = :id");
+            $sqlS = $con->prepare("DELETE FROM local WHERE id_recurso = :id");
             $sqlS->bindParam(":id", $id, PDO::PARAM_INT);
             $sqlS->execute();
 
-            $sqlR = $this->con->conectar()->prepare("DELETE FROM recurso WHERE id = :id");
+            $sqlR = $con->prepare("DELETE FROM recurso WHERE id = :id");
             $sqlR->bindParam(":id", $id, PDO::PARAM_INT);
             $sqlR->execute();
 
-            $this->con->conectar()->commit();
+            $con->commit();
             return true;
         } catch (PDOException $ex) {
-            $this->con->conectar()->rollback();
+            $con->rollback();
             return 'ERRO: ' . $ex->getMessage();
+        }
+    }
+
+    public function listarPorRegiao($id_regiao)
+    {
+        try {
+            $sql = $this->con->conectar()->prepare("
+                SELECT r.id, r.nome 
+                FROM recurso r 
+                INNER JOIN local l ON r.id = l.id_recurso 
+                WHERE r.id_regiao = :id_regiao AND r.ativo = 1
+                ORDER BY r.nome ASC
+            ");
+            $sql->bindParam(":id_regiao", $id_regiao, PDO::PARAM_INT);
+            $sql->execute();
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $ex) {
+            return [];
         }
     }
 }

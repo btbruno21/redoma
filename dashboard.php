@@ -7,10 +7,12 @@ include 'classes/funcoes.php';
 include 'classes/produto.php';
 include 'classes/local.php';
 include 'classes/servico.php';
+include 'classes/regiao.php';
 
 $usuario = new Usuario();
 $fornecedor = new Fornecedor();
 $adm = new Admin();
+$regiao = new Regiao();
 
 $funcoes = new Funcoes();
 
@@ -38,6 +40,7 @@ if (!isset($_SESSION['id'])) {
             $listaLocal = $local->listar();
             $listaServ = $servico->listar();
             $listaForn = $fornecedor->listar();
+            $listaRegioes = $regiao->listar();
             $name = $info['nome'];
             $permissoes = $info['permissoes'];
         }
@@ -65,7 +68,7 @@ if (!isset($_SESSION['id'])) {
             <div class="tabs">
                 <button class="tab-button active" onclick="showTab('recursos')">Recursos</button>
                 <?php if ($tipo === 'admin'): ?>
-                    <button class="tab-button" onclick="showTab('usuarios')">Usuários</button>
+                    <button class="tab-button" onclick="showTab('gerenciar')">Gerenciar</button>
                 <?php elseif ($tipo === 'fornecedor'): ?>
                     <button class="tab-button" onclick="window.location.href='agenda'">Calendário</button>
                 <?php endif; ?>
@@ -100,7 +103,7 @@ if (!isset($_SESSION['id'])) {
                                     <td><?php echo $item['nome']; ?></td>
                                     <td><?php echo $item['descricao']; ?></td>
                                     <td><?php echo $item['preco']; ?></td>
-                                    <td><?php echo $item['regiao']; ?></td>
+                                    <td><?php echo $item['nome_regiao']; ?></td>
                                     <td><?php echo $item['tipo']; ?></td>
                                     <td><?php echo $item['quantidade']; ?></td>
                                     <?php if ($tipo === 'admin'): ?>
@@ -145,7 +148,7 @@ if (!isset($_SESSION['id'])) {
                                     <td><?php echo $item['nome']; ?></td>
                                     <td><?php echo $item['descricao']; ?></td>
                                     <td><?php echo $item['preco']; ?></td>
-                                    <td><?php echo $item['regiao']; ?></td>
+                                    <td><?php echo $item['nome_regiao']; ?></td>
                                     <td><?php echo $item['endereco']; ?></td>
                                     <td><?php echo $item['capacidade']; ?></td>
                                     <?php if ($tipo === 'admin'): ?>
@@ -190,7 +193,7 @@ if (!isset($_SESSION['id'])) {
                                     <td><?php echo $item['nome']; ?></td>
                                     <td><?php echo $item['descricao']; ?></td>
                                     <td><?php echo $item['preco']; ?></td>
-                                    <td><?php echo $item['regiao']; ?></td>
+                                    <td><?php echo $item['nome_regiao']; ?></td>
                                     <td><?php echo $item['duracao']; ?></td>
                                     <td><?php echo $item['categoria']; ?></td>
                                     <?php if ($tipo === 'admin'): ?>
@@ -210,8 +213,36 @@ if (!isset($_SESSION['id'])) {
             </div>
 
             <?php if ($tipo === 'admin'): ?>
-                <!-- Aba de Usuários -->
-                <div id="usuarios" class="tab-content">
+                <div id="gerenciar" class="tab-content">
+                    <div class="button-dashboard">
+                        <a href="adicionarRegiao" class="btn-add-new">Adicionar Nova Região</a>
+                    </div>
+                    <div class="table">
+                        <h1 class="titulo">Regiões</h1>
+                        <table class="tabela">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>NOME</th>
+                                    <th>AÇÕES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($listaRegioes as $item): ?>
+                                    <tr>
+                                        <td><?php echo $item['id']; ?></td>
+                                        <td><?php echo htmlspecialchars($item['nome']); ?></td>
+                                        <td class="acoes">
+                                            <a href="editarRegiao?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
+                                            <!-- |
+                                            <a href="actions/excluirRegiaoSubmit.php?id=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Atenção! Excluir uma região pode afetar recursos e eventos associados. Deseja continuar?')">EXCLUIR</a> -->
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Aba de Usuários -->
                     <!-- Tabela de Fornecedores -->
                     <div class="table">
                         <h1 class="titulo">Fornecedores</h1>

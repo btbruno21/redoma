@@ -1,10 +1,14 @@
-<?php 
+<?php
 session_start();
 if (!isset($_SESSION['id']) || $_SESSION['tipo_usuario'] !== 'fornecedor') {
     header('Location: login.php');
     exit();
 }
 include 'inc/header.php';
+include 'classes/regiao.php';
+
+$regiao = new Regiao();
+$regioes = $regiao->listar();
 ?>
 <main>
     <form method="POST" action="actions/adicionarRecursoSubmit.php">
@@ -32,10 +36,16 @@ include 'inc/header.php';
                     <label for="preco" class="input-label">Preço</label>
                 </div>
                 <div class="input-container">
-                    <input type="text" name="regiao" placeholder=" " required>
-                    <label for="regiao" class="input-label">Região</label>
+                    <select name="id_regiao" id="id_regiao" required>
+                        <option value="">Selecione uma região</option>
+                        <?php foreach ($regioes as $reg): ?>
+                            <option value="<?php echo htmlspecialchars($reg['id']); ?>">
+                                <?php echo htmlspecialchars($reg['nome']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
-
+                
                 <div id="camposServico" style="display: none;">
                     <div class="input-container">
                         <input type="text" name="duracao" placeholder=" ">

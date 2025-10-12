@@ -11,13 +11,13 @@ class Produto extends Recurso
         parent::__construct();
     }
 
-    public function criarProduto($nome, $descricao, $preco, $regiao, $id_fornecedor, $tipo, $quantidade)
+    public function criarProduto($nome, $descricao, $preco, $id_regiao, $id_fornecedor, $tipo, $quantidade) // ALTERADO
     {
         try {
             $con = $this->con->conectar();
             $con->beginTransaction();
 
-            $this->id = parent::criar($nome, $descricao, $preco, $regiao, $id_fornecedor);
+            $this->id = parent::criar($nome, $descricao, $preco, $id_regiao, $id_fornecedor, $con); // ALTERADO
 
             $this->tipo = $tipo;
             $this->quantidade = $quantidade;
@@ -36,16 +36,29 @@ class Produto extends Recurso
         }
     }
 
+    // ... dentro da classe Produto ...
+
     public function listar()
     {
-        $sql = $this->con->conectar()->prepare("SELECT r.id, r.nome, r.descricao, r.preco, r.regiao, r.ativo, p.tipo, p.quantidade, r.id_fornecedor FROM recurso r INNER JOIN produto p ON r.id = p.id_recurso");
+        $sql = $this->con->conectar()->prepare("
+        SELECT r.id, r.nome, r.descricao, r.preco, reg.nome AS nome_regiao, r.ativo, p.tipo, p.quantidade, r.id_fornecedor 
+        FROM recurso r 
+        INNER JOIN produto p ON r.id = p.id_recurso
+        LEFT JOIN regiao reg ON r.id_regiao = reg.id
+    ");
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function listarPorFornecedor($id_fornecedor)
     {
-        $sql = $this->con->conectar()->prepare("SELECT r.id, r.nome, r.descricao, r.preco, r.regiao, r.ativo, p.tipo, p.quantidade, r.id_fornecedor FROM recurso r INNER JOIN produto p ON r.id = p.id_recurso WHERE r.id_fornecedor = :id_fornecedor");
+        $sql = $this->con->conectar()->prepare("
+        SELECT r.id, r.nome, r.descricao, r.preco, reg.nome AS nome_regiao, r.ativo, p.tipo, p.quantidade, r.id_fornecedor 
+        FROM recurso r 
+        INNER JOIN produto p ON r.id = p.id_recurso 
+        LEFT JOIN regiao reg ON r.id_regiao = reg.id
+        WHERE r.id_fornecedor = :id_fornecedor
+    ");
         $sql->bindParam(":id_fornecedor", $id_fornecedor, PDO::PARAM_INT);
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -70,13 +83,13 @@ class Produto extends Recurso
         }
     }
 
-    public function editarProduto($id, $nome, $descricao, $preco, $regiao, $ativo, $tipo, $quantidade)
+    public function editarProduto($id, $nome, $descricao, $preco, $id_regiao, $ativo, $tipo, $quantidade) // ALTERADO
     {
         try {
             $con = $this->con->conectar();
             $con->beginTransaction();
 
-            $this->id = parent::editar($id, $nome, $descricao, $preco, $regiao, $ativo);
+            parent::editar($id, $nome, $descricao, $preco, $id_regiao, $ativo, $con); // ALTERADO
 
             $this->tipo = $tipo;
             $this->quantidade = $quantidade;
@@ -84,7 +97,7 @@ class Produto extends Recurso
             $sql2 = $con->prepare("UPDATE produto SET tipo = :tipo, quantidade = :quantidade WHERE id_recurso = :id_recurso");
             $sql2->bindParam(":tipo", $this->tipo, PDO::PARAM_STR);
             $sql2->bindParam(":quantidade", $this->quantidade, PDO::PARAM_STR);
-            $sql2->bindParam(":id_recurso", $this->id, PDO::PARAM_INT);
+            $sql2->bindParam(":id_recurso", $id, PDO::PARAM_INT);
             $sql2->execute();
 
             $con->commit();
@@ -95,28 +108,28 @@ class Produto extends Recurso
         }
     }
 
-
-    public function excluir($id){
-
+    public function excluir($id)
+    {
         $produto = $this->buscarProduto($id);
         if (empty($produto)) {
             return false;
         }
         try {
-            $this->con->conectar()->beginTransaction();
+            $con = $this->con->conectar();
+            $con->beginTransaction();
 
-            $sqlS = $this->con->conectar()->prepare("DELETE FROM produto WHERE id_recurso = :id");
+            $sqlS = $con->prepare("DELETE FROM produto WHERE id_recurso = :id");
             $sqlS->bindParam(":id", $id, PDO::PARAM_INT);
             $sqlS->execute();
 
-            $sqlR = $this->con->conectar()->prepare("DELETE FROM recurso WHERE id = :id");
+            $sqlR = $con->prepare("DELETE FROM recurso WHERE id = :id");
             $sqlR->bindParam(":id", $id, PDO::PARAM_INT);
             $sqlR->execute();
 
-            $this->con->conectar()->commit();
+            $con->commit();
             return true;
         } catch (PDOException $ex) {
-            $this->con->conectar()->rollback();
+            $con->rollback();
             return 'ERRO: ' . $ex->getMessage();
         }
     }
