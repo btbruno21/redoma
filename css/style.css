@@ -378,8 +378,11 @@ footer {
   border-color: #333;
 }
 
-.input-container select {
+.orcamento2 select{
   width: 100%;
+}
+
+.input-container select {
   padding: 0.8vw;
   border: 2px solid #000;
   border-radius: 20px;
@@ -625,31 +628,32 @@ button:active {
 
 /* Container dos radios filhos */
 .campos-extra {
+  height: auto;
   display: flex;
   justify-content: center;
   /* centraliza os filhos dentro */
   gap: 1vw;
   flex-wrap: wrap;
-  margin: 1.5vw auto 0;
+  margin: 1vw 0 0;
   /* centraliza a própria div */
   border-top: 2px solid #fff;
-  width: fit-content;
+  /* width: fit-content; */
   /* ocupa só o espaço necessário */
 }
 
 /* Botões filhos (labels) */
 .campos-extra label {
   display: inline-block;
-  padding: 0.6vw 1.5vw;
+  padding: 0.9vw 1.8vw;
   /* um pouco menor que os principais */
   margin: 0.4vw;
   border: 2px solid #000;
-  border-radius: 40px;
+  border-radius: 2vw;
   cursor: pointer;
-  background-color: #F9F9F9;
+  background-color: #f1f1f1;
   transition: all 0.2s ease;
   box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.25);
-  font-size: 0.9vw;
+  font-size: 1vw;
   /* levemente menor */
   margin-top: 1.5vw;
 }

@@ -92,11 +92,11 @@ $locais = $local->listar();
                 </div>
 
                 <div id="campos-corporativos" class="campos-extra" style="display:none;">
-                    <input type="radio" id="corp1" name="evento-corporativo" value="Treinamento">
-                    <label for="corp1">Treinamento</label>
-
                     <input type="radio" id="corp2" name="evento-corporativo" value="Palestra">
                     <label for="corp2">Palestra</label>
+
+                    <input type="radio" id="corp1" name="evento-corporativo" value="Treinamento">
+                    <label for="corp1">Treinamento</label>
 
                     <input type="radio" id="corp3" name="evento-corporativo" value="Reunião">
                     <label for="corp3">Reunião</label>

@@ -58,9 +58,9 @@ if (!isset($_SESSION['id'])) {
             <!-- Botão de cadastro -->
             <div class="button-dashboard">
                 <?php if ($tipo === 'admin'): ?>
-                    <a href="cadastroUser.php">Cadastro de Usuários</a>
+                    <a href="cadastroUser">Cadastro de Usuários</a>
                 <?php else: ?>
-                    <a href="adicionarRecursos.php">Cadastro de Recursos</a>
+                    <a href="adicionarRecursos">Cadastro de Recursos</a>
                 <?php endif; ?>
             </div>
 
@@ -72,7 +72,7 @@ if (!isset($_SESSION['id'])) {
                 <?php elseif ($tipo === 'fornecedor'): ?>
                     <button class="tab-button" onclick="window.location.href='agenda'">Calendário</button>
                 <?php endif; ?>
-                <a href="actions/logout.php">Sair</a>
+                <a href="actions/logout">Sair</a>
             </div>
 
             <!-- Aba de Recursos -->
@@ -111,9 +111,9 @@ if (!isset($_SESSION['id'])) {
                                     <?php endif; ?>
                                     <td><?php echo ($item['ativo'] == 1) ? 'Ativo' : 'Inativo'; ?></td>
                                     <td class="acoes">
-                                        <a href="editarProduto.php?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
+                                        <a href="editarProduto?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
                                         |
-                                        <a href="actions/excluirProduto.php?id_serv=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse produto?')">EXCLUIR</a>
+                                        <a href="actions/excluirProduto?id_serv=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse produto?')">EXCLUIR</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -156,9 +156,9 @@ if (!isset($_SESSION['id'])) {
                                     <?php endif; ?>
                                     <td><?php echo ($item['ativo'] == 1) ? 'Ativo' : 'Inativo'; ?></td>
                                     <td class="acoes">
-                                        <a href="editarLocal.php?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
+                                        <a href="editarLocal?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
                                         |
-                                        <a href="actions/excluirLocal.php?id_serv=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse local?')">EXCLUIR</a>
+                                        <a href="actions/excluirLocal?id_serv=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse local?')">EXCLUIR</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -201,9 +201,9 @@ if (!isset($_SESSION['id'])) {
                                     <?php endif; ?>
                                     <td><?php echo ($item['ativo'] == 1) ? 'Ativo' : 'Inativo'; ?></td>
                                     <td class="acoes">
-                                        <a href="editarServico.php?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
+                                        <a href="editarServico?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
                                         |
-                                        <a href="actions/excluirServico.php?id_serv=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse serviço?')">EXCLUIR</a>
+                                        <a href="actions/excluirServico?id_serv=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse serviço?')">EXCLUIR</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -235,7 +235,7 @@ if (!isset($_SESSION['id'])) {
                                         <td class="acoes">
                                             <a href="editarRegiao?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
                                             <!-- |
-                                            <a href="actions/excluirRegiaoSubmit.php?id=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Atenção! Excluir uma região pode afetar recursos e eventos associados. Deseja continuar?')">EXCLUIR</a> -->
+                                            <a href="actions/excluirRegiaoSubmit?id=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Atenção! Excluir uma região pode afetar recursos e eventos associados. Deseja continuar?')">EXCLUIR</a> -->
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -268,9 +268,9 @@ if (!isset($_SESSION['id'])) {
                                         <td><?php echo $funcoes->formatarTelefone($item['telefone']); ?></td>
                                         <td><?php echo $item['email']; ?></td>
                                         <td class="acoes">
-                                            <a href="editarFornecedor.php?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
+                                            <a href="editarFornecedor?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
                                             |
-                                            <a href="actions/excluirFornecedor.php?id=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
+                                            <a href="actions/excluirFornecedor?id=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -303,10 +303,10 @@ if (!isset($_SESSION['id'])) {
                                             <td><?php echo implode(', ', $item['permissoes']); ?></td>
                                             <td><?php echo $item['email']; ?></td>
                                             <td class="acoes">
-                                                <a href="editarAdmin.php?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
+                                                <a href="editarAdmin?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
                                                 <?php if (!in_array("super", $item['permissoes'])): ?>
                                                     |
-                                                    <a href="actions/excluirAdmin.php?id=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
+                                                    <a href="actions/excluirAdmin?id=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
