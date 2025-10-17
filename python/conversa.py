@@ -3,7 +3,7 @@ import google.generativeai as genai
 import re
 
 # Configurar Gemini
-genai.configure(api_key="AIzaSyBLfK5mjajyfactwntCenqegZ6oYfPCVxA") 
+genai.configure(api_key="-") 
 model = genai.GenerativeModel("gemini-2.5-flash")
 
 # Conectar ao MySQL

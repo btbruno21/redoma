@@ -2,7 +2,7 @@ import mysql.connector
 import google.generativeai as genai
 
 
-genai.configure(api_key="AIzaSyBLfK5mjajyfactwntCenqegZ6oYfPCVxA")
+genai.configure(api_key="-")
 model = genai.GenerativeModel("gemini-2.5-flash")
 
 conn = mysql.connector.connect(
