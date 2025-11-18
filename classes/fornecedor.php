@@ -141,4 +141,15 @@ class Fornecedor extends Usuario
             return 'ERRO: ' . $ex->getMessage();
         }
     }
+
+    public function getNome($id)
+    {
+        $fornecedor = $this->buscar($id);
+
+        if (!empty($fornecedor)) {
+            return $fornecedor['nome_fantasia'];
+        }
+
+        return null;
+    }
 }

@@ -25,7 +25,7 @@ if (!empty($_POST['nome']) && !empty($_POST['descricao']) && !empty($_POST['prec
         $tipo = $_POST['tipo'];
         $quantidade = $_POST['quantidade'];
         $resultado = $produto->criarProduto($nome, $descricao, $preco, $regiao, $id_fornecedor, $tipo, $quantidade);
-        echo "<script>alert('Local adicionado com sucesso!'); window.location.href = '../dashboard';</script>";
+        echo "<script>alert('Produto adicionado com sucesso!'); window.location.href = '../dashboard';</script>";
         exit();
 
     } elseif ($tipoRecurso == 'local' && !empty($_POST['endereco']) && !empty($_POST['capacidade'])) {
@@ -39,7 +39,7 @@ if (!empty($_POST['nome']) && !empty($_POST['descricao']) && !empty($_POST['prec
         $duracao = $_POST['duracao'];
         $categoria = $_POST['categoria'];
         $resultado = $servico->criarServico($nome, $descricao, $preco, $regiao, $id_fornecedor, $duracao, $categoria);
-        echo "<script>alert('Local adicionado com sucesso!'); window.location.href = '../dashboard';</script>";
+        echo "<script>alert('Serviço adicionado com sucesso!'); window.location.href = '../dashboard';</script>";
         exit();
         
     } else {
