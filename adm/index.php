@@ -4,7 +4,6 @@ if ($_SESSION['tipo_usuario'] != 'admin'){
     header('Location: ../dashboard.php');
     exit();
 }
-include 'inc/header.php';
 include 'classes/usuario.php';
 include 'classes/fornecedor.php';
 include 'classes/adm.php';
@@ -52,49 +51,11 @@ if (!isset($_SESSION['id'])) {
         header('Location: /redoma/login');
     }
 }
+
+include 'inc/header.php'
 ?>
-<!DOCTYPE html>
-<html lang="pt-br" data-bs-theme="dark">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-
-    <!-- Bootstrap LOCAL -->
-    <link rel="stylesheet" href="css/bootstrap.css">
-
-    <style>
-        body {
-            background-color: #121212;
-        }
-
-        .card {
-            background-color: #1e1e1e;
-            border-color: #2c2c2c;
-        }
-
-        .nav-tabs .nav-link {
-            color: #ccc;
-        }
-
-        .nav-tabs .nav-link.active {
-            background-color: #2c2c2c;
-            color: white;
-            border-color: #2c2c2c;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-    </style>
-</head>
-<body>
 <div class="container mt-4">
-    <h1 class="mb-4">Bem-vindo <?php echo $name; ?></h1>
+    <h1 class="mb-4">Bem-vindo <b><?php echo $name; ?></b></h1>
     <div class="mb-3">
         <a href="cadastroUser" class="btn btn-primary">
             Cadastro de Usuários
@@ -146,10 +107,10 @@ if (!isset($_SESSION['id'])) {
                         <?php foreach ($listaProd as $item): ?>
                             <tr>
                                 <td><?php echo $item['id']; ?></td>
-                                <td><?php echo $item['nome']; ?></td>
+                                <td class="text-nowrap"><?php echo $item['nome']; ?></td>
                                 <td><?php echo $item['descricao']; ?></td>
                                 <td><?php echo $item['preco']; ?></td>
-                                <td><?php echo $item['nome_regiao'] ?? 'Sem região definida'; ?></td>
+                                <td class="text-nowrap"><?php echo $item['nome_regiao'] ?? 'Sem região definida'; ?></td>
                                 <td><?php echo $item['tipo']; ?></td>
                                 <td><?php echo $item['quantidade']; ?></td>
                                 <td><?php echo $fornecedor->getNome($item['id_fornecedor']); ?></td>
@@ -188,10 +149,10 @@ if (!isset($_SESSION['id'])) {
                         <?php foreach ($listaLocal as $item): ?>
                             <tr>
                                 <td><?php echo $item['id']; ?></td>
-                                <td><?php echo $item['nome']; ?></td>
+                                <td class="text-nowrap"><?php echo $item['nome']; ?></td>
                                 <td><?php echo $item['descricao']; ?></td>
                                 <td><?php echo $item['preco']; ?></td>
-                                <td><?php echo $item['nome_regiao'] ?? 'Sem região definida'; ?></td>
+                                <td class="text-nowrap"><?php echo $item['nome_regiao'] ?? 'Sem região definida'; ?></td>
                                 <td><?php echo $item['endereco']; ?></td>
                                 <td><?php echo $item['capacidade']; ?></td>
                                 <td><?php echo $fornecedor->getNome($item['id_fornecedor']); ?></td>
@@ -230,10 +191,10 @@ if (!isset($_SESSION['id'])) {
                         <?php foreach ($listaServ as $item): ?>
                             <tr>
                                 <td><?php echo $item['id']; ?></td>
-                                <td><?php echo $item['nome']; ?></td>
+                                <td class="text-nowrap"><?php echo $item['nome']; ?></td>
                                 <td><?php echo $item['descricao']; ?></td>
                                 <td><?php echo $item['preco']; ?></td>
-                                <td><?php echo $item['nome_regiao'] ?? 'Sem região definida'; ?></td>
+                                <td class="text-nowrap"><?php echo $item['nome_regiao'] ?? 'Sem região definida'; ?></td>
                                 <td><?php echo $item['duracao']; ?></td>
                                 <td><?php echo $item['categoria']; ?></td>
                                 <td><?php echo $fornecedor->getNome($item['id_fornecedor']); ?></td>
