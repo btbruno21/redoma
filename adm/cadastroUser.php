@@ -67,8 +67,9 @@ include 'inc/header.php';
                         </div>
                     </div>
                 </div>
-
-                <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary d-block mx-auto">Cadastrar</button>
+                </div>
             </form>
         </div>
     </div>

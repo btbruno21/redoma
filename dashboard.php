@@ -67,8 +67,8 @@ if (!isset($_SESSION['id'])) {
             <!-- Sistema de Abas -->
             <div class="tabs">
                 <button class="tab-button active" onclick="showTab('recursos')">Recursos</button>
-                <?php if ($tipo === 'admin'): ?>
-                    <button class="tab-button" onclick="showTab('gerenciar')">Gerenciar</button>
+                <!-- <?php if ($tipo === 'admin'): ?>
+                    <button class="tab-button" onclick="showTab('gerenciar')">Gerenciar</button> -->
                 <?php elseif ($tipo === 'fornecedor'): ?>
                     <button class="tab-button" onclick="window.location.href='agenda'">Calendário</button>
                 <?php endif; ?>
@@ -212,111 +212,7 @@ if (!isset($_SESSION['id'])) {
                 </div>
             </div>
 
-            <?php if ($tipo === 'admin'): ?>
-                <div id="gerenciar" class="tab-content">
-                    <div class="button-dashboard">
-                        <a href="adicionarRegiao" class="btn-add-new">Adicionar Nova Região</a>
-                    </div>
-                    <div class="table">
-                        <h1 class="titulo">Regiões</h1>
-                        <table class="tabela">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>NOME</th>
-                                    <th>AÇÕES</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($listaRegioes as $item): ?>
-                                    <tr>
-                                        <td><?php echo $item['id']; ?></td>
-                                        <td><?php echo htmlspecialchars($item['nome']); ?></td>
-                                        <td class="acoes">
-                                            <a href="editarRegiao?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
-                                            <!-- |
-                                            <a href="actions/excluirRegiaoSubmit?id=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Atenção! Excluir uma região pode afetar recursos e eventos associados. Deseja continuar?')">EXCLUIR</a> -->
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- Aba de Usuários -->
-                    <!-- Tabela de Fornecedores -->
-                    <div class="table">
-                        <h1 class="titulo">Fornecedores</h1>
-                        <table class="tabela">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>CNPJ</th>
-                                    <th>NOME FANTASIA</th>
-                                    <th>TELEFONE</th>
-                                    <th>EMAIL</th>
-                                    <th>AÇÕES</th>
-                                </tr>
-                            </thead>
-                            <?php
-                            foreach ($listaForn as $item):
-                            ?>
-                                <tbody>
-                                    <tr>
-                                        <td><?php echo $item['id']; ?></td>
-                                        <td><?php echo $funcoes->formatarCNPJ($item['cnpj']); ?></td>
-                                        <td><?php echo $item['nome_fantasia']; ?></td>
-                                        <td><?php echo $funcoes->formatarTelefone($item['telefone']); ?></td>
-                                        <td><?php echo $item['email']; ?></td>
-                                        <td class="acoes">
-                                            <a href="editarFornecedor?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
-                                            |
-                                            <a href="actions/excluirFornecedor?id=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            <?php endforeach; ?>
-                        </table>
-                    </div>
-
-                    <?php if (in_array("super", $permissoes)): ?>
-                        <!-- Tabela de Administradores -->
-                        <div class="table">
-                            <h1 class="titulo">Administradores</h1>
-                            <table class="tabela">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>NOME</th>
-                                        <th>PERMISSÕES</th>
-                                        <th>EMAIL</th>
-                                        <th>AÇÕES</th>
-                                    </tr>
-                                </thead>
-                                <?php
-                                $listaAdm = $adm->listar();
-                                foreach ($listaAdm as $item):
-                                ?>
-                                    <tbody>
-                                        <tr>
-                                            <td><?php echo $item['id']; ?></td>
-                                            <td><?php echo $item['nome']; ?></td>
-                                            <td><?php echo implode(', ', $item['permissoes']); ?></td>
-                                            <td><?php echo $item['email']; ?></td>
-                                            <td class="acoes">
-                                                <a href="editarAdmin?id=<?php echo base64_encode($item['id']) ?>">EDITAR</a>
-                                                <?php if (!in_array("super", $item['permissoes'])): ?>
-                                                    |
-                                                    <a href="actions/excluirAdmin?id=<?php echo base64_encode($item['id']) ?>" onclick="return confirm('Você tem certeza que quer excluir esse contato?')">EXCLUIR</a>
-                                                <?php endif; ?>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                <?php endforeach; ?>
-                            </table>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            <?php endif; ?>
+            <!-- trecho transferido daqui -->
         <?php endif; ?>
     </div>
 </main>

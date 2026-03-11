@@ -57,9 +57,10 @@ include 'inc/header.php'
 <div class="container mt-4">
     <h1 class="mb-4">Bem-vindo <b><?php echo $name; ?></b></h1>
     <div class="mb-3">
-        <a href="cadastroUser" class="btn btn-primary">
-            Cadastro de Usuários
-        </a>
+        <div class="d-flex gap-3" style="width: fit-content;">
+        <a href="cadastroUser" class="btn btn-primary">Cadastro de Usuários</a>
+        <a class="btn btn-primary" href="adicionarRecursos">Cadastro de Recursos</a>
+    </div>
         <a href="actions/logout" class="btn btn-danger float-end">
             Sair
         </a>
@@ -83,7 +84,6 @@ include 'inc/header.php'
 
         <!-- TAB: RECURSOS -->
         <div class="tab-content active" id="recursos">
-
             <!-- PRODUTOS -->
             <div class="card mb-4">
                 <div class="card-body">
@@ -109,7 +109,7 @@ include 'inc/header.php'
                                 <td><?php echo $item['id']; ?></td>
                                 <td class="text-nowrap"><?php echo $item['nome']; ?></td>
                                 <td><?php echo $item['descricao']; ?></td>
-                                <td><?php echo $item['preco']; ?></td>
+                                <td><?php echo 'R$'.$item['preco']; ?></td>
                                 <td class="text-nowrap"><?php echo $item['nome_regiao'] ?? 'Sem região definida'; ?></td>
                                 <td><?php echo $item['tipo']; ?></td>
                                 <td><?php echo $item['quantidade']; ?></td>
@@ -151,7 +151,7 @@ include 'inc/header.php'
                                 <td><?php echo $item['id']; ?></td>
                                 <td class="text-nowrap"><?php echo $item['nome']; ?></td>
                                 <td><?php echo $item['descricao']; ?></td>
-                                <td><?php echo $item['preco']; ?></td>
+                                <td><?php echo 'R$'.$item['preco']; ?></td>
                                 <td class="text-nowrap"><?php echo $item['nome_regiao'] ?? 'Sem região definida'; ?></td>
                                 <td><?php echo $item['endereco']; ?></td>
                                 <td><?php echo $item['capacidade']; ?></td>
@@ -193,7 +193,7 @@ include 'inc/header.php'
                                 <td><?php echo $item['id']; ?></td>
                                 <td class="text-nowrap"><?php echo $item['nome']; ?></td>
                                 <td><?php echo $item['descricao']; ?></td>
-                                <td><?php echo $item['preco']; ?></td>
+                                <td><?php echo 'R$'.$item['preco']; ?></td>
                                 <td class="text-nowrap"><?php echo $item['nome_regiao'] ?? 'Sem região definida'; ?></td>
                                 <td><?php echo $item['duracao']; ?></td>
                                 <td><?php echo $item['categoria']; ?></td>
@@ -217,8 +217,11 @@ include 'inc/header.php'
 
             <!-- REGIÕES -->
             <div class="card mb-4">
+                <div class="mt-3 ms-3 text-left">
+                    <a href="adicionarRegiao.php" class="btn btn-primary">Adicionar Nova Região</a>
+                </div>
                 <div class="card-body">
-                    <h4 class="mb-3">Regiões</h4>
+                    <h4 class="mb-2">Regiões</h4>
                     <table class="table table-dark table-striped table-bordered">
                         <thead>
                             <tr>

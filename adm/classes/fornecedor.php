@@ -152,4 +152,15 @@ class Fornecedor extends Usuario
 
         return null;
     }
+
+    public function listarNome()
+    {
+        try {
+            $sql = $this->con->conectar()->prepare("SELECT id_usuario, nome_fantasia FROM fornecedor");
+            $sql->execute();
+            return $sql->fetchAll();
+        } catch (PDOException $ex) {
+            echo 'ERRO: ' . $ex->getMessage();
+        }
+    }
 }
