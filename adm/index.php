@@ -195,7 +195,7 @@ include 'inc/header.php'
                                 <td><?php echo $item['descricao']; ?></td>
                                 <td><?php echo 'R$'.$item['preco']; ?></td>
                                 <td class="text-nowrap"><?php echo $item['nome_regiao'] ?? 'Sem região definida'; ?></td>
-                                <td><?php echo $item['duracao']; ?></td>
+                                <td class="text-nowrap"><?php $horas = intdiv($item['duracao'], 60); $minutos = $item['duracao'] % 60; if ($horas > 0) {echo $horas . ' horas'; if ($minutos > 0) {echo ' ' . $minutos . 'min';}} else {echo $minutos . ' min';}?></td>
                                 <td><?php echo $item['categoria']; ?></td>
                                 <td><?php echo $fornecedor->getNome($item['id_fornecedor']); ?></td>
                                 <td><?php echo ($item['ativo'] == 1) ? 'Ativo' : 'Inativo'; ?></td>

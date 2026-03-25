@@ -20,7 +20,6 @@ $listFornecedores = $fornecedores->listarNome();
     <div class="card" style="background-color:#1e1e1e; border-color:#2c2c2c; width:100%; max-width:650px;">
         <div class="card-body">
             <form method="POST" action="actions/adicionarRecursoSubmit.php">
-                <input type="hidden" name="id_admin" value="<?php echo $_SESSION['id']; ?>">
 
                 <div class="mb-3">
                     <select id="fornecedor" name="fornecedor" class="form-select" required>
