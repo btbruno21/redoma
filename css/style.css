@@ -688,6 +688,7 @@ button:active {
   display: block;
   /* remove espaço extra */
   margin-left: -0.5vw;
+  margin-top: -1px;
 }
 
 .estrela1 {

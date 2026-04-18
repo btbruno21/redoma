@@ -2,6 +2,50 @@
 .hamburger {
   display: none;
 }
+@media screen and (max-width: 1024px){
+  .borda {
+    width: 102%;
+    display: block;
+    margin-left: -1vw;
+    margin-top: -1px;
+  }
+
+  .nav-links a{
+    font-size: 2vw;
+  }
+
+  .topicos h4{
+    font-size: 1.6vw;
+  }
+
+  .topicos p{
+    font-size: 1.3vw;
+  }
+
+  .match h3{
+    font-size: 1.9vw;
+  }
+
+  .match p {
+    font-size: 1.5vw;
+  }
+
+  .onde h3{
+    font-size: 1.6vw;
+  }
+
+  .onde p{
+    font-size: 1.5vw;
+  }
+
+  .duvidas h3{
+    font-size: 1.7vw;
+  }
+
+  .duvidas p{
+    font-size: 1.5vw;
+  }
+}
 
 /* CSS RESPONSIVO PARA CELULAR - REDOMA */
 @media screen and (max-width: 768px) {
