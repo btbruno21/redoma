@@ -270,11 +270,12 @@ footer {
 }
 
 .checkbox-container {
-  width: 100%; /* Ocupa toda a largura do container pai */
+  width: 50%; /* Ocupa toda a largura do container pai */
   display: flex;
   align-items: center;
   margin-top: 20px; /* Espaço abaixo do checkbox */
   cursor: pointer;
+  margin-right: 50%;
 }
 
 /* Esconde o checkbox padrão do navegador */
@@ -356,7 +357,7 @@ footer {
 .input-container {
   position: relative;
   display: inline-block;
-  margin-top: 2vw;
+  margin-top: 2.3vw;
   display: flex;
   gap: 2vw;
   width: 100%;
@@ -376,6 +377,14 @@ footer {
 
 .input-container input:focus {
   border-color: #333;
+}
+
+.input-container2 {
+  width: 100%;
+}
+
+.input-container2 textarea:focus {
+    outline: none;
 }
 
 .orcamento2 select{
@@ -676,7 +685,7 @@ button:active {
   height: auto;
   padding: 0.8vw;
   border: 2px solid #000;
-  border-radius: 20px;
+  border-radius: 4px;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
   background-color: #F1F1F1;
   font-size: 1vw;

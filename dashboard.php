@@ -55,21 +55,15 @@ if (!isset($_SESSION['id'])) {
 
         <?php if ($tipo === 'admin' || $tipo === 'fornecedor'): ?>
 
-            <!-- Botão de cadastro -->
-            <div class="button-dashboard">
-                <?php if ($tipo === 'admin'): ?>
-                    <a href="cadastroUser">Cadastro de Usuários</a>
-                <?php else: ?>
-                    <a href="adicionarRecursos">Cadastro de Recursos</a>
-                <?php endif; ?>
-            </div>
+            <?php if ($tipo === 'fornecedor'): ?>
+                <div class="button-dashboard">
+                        <a href="adicionarRecursos">Cadastro de Recursos</a>
+                </div>
+            <?php endif; ?>
 
-            <!-- Sistema de Abas -->
             <div class="tabs">
                 <button class="tab-button active" onclick="showTab('recursos')">Recursos</button>
-                <!-- <?php if ($tipo === 'admin'): ?>
-                    <button class="tab-button" onclick="showTab('gerenciar')">Gerenciar</button> -->
-                <?php elseif ($tipo === 'fornecedor'): ?>
+                <?php if ($tipo === 'fornecedor'): ?>
                     <button class="tab-button" onclick="window.location.href='agenda'">Calendário</button>
                 <?php endif; ?>
                 <a href="actions/logout">Sair</a>
@@ -107,7 +101,7 @@ if (!isset($_SESSION['id'])) {
                                     <td><?php echo $item['tipo']; ?></td>
                                     <td><?php echo $item['quantidade']; ?></td>
                                     <?php if ($tipo === 'admin'): ?>
-                                        <td><?php echo $item['id_fornecedor']; ?></td>
+                                        <td><?php echo $fornecedor->getNome($item['id_fornecedor']); ?></td>
                                     <?php endif; ?>
                                     <td><?php echo ($item['ativo'] == 1) ? 'Ativo' : 'Inativo'; ?></td>
                                     <td class="acoes">
@@ -152,7 +146,7 @@ if (!isset($_SESSION['id'])) {
                                     <td><?php echo $item['endereco']; ?></td>
                                     <td><?php echo $item['capacidade']; ?></td>
                                     <?php if ($tipo === 'admin'): ?>
-                                        <td><?php echo $item['id_fornecedor']; ?></td>
+                                        <td><?php echo $fornecedor->getNome($item['id_fornecedor']); ?></td>
                                     <?php endif; ?>
                                     <td><?php echo ($item['ativo'] == 1) ? 'Ativo' : 'Inativo'; ?></td>
                                     <td class="acoes">
@@ -194,10 +188,10 @@ if (!isset($_SESSION['id'])) {
                                     <td><?php echo $item['descricao']; ?></td>
                                     <td><?php echo $item['preco']; ?></td>
                                     <td><?php echo $item['nome_regiao']; ?></td>
-                                    <td><?php echo $item['duracao']; ?></td>
+                                    <td><?php $horas = intdiv($item['duracao'], 60); $minutos = $item['duracao'] % 60; if ($horas > 0) {echo $horas . ' horas'; if ($minutos > 0) {echo ' ' . $minutos . 'min';}} else {echo $minutos . ' min';}?></td>
                                     <td><?php echo $item['categoria']; ?></td>
                                     <?php if ($tipo === 'admin'): ?>
-                                        <td><?php echo $item['id_fornecedor']; ?></td>
+                                        <td><?php echo $fornecedor->getNome($item['id_fornecedor']); ?></td>
                                     <?php endif; ?>
                                     <td><?php echo ($item['ativo'] == 1) ? 'Ativo' : 'Inativo'; ?></td>
                                     <td class="acoes">

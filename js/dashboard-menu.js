@@ -1,19 +1,20 @@
-function showTab(tabName) {
+function showTab(event, tabName) {
+
     // Esconder todas as abas
     const tabContents = document.querySelectorAll('.tab-content');
     tabContents.forEach(tab => {
         tab.classList.remove('active');
     });
 
-    // Remover classe active de todos os botões
+    // Remover active dos botões
     const tabButtons = document.querySelectorAll('.tab-button');
     tabButtons.forEach(button => {
         button.classList.remove('active');
     });
 
-    // Mostrar a aba selecionada
+    // Mostrar aba selecionada
     document.getElementById(tabName).classList.add('active');
 
-    // Ativar o botão correspondente
+    // Ativar botão clicado
     event.target.classList.add('active');
 }

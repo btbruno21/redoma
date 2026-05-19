@@ -183,7 +183,9 @@ $locais = $local->listar();
                     <label for="qnt" class="input-label">Quantidade de pessoas</label>
                 </div>
                 <h2>Observações</h2>
-                <textarea name="observacoes" rows="8" cols="40" placeholder="Escreva aqui suas observações"></textarea>
+                <div class="input-container2">
+                    <textarea name="observacoes" rows="8" cols="40" placeholder="Escreva aqui suas observações"></textarea>
+                </div>
                 <nav class="button">
                     <button type="button" onclick="mostrar('orcamento')">Anterior</button>
                     <button type="submit">Finalizar</button>
