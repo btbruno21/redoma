@@ -50,6 +50,51 @@
 /* CSS RESPONSIVO PARA CELULAR - REDOMA */
 @media screen and (max-width: 768px) {
   /* Header e Menu */
+  .login2{
+    display: flex;
+    align-items: center; /* centraliza verticalmente */
+  }
+
+  .login {
+    margin-inline: 2%;
+    padding: 5vw 0;
+  }
+
+  .login h1 {
+    font-size: 8vw;
+  }
+
+  .login .input-container{
+    width: 90%;
+    margin-top: 10%;
+  }
+
+  .login .input-container input{
+    padding: 4vw;
+    font-size: 4vw;
+  }
+
+  .login a{
+    margin-top: 10%;
+  }
+
+  .login button{
+    margin-top: 2%;
+    font-size: 4vw;
+    padding: 3vw 4vw;
+    border-radius: 10px;
+  }
+
+  .login img{
+    width: 6%;
+  }
+
+  .login .input-container input:focus+.input-label,
+  .login .input-container input:not(:placeholder-shown)+.input-label {
+    top: -3.5vw;
+    left: 3vw;
+    font-size: 4.5vw;
+  }
 
   .borda {
     width: 101% !important;

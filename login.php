@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-<main>
+<main class="login2">
     <form method="POST">
         <div class="login">
             <h1>Login</h1>
