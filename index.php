@@ -94,7 +94,7 @@
     <p><b>Com a Redoma, você não precisa procurar:</b> já filtramos para você o que há de melhor no mercado, garantindo que cada detalhe do seu evento seja impecável.</p>
     <img src="img/Eventos Vetor.svg">
   </div>
-  <img src="img/Borda Vinho.svg" class="borda">
+  <img src="img/Borda Vinho.svg" class="borda2">
 
   <!-- matchmaker -->
   <div class="match">

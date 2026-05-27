@@ -700,6 +700,15 @@ button:active {
   margin-top: -1px;
 }
 
+.borda2 {
+  width: 102%;
+  /* sempre igual à largura da tela */
+  display: block;
+  /* remove espaço extra */
+  margin-left: -1vw;
+  margin-top: -1px;
+}
+
 .estrela1 {
   position: absolute;
   width: 10%;
