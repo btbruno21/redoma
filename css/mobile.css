@@ -50,7 +50,7 @@
 /* CSS RESPONSIVO PARA CELULAR - REDOMA */
 @media screen and (max-width: 768px) {
   /* Header e Menu */
-  .login2{
+  .centraliza{
     display: flex;
     align-items: center; /* centraliza verticalmente */
   }
@@ -277,7 +277,7 @@
 
   /* Footer */
   footer {
-    margin-top: 8vw;
+    margin-top: 0;
     padding: 4vw 2vw;
     font-size: 3.5vw;
   }
@@ -410,6 +410,10 @@
     width: 100%;
   }
 
+  #dados-pessoais .orcamento{
+    width: 100%;
+  }
+
   /* Campos de input */
   .input-container {
     flex-direction: column;
@@ -420,14 +424,14 @@
 
   .input-container input {
     width: 100%;
-    padding: 3.5vw;
-    font-size: 4vw;
+    font-size: 3.5vw;
+    padding: 3vw 4vw;
     border-radius: 40px;
   }
 
   .input-label {
     left: 4vw;
-    font-size: 4vw;
+    font-size: 3.5vw;
     padding: 1vw;
   }
 
@@ -577,6 +581,17 @@
   #calendar {
     padding: 5px;
   }
+
+  .checkbox-container{
+    width: 80%;
+    margin-right: 20%;
+  }
+
+  .checkbox-container label {
+    color: #FFFFFF;
+    font-size: 4vw;
+    position: relative;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -662,19 +677,11 @@
     margin-top: 8vw;
   }
 
-  .input-container input {
-    padding: 4vw;
-    font-size: 4.5vw;
-  }
-
-  .input-label {
-    font-size: 4.5vw;
-  }
-
   .input-container input:focus+.input-label,
   .input-container input:not(:placeholder-shown)+.input-label {
     font-size: 4vw;
-    top: -2vw;
+    top: -2.5vw;
+    left: -0.5vw;
   }
 
   #data-local input[type="date"] {
@@ -692,13 +699,13 @@
   }
 
   .opcoes-botoes label {
-    font-size: 4.2vw;
-    padding: 4vw 6vw;
+    font-size: 3.5vw;
+    padding: 3vw 4vw;
   }
 
   button {
-    font-size: 4.5vw;
-    padding: 4vw 7vw;
+    padding: 3vw 6vw;
+    font-size: 4vw;
   }
 
   .onde h1 {
@@ -726,13 +733,17 @@
   .duvidas p {
     font-size: 4.5vw;
   }
+
+  #tipo-evento .opcoes-botoes label{
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 360px) {
   /* Ajustes para telas extra pequenas */
 
   .borda {
-    width: 101% !important;
+    width: 102% !important;
     margin-left: -0.5vw !important;
   }
 

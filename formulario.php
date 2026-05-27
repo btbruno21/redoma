@@ -7,7 +7,7 @@ $regioes = $regiao->listar();
 $local = new Local();
 $locais = $local->listar();
 ?>
-<main>
+<main class="centraliza">
     <form method="POST" action="actions/formularioSubmit.php">
         <section id="nivel-planejamento" class="ativa">
             <div class="orcamento">
