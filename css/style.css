@@ -623,7 +623,7 @@ button:active {
 }
 
 #tipo-evento .opcoes-botoes label {
-  width: 14vw;
+  /* width: 14vw; */
   text-align: center;
 }
 
