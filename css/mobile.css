@@ -426,8 +426,28 @@
     width: 100%;
   }
 
+  .orcamento h2{
+    font-size: 6vw;
+  }
+
+  #observacoes .input-container{
+    margin-top: 2vw;
+  }
+
+  .orcamento .input-container input{
+    font-size: 3vw;
+  }
+
+  .orcamento .input-label{
+    font-size: 3vw;
+  }
+
   #dados-pessoais .orcamento{
     width: 100%;
+  }
+
+  #observacoes textarea{
+    font-size: 3vw;
   }
 
   /* Campos de input */
@@ -721,10 +741,10 @@
     font-size: 4.2vw;
   }
 
-  .container input {
+  /* .container input {
     font-size: 4.2vw;
     padding: 3.5vw;
-  }
+  } */
 
   .opcoes-botoes label {
     font-size: 3.5vw;
@@ -859,35 +879,35 @@
   }
 
   .input-container input {
-    padding: 5vw;
-    font-size: 5vw;
+    font-size: 4vw;
+    padding: 3.5vw 4vw;
   }
 
   .input-label {
-    font-size: 5vw;
+    font-size: 4vw;
   }
 
-  #data-local input[type="date"] {
+  /* #data-local input[type="date"] {
     font-size: 5vw;
-  }
+  } */
 
   .container label {
     font-size: 5vw;
   }
 
-  .container input {
+  /* .container input {
     font-size: 5vw;
     padding: 4.5vw;
-  }
+  } */
 
   .opcoes-botoes label {
-    font-size: 5vw;
-    padding: 5vw 7vw;
+    font-size: 4vw;
+    padding: 3.5vw 4vw;
   }
 
   button {
-    font-size: 5vw;
-    padding: 5vw 8vw;
+    font-size: 4.5vw;
+    padding: 4vw 6vw;
   }
 
   .onde h1 {

@@ -3,19 +3,19 @@
   <div class="banner">
 
     <div class="carousel-slide active">
-      <img src="img/12.png" alt="">
+      <img src="img/12.webp" alt="">
     </div>
 
     <div class="carousel-slide">
-      <img src="img/13.png" alt="">
+      <img src="img/13.webp" alt="">
     </div>
 
     <div class="carousel-slide">
-      <img src="img/14.png" alt="">
+      <img src="img/14.webp" alt="">
     </div>
 
     <div class="carousel-slide">
-      <img src="img/15.png" alt="">
+      <img src="img/15.webp" alt="">
     </div>
 
     <!-- Indicadores -->
@@ -37,12 +37,12 @@
 
     <div class="servico-imagens">
       <div class="card-servico">
-        <img src="img/Eventos 1.png" alt="Evento social">
+        <img src="img/Eventos 1.webp" alt="Evento social">
         <h1>Eventos Sociais</h1>
         <h3>Aniversários, batizados, casamentos</h3>
       </div>
       <div class="card-servico">
-        <img src="img/Eventos 2.png" alt="Evento corporativo">
+        <img src="img/Eventos 2.webp" alt="Evento corporativo">
         <h1>Eventos Corporativos</h1>
         <h3>Confraternizações, inaugurações, workshops</h3>
       </div>
@@ -116,7 +116,7 @@
       <p>Nosso atendimento é estruturado de forma regional, garantindo que cada evento seja planejado com profissionais próximos de você, que conhecem bem sua cidade e oferecem soluções sob medida para o seu caso.</p>
     </div>
     <div class="column">
-      <img src="img/mapa.png">
+      <img src="img/mapa.webp">
     </div>
   </div>
   <img src="img/Borda Preta.svg" class="borda">
