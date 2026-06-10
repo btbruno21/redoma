@@ -10,8 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.13/index.global.min.js'></script>
   <title>Redoma</title>
-  <link rel="stylesheet" href="css/agenda.css" />
-  <link rel="stylesheet" href="css/mobile.css" />
+  <link rel="stylesheet" href="css/agenda.css"/>
+  <link rel="stylesheet" href="css/mobile.css?v=2"/>
 </head>
 <body>
   <header class="menu">

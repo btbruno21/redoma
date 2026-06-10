@@ -205,10 +205,9 @@ if (!isset($_SESSION['id'])) {
                     </table>
                 </div>
             </div>
-
-            <!-- trecho transferido daqui -->
         <?php endif; ?>
     </div>
 </main>
 <script src="js/dashboard-menu.js"></script>
+<script src="js/dashboard.js"></script>
 <?php include 'inc/footer.php'; ?>

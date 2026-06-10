@@ -32,6 +32,7 @@ else {
         $id = $cliente->adicionarCliente($nome, $telefone, $email);
     }
 }
+
 if (
     $id &&
     !empty($_POST['nivel_planejamento']) &&
@@ -43,7 +44,7 @@ if (
     !empty($_POST['data1']) &&
     !empty($_POST['data2']) &&
     !empty($_POST['id_regiao']) &&
-    !empty($_POST['local']) &&
+    //!empty($_POST['local']) &&
     isset($_POST['preco-min']) &&
     isset($_POST['preco-max']) &&
     !empty($_POST['qnt_pessoas'])
@@ -60,7 +61,7 @@ if (
     $data1 = $_POST['data1'];
     $data2 = $_POST['data2'];
     $id_regiao = $_POST['id_regiao'];
-    $local = $_POST['local'];
+    $local = $_POST['local'] ?? null;
 
     if ($local === 'outro_local') {
         $local = NULL;
@@ -75,7 +76,7 @@ if (
 
     $evento->criarEvento($nivel_planejamento, $tipo_evento, $data1, $data2, $local, $orcamento, $qnt_pessoas, $observacoes, $id, $id_regiao);
 
-    echo "<script>alert('✅ Orçamento solicitado com sucesso!'); window.location.href = '/redoma';</script>";
+    echo "<script>alert('✅ Orçamento solicitado com sucesso!'); window.location.href = '/';</script>";
 } else {
     echo "<script>alert('⚠ Por favor, preencha todos os campos obrigatórios!'); window.history.back();</script>";
 }

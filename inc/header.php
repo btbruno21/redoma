@@ -10,7 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
   <title>Redoma</title>
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/mobile.css" />
+  <link rel="stylesheet" href="css/mobile.css?v=2" />
+  <link rel="stylesheet" href="css/dashboard-responsiv.css"/>
 </head>
 <body>
   <header class="menu">
