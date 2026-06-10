@@ -5,7 +5,7 @@
 
 @media (max-width: 768px) {
 
-    .dashboard{
+    .dashboard {
         padding: 0;
         margin: 30px 15px;
     }
@@ -23,14 +23,14 @@
     }
 
     .dashboard a {
-        font-size: 3vw;
-        padding: 2vw 3vw;
-        border-radius: 16px;
+        font-size: 4vw;
+        padding: 2.5vw 4vw;
+        border-radius: 25px;
     }
 
     .tab-button {
-        font-size: 3vw !important;
-        padding: 2vw;
+        font-size: 3.5vw !important;
+        padding: 2vw 3vw;
     }
 
     .tabs{
@@ -42,8 +42,8 @@
     }
 
     .tabs a {
-        font-size: 3vw;
-        padding: 1.5vw 3vw;
+        font-size: 3.5vw;
+        padding: 2vw 4vw;
         border-radius: 6px !important;
     }
 
