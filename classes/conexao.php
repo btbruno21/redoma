@@ -12,7 +12,7 @@ class Conexao
     public function __construct()
     {
         $this->servidor = "localhost";
-        $this->banco = "redoma";
+        $this->banco = "redoma1";
         $this->usuario = "root";
         $this->senha = "";
         $this->port = 3306;

@@ -60,4 +60,35 @@ class Cliente
             return false;
         }
     }
+
+    public function listar()
+    {
+        $sql = $this->con->conectar()->prepare("
+            SELECT c.nome, c.telefone, u.email FROM cliente c
+            LEFT JOIN usuario u ON c.id_usuario = u.id;"
+        );
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function buscar($id)
+    {
+        try {
+            $sql = $this->con->conectar()->prepare("
+                SELECT c.nome, c.telefone, u.email FROM cliente c
+                LEFT JOIN usuario u ON c.id_usuario = u.id
+                WHERE u.id = :id;"
+            );
+            $sql->bindValue(':id', $id);
+            $sql->execute();
+            if ($sql->rowCount() > 0) {
+                $cliente = $sql->fetch(PDO::FETCH_ASSOC);
+                return $cliente;
+            } else {
+                return array();
+            }
+        } catch (PDOException $ex) {
+            echo 'ERRO: ' . $ex->getMessage();
+        }
+    }
 }

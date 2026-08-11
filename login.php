@@ -11,9 +11,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($dadosUsuario) {
             $_SESSION['id'] = $dadosUsuario['id'];
             $_SESSION['tipo_usuario'] = $dadosUsuario['tipo_usuario'];
-            // $_SESSION['id'] = $dadosUsuario['id'];
+            var_dump($dadosUsuario['tipo_usuario']);
+            if ($_SESSION['tipo_usuario'] == 'cliente'){
+                header('Location: painel');
+                exit();
+            } elseif ($_SESSION['tipo_usuario'] == 'admin' || $_SESSION['tipo_usuario'] == 'fornecedor'){
+                header('Location: dashboard');
+                exit();
+            }
 
-            header('Location: dashboard');
+            header('Location: index');
             exit();
         } else {
             echo "<script>alert('Email ou senha incorretos');</script>";

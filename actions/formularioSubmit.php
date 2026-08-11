@@ -76,7 +76,7 @@ if (
 
     $evento->criarEvento($nivel_planejamento, $tipo_evento, $data1, $data2, $local, $orcamento, $qnt_pessoas, $observacoes, $id, $id_regiao);
 
-    echo "<script>alert('✅ Orçamento solicitado com sucesso!'); window.location.href = '/';</script>";
+    echo "<script>alert('✅ Orçamento solicitado com sucesso!'); window.location.href = '/redoma';</script>";
 } else {
     echo "<script>alert('⚠ Por favor, preencha todos os campos obrigatórios!'); window.history.back();</script>";
 }
