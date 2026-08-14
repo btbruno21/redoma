@@ -1,8 +1,9 @@
 <?php
 session_start();
-if ($_SESSION['tipo_usuario'] != 'admin'){
-    header('Location: ../dashboard.php');
-    exit();
+if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'admin') {
+    session_destroy();
+    header('Location: ../index.php');
+    exit;
 }
 include 'classes/usuario.php';
 include 'classes/fornecedor.php';

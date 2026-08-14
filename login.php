@@ -1,6 +1,7 @@
-<?php include 'inc/header.php';
-include 'classes/usuario.php';
+<?php
 session_start();
+
+include 'classes/usuario.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST['email']) && !empty($_POST['senha'])) {
         $email = $_POST['email'];
@@ -11,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($dadosUsuario) {
             $_SESSION['id'] = $dadosUsuario['id'];
             $_SESSION['tipo_usuario'] = $dadosUsuario['tipo_usuario'];
-            var_dump($dadosUsuario['tipo_usuario']);
+            //var_dump($dadosUsuario['tipo_usuario']);
             if ($_SESSION['tipo_usuario'] == 'cliente'){
                 header('Location: painel');
                 exit();
@@ -29,6 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<script>alert('Preencha todos os campos');</script>";
     }
 }
+
+include 'inc/header.php';
 ?>
 <main class="centraliza">
     <form method="POST">

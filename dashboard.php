@@ -1,5 +1,4 @@
 <?php
-include 'inc/header.php';
 include 'classes/usuario.php';
 include 'classes/fornecedor.php';
 include 'classes/adm.php';
@@ -21,8 +20,10 @@ $local = new Local();
 $servico = new Servico();
 
 session_start();
-if (!isset($_SESSION['id'])) {
-    header('Location: /redoma/login');
+
+if (!isset($_SESSION['id']) || ($_SESSION['tipo_usuario'] ?? '') !== 'fornecedor') {
+    header('Location: /login');
+    exit;
 } else {
     $id = $_SESSION['id'];
     $tipo = $_SESSION['tipo_usuario'];
@@ -48,6 +49,8 @@ if (!isset($_SESSION['id'])) {
         header('Location: /redoma/login');
     }
 }
+
+include 'inc/header.php';
 ?>
 <main>
     <div class="dashboard">

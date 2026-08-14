@@ -29,5 +29,3 @@ $listaDeRegioes = $regiao->buscarRegiao(base64_decode($_GET['id']));
         </div>
     </div>
 </div>
-
-<?php include 'inc/footer.php'; ?>

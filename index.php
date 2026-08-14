@@ -48,7 +48,7 @@
       </div>
     </div>
   </div>
-  <img src="img/Borda Preta.svg" class="borda">
+  <img src="img/Borda Preta.svg" class="borda2">
 
   <!-- como funciona -->
   <div class="funciona">

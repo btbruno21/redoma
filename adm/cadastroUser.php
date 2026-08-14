@@ -80,5 +80,3 @@ include 'inc/header.php';
 <script src="https://unpkg.com/imask"></script>
 <script src="js/telefone.js"></script>
 <script src="js/cnpj.js"></script>
-
-<?php include 'inc/footer.php'; ?>

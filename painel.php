@@ -1,5 +1,4 @@
 <?php
-include 'inc/header.php';
 include 'classes/cliente.php';
 
 session_start();
@@ -19,6 +18,8 @@ if (!isset($_SESSION['id'])) {
     // $listar = $cliente->listar();
     // var_dump($listar);
 }
+
+include 'inc/header.php';
 ?>
 
 <main>

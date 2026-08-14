@@ -1,4 +1,9 @@
 <?php
+require __DIR__ . '/../../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
+$dotenv->load();
+
 class Conexao
 {
     private $usuario;
@@ -11,11 +16,11 @@ class Conexao
 
     public function __construct()
     {
-        $this->servidor = "localhost";
-        $this->banco = "redoma";
-        $this->usuario = "root";
-        $this->senha = "";
-        $this->port = 3306;
+        $this->servidor = $_ENV['DB_HOST'];
+        $this->banco = $_ENV['DB_DATABASE'];
+        $this->usuario = $_ENV['DB_USERNAME'];
+        $this->senha = $_ENV['DB_PASSWORD'];
+        $this->port = $_ENV['DB_PORT'];
     }
 
     public function conectar()

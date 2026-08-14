@@ -98,5 +98,3 @@ $listFornecedores = $fornecedores->listarNome();
 
 <script src="js/optionRecurso.js"></script>
 <script src="js/preco.js"></script>
-
-<?php include 'inc/footer.php'; ?>

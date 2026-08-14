@@ -1,8 +1,10 @@
-<?php include 'inc/header2.php';
+<?php
 session_start();
 if (!isset($_SESSION['id'])) {
     header('Location: login');
 }
+
+include 'inc/header2.php';
 ?>
 <main>
     <div id='calendar'>
